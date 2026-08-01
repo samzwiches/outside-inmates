@@ -1,0 +1,11 @@
+- generic [ref=e3]:
+  - generic [ref=e4]: "Failed to load url ../../components/media/SiteMediaEditor (resolved id: ../../components/media/SiteMediaEditor) in /Users/samz/Documents/GitHub/outside-inmates/app/admin/site-media/page.tsx. Does the file exist?"
+  - generic [ref=e5]: at runInRunnerObject (workers/runner-worker/index.js:107:3) at getWorkerEntryExport (workers/runner-worker/index.js:235:17) at null.<anonymous> (workers/runner-worker/index.js:354:24) at maybeCaptureError (workers/runner-worker/index.js:51:10)
+  - generic [ref=e6]:
+    - text: Click outside, press Esc key, or fix the code to dismiss.You can also disable this overlay by setting
+    - code [ref=e7]: server.hmr.overlay
+    - text: to
+    - code [ref=e8]: "false"
+    - text: in
+    - code [ref=e9]: vite.config.ts
+    - text: .
