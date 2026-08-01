@@ -51,7 +51,7 @@ export const mediaEditorFields = [
   "overlay",
 ] as const;
 
-export const appearanceEditorFields = [
+const baseAppearanceEditorFields = [
   "background_color",
   "surface_color",
   "border_color",
@@ -65,6 +65,28 @@ export const appearanceEditorFields = [
   "hero_edge_style",
   "hero_edge_size",
 ] as const;
+
+export const journeyAppearanceEditorFields = [
+  "background_image_fit",
+  "background_image_zoom",
+  "background_overlay_enabled",
+  "background_overlay_tone",
+  "background_overlay_color",
+  "background_overlay_opacity",
+  "background_overlay_direction",
+  "background_overlay_distribution",
+  "background_blur",
+  "card_surface_preset",
+  "card_surface_opacity",
+  "card_border_tone",
+  "card_border_opacity",
+  "card_shadow",
+  "card_backdrop_blur",
+  "card_text_tone",
+  "card_image_enabled",
+] as const;
+
+export const appearanceEditorFields = [...baseAppearanceEditorFields, ...journeyAppearanceEditorFields] as const;
 
 export type MediaEditorField = (typeof mediaEditorFields)[number];
 export type AppearanceEditorField = (typeof appearanceEditorFields)[number];
@@ -128,8 +150,9 @@ export type ResolvedSiteMedia = SiteMediaRecord & {
 
 const centered: MediaPosition = { x: 50, y: 50 };
 const allMediaFields = mediaEditorFields;
-const heroAppearanceFields = appearanceEditorFields;
-const sectionAppearanceFields = appearanceEditorFields.filter((field) => !["hero_edge_style", "hero_edge_size"].includes(field));
+const heroAppearanceFields = [...baseAppearanceEditorFields, ...journeyAppearanceEditorFields] as const;
+const sectionAppearanceFields = [...baseAppearanceEditorFields.filter((field) => !["hero_edge_style", "hero_edge_size"].includes(field)), ...journeyAppearanceEditorFields] as const;
+const journeySectionAppearanceFields = [...sectionAppearanceFields, ...journeyAppearanceEditorFields] as const;
 
 function unassigned(
   key: SiteMediaKey,
@@ -182,7 +205,10 @@ export const siteMediaRegistry: Record<SiteMediaKey, SiteMediaRecord> = {
     overlayOpacity: 0.16,
     status: "manual-download-required",
   },
-  "home.journeys": unassigned("home.journeys", "Home", "Guided pathways", "Home", "/", "section"),
+  "home.journeys": {
+    ...unassigned("home.journeys", "Home", "Guided pathways", "Home", "/", "section"),
+    allowedAppearanceFields: journeySectionAppearanceFields,
+  },
   "home.journey.just-arrested": {
     ...unassigned("home.journey.just-arrested", "Home", "Just arrested pathway card", "Home", "/", "section"),
     placement: "journey-card",

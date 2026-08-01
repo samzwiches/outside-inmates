@@ -108,7 +108,7 @@ export const getPublicAppearance = cache(async (key: SiteMediaKey): Promise<Site
   if (!client) return null;
   const { data } = await client
     .from("site_section_appearance")
-    .select("section_key, background_color, surface_color, border_color, default_text_color, eyebrow_color, heading_color, body_color, button_text_color, metadata_color, font_family, hero_edge_style, hero_edge_size, updated_at")
+    .select("section_key, background_color, surface_color, border_color, default_text_color, eyebrow_color, heading_color, body_color, button_text_color, metadata_color, font_family, hero_edge_style, hero_edge_size, background_image_fit, background_image_zoom, background_overlay_enabled, background_overlay_tone, background_overlay_color, background_overlay_opacity, background_overlay_direction, background_overlay_distribution, background_blur, card_surface_preset, card_surface_opacity, card_border_tone, card_border_opacity, card_shadow, card_backdrop_blur, card_text_tone, card_image_enabled, updated_at")
     .eq("section_key", key)
     .maybeSingle();
   return (data as SiteSectionAppearance | null) ?? null;
@@ -140,7 +140,7 @@ export async function getAppearancesForAdmin(): Promise<SiteSectionAppearance[]>
     const client = getSupabaseAdminClient();
     const { data } = await client
       .from("site_section_appearance")
-      .select("section_key, background_color, surface_color, border_color, default_text_color, eyebrow_color, heading_color, body_color, button_text_color, metadata_color, font_family, hero_edge_style, hero_edge_size, updated_at")
+      .select("section_key, background_color, surface_color, border_color, default_text_color, eyebrow_color, heading_color, body_color, button_text_color, metadata_color, font_family, hero_edge_style, hero_edge_size, background_image_fit, background_image_zoom, background_overlay_enabled, background_overlay_tone, background_overlay_color, background_overlay_opacity, background_overlay_direction, background_overlay_distribution, background_blur, card_surface_preset, card_surface_opacity, card_border_tone, card_border_opacity, card_shadow, card_backdrop_blur, card_text_tone, card_image_enabled, updated_at")
       .order("section_key");
     return (data as SiteSectionAppearance[] | null) ?? [];
   } catch {

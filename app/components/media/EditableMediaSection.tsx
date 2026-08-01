@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { SiteMediaKey } from "../../data/media";
-import { appearanceStyle } from "../../lib/site-appearance";
+import { appearanceStyle, getJourneyAppearanceSettings } from "../../lib/site-appearance";
 import { getSitePresentation } from "../../lib/site-media-server";
 import { SiteMedia } from "./SiteMedia";
 
@@ -16,6 +16,7 @@ type EditableMediaSectionProps = {
 export async function EditableMediaSection({ mediaKey, className, id, labelledBy, children }: EditableMediaSectionProps) {
   const presentation = await getSitePresentation(mediaKey);
   const hasMedia = Boolean(presentation.media.imagePath);
+  const journeyAppearance = mediaKey === "home.journeys" ? getJourneyAppearanceSettings(presentation.appearance) : null;
 
   return (
     <section
@@ -23,9 +24,13 @@ export async function EditableMediaSection({ mediaKey, className, id, labelledBy
       id={id}
       aria-labelledby={labelledBy}
       data-media-key={mediaKey}
+      data-journey-overlay-direction={journeyAppearance?.backgroundOverlayDirection}
+      data-journey-overlay-distribution={journeyAppearance?.backgroundOverlayDistribution}
+      data-journey-card-surface={journeyAppearance?.cardSurfacePreset}
+      data-journey-card-text-tone={journeyAppearance?.cardTextTone}
       style={appearanceStyle(presentation.appearance)}
     >
-      {hasMedia ? <SiteMedia mediaKey={mediaKey} media={presentation.media} sizes="100vw" /> : null}
+      {hasMedia ? <SiteMedia mediaKey={mediaKey} media={presentation.media} sizes="100vw" showOverlay={mediaKey !== "home.journeys"} /> : null}
       <div className="editable-media-section-content">{children}</div>
     </section>
   );

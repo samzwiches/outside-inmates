@@ -13,10 +13,11 @@ type SiteMediaProps = {
   priority?: boolean;
   reserveSpaceWhenEmpty?: boolean;
   showCredit?: boolean;
+  showOverlay?: boolean;
 };
 
 /** Public media resolves saved assignment, then source fallback, then the existing text-only surface. */
-export async function SiteMedia({ mediaKey, media: suppliedMedia, className = "", sizes, priority = false, reserveSpaceWhenEmpty = false, showCredit = false }: SiteMediaProps) {
+export async function SiteMedia({ mediaKey, media: suppliedMedia, className = "", sizes, priority = false, reserveSpaceWhenEmpty = false, showCredit = false, showOverlay = true }: SiteMediaProps) {
   const media = suppliedMedia ?? await getPublicSiteMedia(mediaKey);
   const hasImage = Boolean(media.imagePath);
   if (!hasImage && !reserveSpaceWhenEmpty) return null;
@@ -26,7 +27,7 @@ export async function SiteMedia({ mediaKey, media: suppliedMedia, className = ""
 
   return <div className={`site-media ${hasImage ? "has-image" : "is-fallback-surface"} ${className}`} data-media-key={mediaKey} data-media-source={media.source} data-show-on-mobile={media.assignment?.showOnMobile ?? media.showOnMobile}>
     {hasImage ? <MediaImage media={media} sizes={sizes} priority={priority} /> : <MediaFallback />}
-    {hasImage ? <MediaOverlay media={media} /> : null}
+    {hasImage && showOverlay ? <MediaOverlay media={media} /> : null}
     {hasImage && showCredit ? <MediaCredit attribution={attribution} /> : null}
   </div>;
 }

@@ -2,7 +2,7 @@ import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { getCurrentAdmin } from "../../../lib/auth";
 import { getSiteMediaSlot, type MediaOverlayTone, type SiteMediaKey } from "../../../data/media";
-import { appearanceColorFields, isAppearanceFieldAllowed, normalizeAppearanceColor } from "../../../lib/site-appearance";
+import { appearanceColorFields, isAppearanceFieldAllowed, journeyBackgroundBlurValues, journeyBackgroundImageFits, journeyBackgroundOverlayDirections, journeyBackgroundOverlayDistributions, journeyBackgroundOverlayTones, journeyCardBackdropBlurs, journeyCardBorderTones, journeyCardShadows, journeyCardSurfacePresets, journeyCardTextTones, normalizeAppearanceColor } from "../../../lib/site-appearance";
 import { SITE_MEDIA_BUCKET } from "../../../lib/site-media-server";
 import { getSupabaseAdminClient } from "../../../lib/supabase/admin";
 import { hasSupabaseServiceRole } from "../../../lib/supabase/config";
@@ -78,6 +78,25 @@ function overlayColor(value: FormDataEntryValue | undefined) {
   const color = normalizeAppearanceColor(raw);
   if (!color) throw new RequestError("Custom overlay color must be a three- or six-digit hexadecimal color.");
   return color;
+}
+
+function controlledEnum(value: unknown, label: string, allowed: readonly string[]) {
+  if (value === null || value === undefined || value === "") return null;
+  if (typeof value !== "string" || !allowed.includes(value)) throw new RequestError(`Choose an approved ${label}.`);
+  return value;
+}
+
+function controlledNumber(value: unknown, label: string, min: number, max: number, allowed?: readonly number[]) {
+  if (value === null || value === undefined || value === "") return null;
+  const number = typeof value === "number" ? value : typeof value === "string" ? Number(value) : NaN;
+  if (!Number.isFinite(number) || number < min || number > max || (allowed && !allowed.includes(number))) throw new RequestError(`${label} must use an approved value.`);
+  return Math.round(number * 100) / 100;
+}
+
+function controlledBoolean(value: unknown, label: string) {
+  if (value === null || value === undefined || value === "") return null;
+  if (typeof value !== "boolean") throw new RequestError(`${label} must be on or off.`);
+  return value;
 }
 
 function directUploadPath(value: FormDataEntryValue | null, key: SiteMediaKey, role: "primary" | "mobile") {
@@ -182,7 +201,7 @@ export async function PATCH(request: Request) {
     const admin = await requireMediaAdmin();
     const body = await request.json() as Record<string, unknown>;
     const slot = requiredSlot(typeof body.sectionKey === "string" ? body.sectionKey : null);
-    const values: Record<string, string | number | null> = { section_key: slot.key, updated_by: admin.id };
+    const values: Record<string, string | number | boolean | null> = { section_key: slot.key, updated_by: admin.id };
 
     for (const field of appearanceColorFields) {
       if (!isAppearanceFieldAllowed(slot.key, field)) continue;
@@ -214,6 +233,32 @@ export async function PATCH(request: Request) {
         if (!Number.isInteger(value) || value < 0 || value > 96) throw new RequestError("Hero edge size must be a whole number from 0 to 96.");
         values.hero_edge_size = value;
       }
+    }
+
+    if (isAppearanceFieldAllowed(slot.key, "background_image_fit")) {
+      values.background_image_fit = controlledEnum(body.background_image_fit, "background image scale", journeyBackgroundImageFits);
+      values.background_image_zoom = controlledNumber(body.background_image_zoom, "Background image zoom", 100, 140);
+      values.background_overlay_enabled = controlledBoolean(body.background_overlay_enabled, "Background overlay");
+      const overlayTone = controlledEnum(body.background_overlay_tone, "background overlay tone", journeyBackgroundOverlayTones);
+      const overlayColor = body.background_overlay_color === null || body.background_overlay_color === undefined || body.background_overlay_color === ""
+        ? null
+        : normalizeAppearanceColor(body.background_overlay_color);
+      if (body.background_overlay_color && !overlayColor) throw new RequestError("Background overlay color must be a three- or six-digit hexadecimal color.");
+      if (overlayTone === "custom" && !overlayColor) throw new RequestError("Choose a custom background overlay color.");
+      values.background_overlay_tone = overlayTone;
+      values.background_overlay_color = overlayColor;
+      values.background_overlay_opacity = controlledNumber(body.background_overlay_opacity, "Background overlay opacity", 0, 0.9);
+      values.background_overlay_direction = controlledEnum(body.background_overlay_direction, "background overlay direction", journeyBackgroundOverlayDirections);
+      values.background_overlay_distribution = controlledEnum(body.background_overlay_distribution, "background overlay distribution", journeyBackgroundOverlayDistributions);
+      values.background_blur = controlledNumber(body.background_blur, "Background blur", 0, 6, journeyBackgroundBlurValues);
+      values.card_surface_preset = controlledEnum(body.card_surface_preset, "pathway card surface", journeyCardSurfacePresets);
+      values.card_surface_opacity = controlledNumber(body.card_surface_opacity, "Pathway card surface opacity", 0.4, 1);
+      values.card_border_tone = controlledEnum(body.card_border_tone, "pathway card border", journeyCardBorderTones);
+      values.card_border_opacity = controlledNumber(body.card_border_opacity, "Pathway card border opacity", 0, 1);
+      values.card_shadow = controlledEnum(body.card_shadow, "pathway card shadow", journeyCardShadows);
+      values.card_backdrop_blur = controlledEnum(body.card_backdrop_blur, "pathway card backdrop blur", journeyCardBackdropBlurs);
+      values.card_text_tone = controlledEnum(body.card_text_tone, "pathway card text tone", journeyCardTextTones);
+      values.card_image_enabled = controlledBoolean(body.card_image_enabled, "Pathway card images");
     }
 
     const client = getSupabaseAdminClient();

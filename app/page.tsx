@@ -9,6 +9,8 @@ import { EditableMediaSection } from "./components/media/EditableMediaSection";
 import { forumPosts, resourceCategories } from "./data/site";
 import { journeys, type JourneySlug } from "./data/journeys";
 import type { SiteMediaKey } from "./data/media";
+import { getJourneyAppearanceSettings } from "./lib/site-appearance";
+import { getSitePresentation } from "./lib/site-media-server";
 
 const homeJourneyMediaKeys: Record<JourneySlug, SiteMediaKey> = {
   "just-arrested": "home.journey.just-arrested",
@@ -20,6 +22,8 @@ const homeJourneyMediaKeys: Record<JourneySlug, SiteMediaKey> = {
 };
 
 export default async function Home() {
+  const journeyPresentation = await getSitePresentation("home.journeys");
+  const journeyAppearance = getJourneyAppearanceSettings(journeyPresentation.appearance);
   return (
     <>
       <a className="skip-link" href="#main-content">Skip to content</a>
@@ -36,7 +40,7 @@ export default async function Home() {
               description="Choose the situation that feels closest to yours. You do not need to understand the system before you begin."
             />
             <div className="journey-card-grid home-journey-grid">
-              {journeys.map((journey, index) => <JourneyCard key={journey.slug} journey={journey} number={index + 1} compact mediaKey={homeJourneyMediaKeys[journey.slug]} />)}
+              {journeys.map((journey, index) => <JourneyCard key={journey.slug} journey={journey} number={index + 1} compact mediaKey={homeJourneyMediaKeys[journey.slug]} imageEnabled={journeyAppearance.cardImageEnabled} />)}
             </div>
             <a className="quiet-link home-journey-link" href="/start">See all guided paths <span aria-hidden="true">→</span></a>
           </div>
