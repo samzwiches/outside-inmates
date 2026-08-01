@@ -9,7 +9,7 @@ export const navigation = [
   { label: "Families", href: "/families" },
   { label: "Reentry", href: "/reentry" },
   { label: "Ask for Help", href: "/start/not-sure" },
-  { label: "About", href: "/#about" },
+  { label: "About", href: "/about" },
 ];
 
 export const pathways: Pathway[] = [
@@ -43,10 +43,13 @@ export const trustItems = ["Privacy-minded", "Moderated community", "Lived exper
 
 export const footerLinks = [
   { label: "Resources", href: "/resources" },
+  { label: "About", href: "/about" },
+  { label: "Support", href: "/support" },
+  { label: "Transparency", href: "/transparency" },
   { label: "Community Guidelines", href: "#site-footer" },
   { label: "Privacy", href: "#site-footer" },
   { label: "Terms", href: "#site-footer" },
   { label: "Submit a Resource", href: "/resources#submit-resource" },
-  { label: "Volunteer", href: "#site-footer" },
+  { label: "Volunteer", href: "/support#participation-note" },
   { label: "Contact", href: "#site-footer" },
 ];

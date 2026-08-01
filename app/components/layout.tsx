@@ -36,6 +36,7 @@ export function SiteFooter() {
           <span>Connect with the 988 Lifeline</span>
         </a>
       </div>
+      <div className="container footer-status-note"><p>Outside Inmates is currently being developed as a future charitable organization. Federal tax-exempt status has not yet been granted. <Link href="/transparency">View organizational status.</Link></p></div>
       <div className="container footer-bottom"><span>© 2026 Outside Inmates</span><span>Made with care, built for real life.</span></div>
     </footer>
   );

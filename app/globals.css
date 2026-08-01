@@ -33,7 +33,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .main-nav a, .sign-in { padding: 8px 0; color: rgba(24, 36, 43, 0.82); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.015em; }
 .main-nav a:hover { color: var(--clay); }
 .header-actions { display: flex; align-items: center; gap: 17px; }
-.sign-in { appearance: none; padding: 8px 0; border: 0; background: none; cursor: not-allowed; }
+.sign-in { appearance: none; padding: 8px 0; border: 0; background: none; cursor: pointer; }
 .sign-in:disabled { opacity: 0.58; }
 
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 47px; padding: 12px 18px; border: 1px solid transparent; border-radius: 8px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.01em; transition: transform 160ms ease, background 160ms ease, border-color 160ms ease; }
@@ -155,6 +155,7 @@ h1 { max-width: 650px; margin-bottom: 22px; font-size: clamp(3.7rem, 6.5vw, 6.72
 .crisis-card { align-self: start; display: flex; flex-direction: column; gap: 6px; padding: 20px; border: 1px solid rgba(252,250,246,0.28); border-radius: 9px; background: rgba(252,250,246,0.06); transition: background 160ms ease; }.crisis-card:hover { background: rgba(252,250,246,0.12); }
 .crisis-card .eyebrow { margin: 0; color: #dcb5a9; font-size: 0.58rem; }.crisis-card strong { font-family: var(--serif); font-size: 1.55rem; font-weight: 400; line-height: 1; }.crisis-card > span:last-child { color: rgba(252,250,246,0.7); font-size: 0.67rem; }
 .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding: 18px 0; border-top: 1px solid rgba(252,250,246,0.16); color: rgba(252,250,246,0.47); font-size: 0.61rem; }
+.footer-status-note { padding: 0 0 27px; }.footer-status-note p { max-width: 680px; margin: 0; color: rgba(252,250,246,0.56); font-size: 0.63rem; line-height: 1.6; }.footer-status-note a { color: rgba(252,250,246,0.86); text-decoration: underline; text-underline-offset: 3px; }.footer-status-note a:hover { color: var(--paper); }
 
 /* Resource directory */
 .directory-page-hero { position: relative; overflow: hidden; padding: clamp(72px, 9vw, 120px) 0; background: var(--paper); background-image: radial-gradient(rgba(24,36,43,0.04) 0.6px, transparent 0.6px); background-size: 7px 7px; }

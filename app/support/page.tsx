@@ -1,0 +1,15 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { SiteFooter, SiteHeader } from "../components/layout";
+import { PageHero } from "../components/page-hero";
+import { SectionHeading } from "../components/section-heading";
+import { supportExpertise, supportOpportunities } from "../data/organization";
+
+export const metadata: Metadata = {
+  title: "Support the Work | Outside Inmates",
+  description: "Practical ways to help Outside Inmates develop responsible, useful support before formal fundraising begins.",
+};
+
+export default function SupportPage() {
+  return <><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><main id="main-content" className="organization-page support-page"><PageHero variant="page" eyebrow="Support the work" title="Help build something people can actually use." description="Outside Inmates is still being developed. There are meaningful ways to contribute before formal fundraising begins." /><section className="section support-opportunities-section" aria-labelledby="participation-heading"><div className="container"><SectionHeading eyebrow="Participation" id="participation-heading" title="Start with the work that needs care." description="Every contribution should make information clearer, safer, more accurate, or easier to use." /><div className="support-opportunity-grid">{supportOpportunities.map((opportunity, index) => <article className="support-opportunity-card" key={opportunity.title}><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><h3>{opportunity.title}</h3><p>{opportunity.description}</p><Link href={opportunity.href}>{opportunity.action} <span aria-hidden="true">→</span></Link></article>)}</div></div></section><section className="support-expertise-section" id="participation-note" aria-labelledby="expertise-heading"><div className="container organization-two-column"><div><p className="eyebrow">Areas of expertise</p><h2 id="expertise-heading">Knowledge that could make the work more useful.</h2><p>Early participation may include review, research, systems thinking, governance support, or helping identify where the next practical resource belongs.</p></div><ul className="support-expertise-list">{supportExpertise.map((item) => <li key={item}>{item}</li>)}</ul></div><div className="container support-safety-note"><p className="eyebrow">A safety note</p><h2>Private stories need a safer place than an early contact form.</h2><p>Please do not send sensitive personal histories, legal case details, medical information, or identifying information through an unsecured form. A secure participation process will be shared when it is ready.</p></div></section><section className="support-fundraising-notice"><div className="container"><p>Outside Inmates is not currently accepting tax-deductible charitable donations. Fundraising information will be published after the appropriate legal, banking, and registration steps are completed.</p></div></section></main><SiteFooter /></>;
+}
