@@ -1,0 +1,29 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { SiteFooter, SiteHeader } from "../components/layout";
+import { PageHero } from "../components/page-hero";
+import { SectionHeading } from "../components/section-heading";
+import { ExpandableQuestion } from "../components/family/ExpandableQuestion";
+import { FamilyGuideCard } from "../components/family/FamilyGuideCard";
+import { FamilyJourney } from "../components/family/FamilyJourney";
+import { FamilyPathwayCard } from "../components/family/FamilyPathwayCard";
+import { RelatedFamilyResources } from "../components/family/RelatedFamilyResources";
+import { SafetyNotice } from "../components/family/SafetyNotice";
+import { SupportCallout } from "../components/family/SupportCallout";
+import { childSupportPoints, familyGuides, familyJourney, familyPathways, familyQuestions } from "../data/family";
+
+export const metadata: Metadata = { title: "Family Support | Outside Inmates", description: "Clear, practical support for families navigating incarceration." };
+
+export default function FamiliesPage() {
+  return <><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><main id="main-content" className="families-page"><div className="family-landing-breadcrumb"><div className="container"><nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><span>Families</span></nav></div></div><PageHero variant="page" eyebrow="For families" title="When someone is incarcerated, the whole family feels it." description="You may be trying to locate someone, understand the rules, protect your children, manage calls and visits, or simply make it through today. Start with what you need most."><div className="family-hero-actions"><Link className="button button-primary" href="#start-here">Start here <span aria-hidden="true">→</span></Link><Link className="button button-secondary" href="#family-resources">Find family resources</Link></div></PageHero>
+    <section className="section family-pathway-section" id="start-here"><div className="container"><SectionHeading eyebrow="Start here" id="family-start-heading" title="Choose the need that feels most urgent." description="You do not need the right language or every detail. Pick one place to begin." /><div className="family-pathway-grid">{familyPathways.map((pathway, index) => <FamilyPathwayCard {...pathway} number={index + 1} key={pathway.title} />)}</div></div></section>
+    <section className="section family-faq-section" aria-labelledby="family-faq-heading"><div className="container family-faq-layout"><SectionHeading eyebrow="Quick answers" id="family-faq-heading" title="The questions families ask first." description="Every facility has its own rules and those rules can change. Confirm details directly with the facility before making plans." /><div className="family-question-list">{familyQuestions.map((item) => <ExpandableQuestion key={item.question} {...item} />)}</div></div></section>
+    <section className="section family-journey-section" aria-labelledby="family-journey-heading"><div className="container"><SectionHeading eyebrow="The family journey" id="family-journey-heading" title="There is no single way through this." description="These stages can overlap, repeat, or arrive in a different order. They are not a timeline you need to follow perfectly." /><FamilyJourney items={familyJourney} /></div></section>
+    <section className="section family-guides-section" aria-labelledby="family-guides-heading"><div className="container"><SectionHeading eyebrow="Featured guides" id="family-guides-heading" title="Plain-language help for the moments that keep coming up." /><div className="family-guide-grid">{familyGuides.map((guide) => <FamilyGuideCard key={guide.slug} {...guide} />)}</div></div></section>
+    <section className="section children-support-section" aria-labelledby="children-support-heading"><div className="container children-support-layout"><div><p className="eyebrow">Support for children</p><h2 id="children-support-heading">Children need truth, safety, and room to feel.</h2><p>Children do not need every adult detail. They do need dependable adults, honest answers they can understand, and permission to have more than one feeling at a time.</p><Link className="button button-primary" href="/families/children">Explore support for children <span aria-hidden="true">→</span></Link></div><ul>{childSupportPoints.map((point) => <li key={point}>{point}</li>)}</ul></div></section>
+    <section className="family-emotional-panel" aria-labelledby="emotional-panel-heading"><div className="container"><div><p className="eyebrow">Emotional support</p><h2 id="emotional-panel-heading">You are allowed to have complicated feelings.</h2></div><div><p>Grief, anger, loyalty, embarrassment, relief, fear, love, and exhaustion can all sit beside each other. None of them make you a bad family member. Support can help you sort through what is yours to carry and what is not.</p><div className="emotional-links"><Link href="/families/emotional-support">Emotional Support Guide</Link><Link href="/resources/results?category=mental-health">Mental Health Resources</Link><Link href="/resources/results?category=substance-use-recovery">Substance Use Recovery Resources</Link><a href="https://988lifeline.org/get-help/" target="_blank" rel="noreferrer">Urgent emotional support: 988 Lifeline <span aria-hidden="true">↗</span></a></div></div></div></section>
+    <section className="section safety-section"><div className="container"><SafetyNotice /></div></section>
+    <section className="section" id="family-resources"><div className="container"><RelatedFamilyResources /></div></section>
+    <div className="container"><SupportCallout /></div>
+  </main><SiteFooter /></>;
+}

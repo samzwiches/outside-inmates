@@ -5,7 +5,7 @@ export type ForumPost = { title: string; category: string; replies: number; time
 export const navigation = [
   { label: "Resources", href: "/resources" },
   { label: "Community", href: "#community" },
-  { label: "Families", href: "#families" },
+  { label: "Families", href: "/families" },
   { label: "Reentry", href: "#reentry" },
   { label: "Ask for Help", href: "#ask-an-advocate" },
   { label: "About", href: "#about" },
