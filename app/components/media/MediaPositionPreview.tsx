@@ -10,7 +10,7 @@ type MediaPositionPreviewProps = {
   label: string;
 };
 
-/** A read-only crop reference used by the disabled media desk until persistence is connected. */
+/** A concise crop reference used by the authenticated media desk. */
 export function MediaPositionPreview({ media, position = media.objectPositionDesktop, label }: MediaPositionPreviewProps) {
   return <figure className="media-position-preview">
     <div className="media-position-preview-image">

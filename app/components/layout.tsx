@@ -11,7 +11,7 @@ export function SiteHeader() {
           {navigation.map((item) => <Link className={item.emphasis ? "nav-start" : undefined} key={item.label} href={item.href}>{item.label}</Link>)}
         </nav>
         <div className="header-actions">
-          <button className="sign-in" type="button" disabled title="Sign in is not available yet">Sign In</button>
+          <Link className="sign-in" href="/sign-in">Sign In</Link>
           <PrimaryButton href="/start/not-sure">Get Help</PrimaryButton>
         </div>
       </div>

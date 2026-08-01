@@ -22,18 +22,43 @@ export const siteMediaKeys = [
 ] as const;
 
 export type SiteMediaKey = (typeof siteMediaKeys)[number];
-export type MediaStatus = "unassigned" | "fallback-ready" | "manual-download-required" | "assigned";
-export type MediaOverlayDirection = "top" | "right" | "bottom" | "left" | "radial";
-export type MediaOverlayTone = "ink" | "paper" | "bone" | "clay" | "sage" | "storm";
-
+export type MediaOverlayTone = "none" | "light" | "dark" | "cream" | "brand";
 export type MediaPosition = { x: number; y: number };
+export type MediaStatus = "unassigned" | "fallback-ready" | "manual-download-required" | "assigned";
+export type SiteMediaSectionType = "hero" | "section";
+export type HeroEdgeStyle = "inherit" | "soft-fade" | "rounded" | "rounded-fade" | "none";
 
-export type MediaOverlay = {
-  enabled: boolean;
-  direction: MediaOverlayDirection;
-  strength: number;
-  tone: MediaOverlayTone;
-};
+export const mediaEditorFields = [
+  "primaryImage",
+  "mobileImage",
+  "altText",
+  "caption",
+  "credit",
+  "source",
+  "license",
+  "desktopFocal",
+  "mobileFocal",
+  "mobileVisibility",
+  "overlay",
+] as const;
+
+export const appearanceEditorFields = [
+  "background_color",
+  "surface_color",
+  "border_color",
+  "default_text_color",
+  "eyebrow_color",
+  "heading_color",
+  "body_color",
+  "button_text_color",
+  "metadata_color",
+  "font_family",
+  "hero_edge_style",
+  "hero_edge_size",
+] as const;
+
+export type MediaEditorField = (typeof mediaEditorFields)[number];
+export type AppearanceEditorField = (typeof appearanceEditorFields)[number];
 
 export type MediaAttribution = {
   creditName?: string;
@@ -48,53 +73,89 @@ export type SiteMediaRecord = {
   key: SiteMediaKey;
   page: string;
   section: string;
-  imageUrl?: string;
-  storagePath?: string;
+  placement: string;
+  sectionType: SiteMediaSectionType;
+  group: string;
+  revalidationRoute: string;
   fallbackPath?: string;
   expectedLocalFilename?: string;
   alt: string;
   attribution?: MediaAttribution;
   objectPositionDesktop: MediaPosition;
   objectPositionMobile: MediaPosition;
-  overlay: MediaOverlay;
+  overlayTone: MediaOverlayTone;
+  overlayOpacity: number;
   showOnMobile: boolean;
   status: MediaStatus;
-  updatedAt: string;
+  allowedMediaFields: readonly MediaEditorField[];
+  allowedAppearanceFields: readonly AppearanceEditorField[];
 };
 
-export type SiteMediaAssignment = Partial<Pick<SiteMediaRecord, "imageUrl" | "storagePath" | "alt" | "attribution" | "objectPositionDesktop" | "objectPositionMobile" | "overlay" | "showOnMobile" | "status" | "updatedAt">>;
+export type SiteMediaAssignment = {
+  storagePath?: string;
+  mobileStoragePath?: string | null;
+  alt?: string | null;
+  caption?: string | null;
+  creditName?: string | null;
+  creditUrl?: string | null;
+  sourceName?: string | null;
+  sourceUrl?: string | null;
+  licenseLabel?: string | null;
+  objectPositionDesktop?: MediaPosition;
+  objectPositionMobile?: MediaPosition;
+  overlayTone?: MediaOverlayTone;
+  overlayColor?: string | null;
+  overlayOpacity?: number;
+  showOnMobile?: boolean;
+};
 
 export type ResolvedSiteMedia = SiteMediaRecord & {
   imagePath?: string;
+  mobileImagePath?: string | null;
   source: "assignment" | "fallback" | "none";
+  assignment?: SiteMediaAssignment;
 };
 
 const centered: MediaPosition = { x: 50, y: 50 };
-const noOverlay: MediaOverlay = { enabled: false, direction: "bottom", strength: 0, tone: "ink" };
+const allMediaFields = mediaEditorFields;
+const heroAppearanceFields = appearanceEditorFields;
+const sectionAppearanceFields = appearanceEditorFields.filter((field) => !["hero_edge_style", "hero_edge_size"].includes(field));
 
-const unassigned = (key: SiteMediaKey, page: string, section: string): SiteMediaRecord => ({
-  key,
-  page,
-  section,
-  alt: "",
-  objectPositionDesktop: centered,
-  objectPositionMobile: centered,
-  overlay: noOverlay,
-  showOnMobile: true,
-  status: "unassigned",
-  updatedAt: "2026-08-01",
-});
+function unassigned(
+  key: SiteMediaKey,
+  page: string,
+  section: string,
+  group: string,
+  revalidationRoute: string,
+  sectionType: SiteMediaSectionType = "hero",
+) {
+  return {
+    key,
+    page,
+    section,
+    placement: sectionType === "hero" ? "hero" : "section-background",
+    sectionType,
+    group,
+    revalidationRoute,
+    alt: "",
+    objectPositionDesktop: centered,
+    objectPositionMobile: centered,
+    overlayTone: "none" as const,
+    overlayOpacity: 0,
+    showOnMobile: true,
+    status: "unassigned" as const,
+    allowedMediaFields: allMediaFields,
+    allowedAppearanceFields: sectionType === "hero" ? heroAppearanceFields : sectionAppearanceFields,
+  } satisfies SiteMediaRecord;
+}
 
 /**
- * The source-controlled registry is the current provider. A future database
- * provider can return the same shape without requiring page components to know
- * where a media assignment was stored.
+ * The registry is the one allowlist for public slots. It drives admin labels,
+ * permitted fields, public fallback behavior, and targeted revalidation.
  */
 export const siteMediaRegistry: Record<SiteMediaKey, SiteMediaRecord> = {
   "home.hero": {
-    key: "home.hero",
-    page: "Home",
-    section: "Homepage hero",
+    ...unassigned("home.hero", "Home", "Homepage hero", "Home", "/"),
     fallbackPath: "/media/home-hero-doorway.jpg",
     expectedLocalFilename: "public/media/home-hero-doorway.jpg",
     alt: "An open doorway leading from a shaded room to a sunlit backyard.",
@@ -107,19 +168,16 @@ export const siteMediaRegistry: Record<SiteMediaKey, SiteMediaRecord> = {
     },
     objectPositionDesktop: { x: 62, y: 50 },
     objectPositionMobile: { x: 68, y: 50 },
-    overlay: { enabled: true, direction: "bottom", strength: 0.16, tone: "ink" },
-    showOnMobile: true,
+    overlayTone: "dark",
+    overlayOpacity: 0.16,
     status: "manual-download-required",
-    updatedAt: "2026-08-01",
   },
-  "home.journeys": unassigned("home.journeys", "Home", "Guided pathways"),
-  "home.resources": unassigned("home.resources", "Home", "Resource Finder"),
-  "home.families": unassigned("home.families", "Home", "Family support feature"),
-  "home.reentry": unassigned("home.reentry", "Home", "Reentry support feature"),
+  "home.journeys": unassigned("home.journeys", "Home", "Guided pathways", "Home", "/", "section"),
+  "home.resources": unassigned("home.resources", "Home", "Resource Finder", "Home", "/", "section"),
+  "home.families": unassigned("home.families", "Home", "Family support feature", "Home", "/", "section"),
+  "home.reentry": unassigned("home.reentry", "Home", "Reentry support feature", "Home", "/", "section"),
   "resources.hero": {
-    key: "resources.hero",
-    page: "Resources",
-    section: "Resource Finder hero",
+    ...unassigned("resources.hero", "Resources", "Resource Finder hero", "Resources", "/resources"),
     fallbackPath: "/media/resources-hero-documents.jpg",
     expectedLocalFilename: "public/media/resources-hero-documents.jpg",
     alt: "Two people reviewing papers together at a table.",
@@ -129,19 +187,15 @@ export const siteMediaRegistry: Record<SiteMediaKey, SiteMediaRecord> = {
       sourceName: "Unsplash",
       sourceUrl: "https://unsplash.com/photos/two-people-reviewing-documents-at-a-table-MhqUBTxQ3Hw",
       licenseLabel: "Unsplash License",
-      note: "Use a crop that centers hands, papers, and shared problem solving rather than corporate details.",
     },
     objectPositionDesktop: { x: 64, y: 52 },
     objectPositionMobile: { x: 61, y: 50 },
-    overlay: { enabled: true, direction: "left", strength: 0.3, tone: "paper" },
-    showOnMobile: true,
+    overlayTone: "cream",
+    overlayOpacity: 0.3,
     status: "manual-download-required",
-    updatedAt: "2026-08-01",
   },
   "families.hero": {
-    key: "families.hero",
-    page: "Families",
-    section: "Family Support hero",
+    ...unassigned("families.hero", "Families", "Family Support hero", "Families", "/families"),
     fallbackPath: "/media/families-hero-table.jpg",
     expectedLocalFilename: "public/media/families-hero-table.jpg",
     alt: "A family sitting together at a table.",
@@ -155,27 +209,24 @@ export const siteMediaRegistry: Record<SiteMediaKey, SiteMediaRecord> = {
     },
     objectPositionDesktop: { x: 62, y: 48 },
     objectPositionMobile: { x: 60, y: 50 },
-    overlay: { enabled: true, direction: "left", strength: 0.28, tone: "paper" },
-    showOnMobile: true,
+    overlayTone: "cream",
+    overlayOpacity: 0.28,
     status: "manual-download-required",
-    updatedAt: "2026-08-01",
   },
-  "families.children": unassigned("families.children", "Families", "Children guide hero"),
-  "families.visitation": unassigned("families.visitation", "Families", "Visitation guide hero"),
-  "families.emotional-support": unassigned("families.emotional-support", "Families", "Emotional support guide hero"),
-  "reentry.hero": unassigned("reentry.hero", "Reentry", "Reentry landing hero"),
-  "reentry.documents": unassigned("reentry.documents", "Reentry", "Documents guide hero"),
-  "reentry.housing": unassigned("reentry.housing", "Reentry", "Housing guide hero"),
-  "reentry.employment": unassigned("reentry.employment", "Reentry", "Employment guide hero"),
-  "reentry.health": unassigned("reentry.health", "Reentry", "Health guide hero"),
-  "reentry.family-transition": unassigned("reentry.family-transition", "Reentry", "Family transition guide hero"),
-  "start.hero": unassigned("start.hero", "Start Here", "Start Here hero"),
-  "about.hero": unassigned("about.hero", "About", "About hero"),
-  "community.hero": unassigned("community.hero", "Community", "Community hero"),
+  "families.children": unassigned("families.children", "Families", "Children guide hero", "Families", "/families/children"),
+  "families.visitation": unassigned("families.visitation", "Families", "Visitation guide hero", "Families", "/families/visitation"),
+  "families.emotional-support": unassigned("families.emotional-support", "Families", "Emotional support guide hero", "Families", "/families/emotional-support"),
+  "reentry.hero": unassigned("reentry.hero", "Reentry", "Reentry landing hero", "Reentry", "/reentry"),
+  "reentry.documents": unassigned("reentry.documents", "Reentry", "Documents guide hero", "Reentry", "/reentry/documents"),
+  "reentry.housing": unassigned("reentry.housing", "Reentry", "Housing guide hero", "Reentry", "/reentry/housing"),
+  "reentry.employment": unassigned("reentry.employment", "Reentry", "Employment guide hero", "Reentry", "/reentry/employment"),
+  "reentry.health": unassigned("reentry.health", "Reentry", "Health guide hero", "Reentry", "/reentry/health"),
+  "reentry.family-transition": unassigned("reentry.family-transition", "Reentry", "Family transition guide hero", "Reentry", "/reentry/family-transition"),
+  "start.hero": unassigned("start.hero", "Start Here", "Start Here hero", "Start Here", "/start"),
+  "about.hero": unassigned("about.hero", "About", "About hero", "About", "/about"),
+  "community.hero": unassigned("community.hero", "Community", "Community hero", "Community", "/community"),
   "ask-for-help.hero": {
-    key: "ask-for-help.hero",
-    page: "Ask for Help",
-    section: "Advocacy hero",
+    ...unassigned("ask-for-help.hero", "Ask for Help", "Advocacy hero", "Ask for Help", "/ask-for-help"),
     fallbackPath: "/media/ask-for-help-hero-writing.jpg",
     expectedLocalFilename: "public/media/ask-for-help-hero-writing.jpg",
     alt: "A person writing at a table with materials nearby.",
@@ -189,37 +240,20 @@ export const siteMediaRegistry: Record<SiteMediaKey, SiteMediaRecord> = {
     },
     objectPositionDesktop: { x: 56, y: 50 },
     objectPositionMobile: { x: 58, y: 50 },
-    overlay: { enabled: true, direction: "left", strength: 0.26, tone: "paper" },
-    showOnMobile: true,
+    overlayTone: "cream",
+    overlayOpacity: 0.26,
     status: "manual-download-required",
-    updatedAt: "2026-08-01",
   },
 };
 
-export interface SiteMediaProvider {
-  getRecord(key: SiteMediaKey): SiteMediaRecord;
-  getAssignment(key: SiteMediaKey): SiteMediaAssignment | null;
-}
+export const siteMediaGroups = [...new Set(siteMediaKeys.map((key) => siteMediaRegistry[key].group))];
 
-export const localSiteMediaProvider: SiteMediaProvider = {
-  getRecord: (key) => siteMediaRegistry[key],
-  getAssignment: () => null,
-};
-
-export function resolveSiteMedia(key: SiteMediaKey, provider: SiteMediaProvider = localSiteMediaProvider): ResolvedSiteMedia {
-  const record = provider.getRecord(key);
-  const assignment = provider.getAssignment(key);
-  const resolved = { ...record, ...assignment };
-  const assignedPath = assignment?.storagePath ?? assignment?.imageUrl;
-  const fallbackIsReady = resolved.status === "fallback-ready" && Boolean(record.fallbackPath);
-
-  return {
-    ...resolved,
-    imagePath: assignedPath ?? (fallbackIsReady ? record.fallbackPath : undefined),
-    source: assignedPath ? "assignment" : fallbackIsReady ? "fallback" : "none",
-  };
+export function getSiteMediaSlot(key: string): SiteMediaRecord | null {
+  return key in siteMediaRegistry ? siteMediaRegistry[key as SiteMediaKey] : null;
 }
 
 export function mediaObjectPosition(position: MediaPosition) {
   return `${position.x}% ${position.y}%`;
 }
+
+export const isSiteMediaKey = (value: string): value is SiteMediaKey => Boolean(getSiteMediaSlot(value));

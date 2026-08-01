@@ -1,9 +1,7 @@
-import { notFound } from "next/navigation";
-import { MediaDesk } from "../../components/media/MediaDesk";
+import { redirect } from "next/navigation";
+import { requireAdmin } from "../../lib/auth";
 
-export default function AdminMediaPage() {
-  // There is no administrator authentication in this frontend-only project.
-  // Never expose the desk as a public production route until that changes.
-  if (process.env.NODE_ENV === "production") notFound();
-  return <MediaDesk />;
+export default async function AdminMediaPage() {
+  await requireAdmin();
+  redirect("/admin/site-media");
 }
