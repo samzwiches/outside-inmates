@@ -116,3 +116,7 @@
 [ 1292290ms] [ERROR] [vinext] RSC HMR error: Error: Connection closed.
     at close (http://localhost:3000/node_modules/.vite/deps/react-server-dom-webpack_client__browser.js?v=98b08dd3:2364:36)
     at progress (http://localhost:3000/node_modules/.vite/deps/react-server-dom-webpack_client__browser.js?v=98b08dd3:2437:28) @ http://localhost:3000/node_modules/vinext/dist/server/app-browser-entry.js?v=0cd40cd0:583
+[ 1358147ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/admin/media.rsc?_rsc:0
+[ 1358148ms] [ERROR] [vinext] RSC HMR error: Error: Connection closed.
+    at close (http://localhost:3000/node_modules/.vite/deps/react-server-dom-webpack_client__browser.js?v=98b08dd3:2364:36)
+    at progress (http://localhost:3000/node_modules/.vite/deps/react-server-dom-webpack_client__browser.js?v=98b08dd3:2437:28) @ http://localhost:3000/node_modules/vinext/dist/server/app-browser-entry.js?v=0cd40cd0:583
