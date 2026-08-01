@@ -2,39 +2,59 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { createSupabaseBrowserClient, isSupabaseBrowserConfigured } from "../../lib/supabase/browser";
+import { createSupabaseBrowserClient, type BrowserSupabaseConfig } from "../../lib/supabase/browser";
 
-export function SignInForm() {
+function statusMessage(status: string | null) {
+  if (status === "access-denied") return "You are signed in, but this account cannot access administration.";
+  if (status === "sign-in-required") return "Sign in to continue to administration.";
+  if (status === "session-unavailable") return "We could not confirm your session. Please sign in again.";
+  if (status === "signed-out") return "You have been signed out.";
+  return null;
+}
+
+export function SignInForm({ config }: { config: BrowserSupabaseConfig | null }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [status, setStatus] = useState<{ kind: "idle" | "saving" | "error"; message: string }>({ kind: "idle", message: "" });
-  const configured = isSupabaseBrowserConfigured();
+  const configured = Boolean(config);
 
   async function signIn(formData: FormData) {
-    if (!configured) return;
+    if (!config) return;
+
     const email = String(formData.get("email") ?? "").trim();
     const password = String(formData.get("password") ?? "");
     if (!email || !password) {
       setStatus({ kind: "error", message: "Enter your email address and password." });
       return;
     }
+
     setStatus({ kind: "saving", message: "Signing in…" });
-    const { error } = await createSupabaseBrowserClient().auth.signInWithPassword({ email, password });
-    if (error) {
+    try {
+      const { data, error } = await createSupabaseBrowserClient(config).auth.signInWithPassword({ email, password });
+      if (error || !data.session) {
+        setStatus({ kind: "error", message: "We could not sign you in with those details." });
+        return;
+      }
+    } catch {
       setStatus({ kind: "error", message: "We could not sign you in with those details." });
       return;
     }
+
     const next = searchParams.get("next");
     router.refresh();
-    router.replace(next?.startsWith("/") ? next : "/admin");
+    router.replace(next?.startsWith("/admin") ? next : "/admin");
   }
 
   if (!configured) return <div className="auth-setup-note"><p className="eyebrow">Setup required</p><h2>Admin sign-in is not connected yet.</h2><p>This environment needs its own Outside Inmates Supabase URL and anonymous key before an administrator can sign in. Follow <code>docs/SUPABASE_SETUP.md</code>; no credentials are stored in this repository.</p></div>;
 
+  const message = statusMessage(searchParams.get("status"));
+  const statusClass = status.kind === "error" ? "auth-status is-error" : "auth-status";
+
   return <form className="auth-form" action={signIn}>
     <label>Email address<input name="email" type="email" autoComplete="email" required /></label>
     <label>Password<input name="password" type="password" autoComplete="current-password" required /></label>
-    {status.kind !== "idle" ? <p className={`auth-status ${status.kind === "error" ? "is-error" : ""}`} role="status">{status.message}</p> : null}
+    {message ? <p className="auth-status" role="status">{message}</p> : null}
+    {status.kind !== "idle" ? <p className={statusClass} role="status">{status.message}</p> : null}
     <button className="button button-primary" type="submit" disabled={status.kind === "saving"}>{status.kind === "saving" ? "Signing in…" : "Sign in"}</button>
   </form>;
 }

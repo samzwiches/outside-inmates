@@ -28,11 +28,15 @@ Copy `.env.example` to an untracked local `.env.local`, then add values from thi
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+SUPABASE_URL=
+SUPABASE_ANON_KEY=
+SITE_URL=http://localhost:3000
 ```
 
-`NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` are needed by the browser sign-in client and server reads. `SUPABASE_SERVICE_ROLE_KEY` is required only by server mutation routes and must never be exposed in a client bundle, public configuration, git, screenshots, or documentation.
+`NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` are the browser-safe public values. `SUPABASE_URL`, `SUPABASE_ANON_KEY`, and `SITE_URL` are matching server-runtime aliases for this host; use the same URL and anonymous key values, and the same site URL. `SUPABASE_SERVICE_ROLE_KEY` is required only by server mutation routes and must never be exposed in a client bundle, public configuration, git, screenshots, or documentation. `NEXT_PUBLIC_SITE_URL` is the production site origin; use `http://localhost:3000` only for local development.
 
-Add the same three variable names and their values in the Outside Inmates deployment environment before publishing a build. The current repository and hosting configuration intentionally contain no Supabase credentials.
+Add all seven variable names and their values in the Outside Inmates deployment environment before publishing a build. Set both `NEXT_PUBLIC_SITE_URL` and `SITE_URL` to the production Outside Inmates URL. The current repository and hosting configuration intentionally contain no Supabase credentials.
 
 ## 4. Create the first admin
 

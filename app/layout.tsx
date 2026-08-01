@@ -5,6 +5,7 @@ import "./journeys.css";
 import "./media.css";
 import "./reentry.css";
 import "./organization.css";
+import "./auth.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();

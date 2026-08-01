@@ -1,0 +1,7 @@
+.admin-topline-actions { display: flex; align-items: center; gap: 16px; }
+.sign-out-button { appearance: none; padding: 0; border: 0; background: transparent; cursor: pointer; font: inherit; }
+.sign-out-button:disabled { cursor: wait; opacity: 0.65; }
+
+@media (max-width: 720px) {
+  .admin-topline-actions { gap: 12px; }
+}
