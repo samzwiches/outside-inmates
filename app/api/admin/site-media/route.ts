@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { getCurrentAdmin } from "../../../lib/auth";
 import { getSiteMediaSlot, type MediaOverlayTone, type SiteMediaKey } from "../../../data/media";
 import { appearanceColorFields, isAppearanceFieldAllowed, normalizeAppearanceColor } from "../../../lib/site-appearance";
-import { ACCEPTED_SITE_MEDIA_TYPES, MAX_SITE_MEDIA_IMAGE_BYTES, SITE_MEDIA_BUCKET } from "../../../lib/site-media-server";
+import { SITE_MEDIA_BUCKET } from "../../../lib/site-media-server";
 import { getSupabaseAdminClient } from "../../../lib/supabase/admin";
 import { hasSupabaseServiceRole } from "../../../lib/supabase/config";
 
@@ -80,44 +80,17 @@ function overlayColor(value: FormDataEntryValue | undefined) {
   return color;
 }
 
-function imageFile(value: FormDataEntryValue | null) {
-  return value instanceof File && value.size > 0 ? value : null;
-}
-
-function fileExtension(type: string) {
-  return type === "image/jpeg" ? "jpg" : type === "image/png" ? "png" : type === "image/webp" ? "webp" : null;
-}
-
-function bytesMatchType(bytes: Uint8Array, type: string) {
-  const jpeg = bytes.length >= 3 && bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff;
-  const png = bytes.length >= 8 && [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a].every((value, index) => bytes[index] === value);
-  const webp = bytes.length >= 12 && String.fromCharCode(...bytes.slice(0, 4)) === "RIFF" && String.fromCharCode(...bytes.slice(8, 12)) === "WEBP";
-  return (type === "image/jpeg" && jpeg) || (type === "image/png" && png) || (type === "image/webp" && webp);
-}
-
-async function validateImage(file: File, label: string) {
-  if (file.size > MAX_SITE_MEDIA_IMAGE_BYTES) throw new RequestError(`${label} must be 6 MB or smaller.`);
-  if (!ACCEPTED_SITE_MEDIA_TYPES.includes(file.type as (typeof ACCEPTED_SITE_MEDIA_TYPES)[number])) throw new RequestError(`${label} must be a JPG, PNG, or WebP image.`);
-  const extension = fileExtension(file.type);
-  const filenameExtension = file.name.toLowerCase().split(".").pop();
-  const permittedExtensions = file.type === "image/jpeg" ? ["jpg", "jpeg"] : [extension];
-  if (!extension || !filenameExtension || !permittedExtensions.includes(filenameExtension)) throw new RequestError(`${label} file extension does not match its image type.`);
-  const bytes = new Uint8Array(await file.arrayBuffer());
-  if (!bytesMatchType(bytes, file.type)) throw new RequestError(`${label} did not contain a valid image signature.`);
-  return { extension, bytes };
-}
-
-async function uploadImage(file: File, key: SiteMediaKey, role: "primary" | "mobile") {
-  const validated = await validateImage(file, role === "primary" ? "Primary image" : "Mobile image");
-  const path = `${key.replace(/\./g, "/")}/${role}-${crypto.randomUUID()}.${validated.extension}`;
-  const client = getSupabaseAdminClient();
-  const { error } = await client.storage.from(SITE_MEDIA_BUCKET).upload(path, validated.bytes, {
-    contentType: file.type,
-    cacheControl: "31536000",
-    upsert: false,
-  });
-  if (error) throw new RequestError("The image could not be uploaded.", 502);
-  return path;
+function directUploadPath(value: FormDataEntryValue | null, key: SiteMediaKey, role: "primary" | "mobile") {
+  if (value === null || value === "") return null;
+  if (typeof value !== "string") throw new RequestError("The uploaded image could not be saved.");
+  const prefix = `${key.replace(/\./g, "/")}/${role}-`;
+  const extensionIndex = value.lastIndexOf(".");
+  const token = value.slice(prefix.length, extensionIndex);
+  const extension = value.slice(extensionIndex + 1);
+  if (!value.startsWith(prefix) || !/^[a-f0-9-]{36}$/.test(token) || !["jpg", "png", "webp"].includes(extension)) {
+    throw new RequestError("The uploaded image could not be saved.");
+  }
+  return value;
 }
 
 async function isPathReferenced(path: string) {
@@ -158,17 +131,17 @@ export async function POST(request: Request) {
       .eq("media_key", slot.key)
       .maybeSingle();
 
-    const primaryFile = imageFile(formData.get("primaryImage"));
-    const mobileFile = imageFile(formData.get("mobileImage"));
+    const primaryUploadPath = directUploadPath(formData.get("primaryPath"), slot.key, "primary");
+    const mobileUploadPath = directUploadPath(formData.get("mobilePath"), slot.key, "mobile");
     const removeMobile = formData.get("removeMobile") === "true";
-    if (!primaryFile && !previous?.storage_path) throw new RequestError("Choose a primary image before saving this slot.");
+    if (!primaryUploadPath && !previous?.storage_path) throw new RequestError("Choose a primary image before saving this slot.");
 
-    const primaryPath = primaryFile ? await uploadImage(primaryFile, slot.key, "primary") : previous.storage_path;
-    if (primaryFile) uploadedPaths.push(primaryPath);
-    const mobilePath = mobileFile
-      ? await uploadImage(mobileFile, slot.key, "mobile")
+    const primaryPath = primaryUploadPath ?? previous!.storage_path;
+    if (primaryUploadPath) uploadedPaths.push(primaryPath);
+    const mobilePath = mobileUploadPath
+      ? mobileUploadPath
       : removeMobile ? null : previous?.mobile_storage_path ?? null;
-    if (mobileFile && mobilePath) uploadedPaths.push(mobilePath);
+    if (mobileUploadPath) uploadedPaths.push(mobileUploadPath);
 
     const altText = compactText(formData.get("altText") ?? undefined, "Alt text", 500, true)!;
     const payload = {
