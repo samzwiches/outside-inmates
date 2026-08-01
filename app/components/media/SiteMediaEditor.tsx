@@ -81,7 +81,6 @@ export function SiteMediaEditor({ media, appearances, supabaseConfig }: EditorPr
   const selectedAppearance = appearanceRecords.find((record) => record.section_key === selectedKey);
   const primarySource = primaryPreview ?? selectedRecord?.signedUrl ?? slot.fallbackPath ?? null;
   const mobileSource = mobilePreview ?? (!removeMobile ? selectedRecord?.mobileSignedUrl : null) ?? primarySource;
-  const overlay = { color: normalizeAppearanceColor(values.overlayColor) ?? overlayColors[values.overlayTone], opacity: values.overlayOpacity };
   const headingColor = normalizeAppearanceColor(appearance.heading_color);
   const backgroundColor = normalizeAppearanceColor(appearance.background_color) ?? "#f3eee6";
   const lowContrast = Boolean(headingColor && contrastRatio(headingColor, backgroundColor) < 4.5);
