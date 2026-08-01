@@ -14,7 +14,7 @@ export default function Home() {
       <a className="skip-link" href="#main-content">Skip to content</a>
       <SiteHeader />
       <main id="main-content">
-        <PageHero />
+        <PageHero mediaKey="home.hero" />
 
         <section className="section section-pathways home-journey-section" aria-labelledby="start-here-heading">
           <div className="container">

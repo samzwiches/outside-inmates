@@ -16,6 +16,7 @@ export default function ResourcesPage() {
       <main id="main-content">
         <PageHero
           variant="page"
+          mediaKey="resources.hero"
           eyebrow="Resource directory"
           title="Find the help that fits your situation."
           description="Search by location, need, or stage of the journey. You do not need to know the name of a program or the right agency before you begin."

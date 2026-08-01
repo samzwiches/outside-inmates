@@ -1,4 +1,7 @@
 import { PrimaryButton, SecondaryButton } from "./buttons";
+import type { SiteMediaKey } from "../data/media";
+import { EditablePageHero } from "./media/EditablePageHero";
+import { SiteMedia } from "./media/SiteMedia";
 
 type PageHeroProps = {
   variant?: "home" | "page";
@@ -6,21 +9,20 @@ type PageHeroProps = {
   title?: string;
   description?: string;
   children?: React.ReactNode;
+  mediaKey?: SiteMediaKey;
 };
 
-export function PageHero({ variant = "home", eyebrow, title, description, children }: PageHeroProps) {
+export function PageHero({ variant = "home", eyebrow, title, description, children, mediaKey }: PageHeroProps) {
   if (variant === "page") {
     return (
-      <section className="directory-page-hero" aria-labelledby="directory-hero-heading">
-        <div className="container directory-page-hero-inner">
-          <div>
-            <p className="eyebrow">{eyebrow}</p>
-            <h1 id="directory-hero-heading">{title}</h1>
-            <p>{description}</p>
-          </div>
-          {children}
+      <EditablePageHero mediaKey={mediaKey} className="directory-page-hero" contentClassName="container directory-page-hero-inner" labelledBy="directory-hero-heading">
+        <div>
+          <p className="eyebrow">{eyebrow}</p>
+          <h1 id="directory-hero-heading">{title}</h1>
+          <p>{description}</p>
         </div>
-      </section>
+        {children}
+      </EditablePageHero>
     );
   }
 
@@ -37,15 +39,7 @@ export function PageHero({ variant = "home", eyebrow, title, description, childr
           </div>
           <a className="quiet-link" href="#ask-an-advocate">or ask for help <span aria-hidden="true">→</span></a>
         </div>
-        <div className="hero-art" aria-hidden="true">
-          <div className="hero-art-grid" />
-          <div className="hero-field hero-field-one" />
-          <div className="hero-field hero-field-two" />
-          <div className="hero-field hero-field-three" />
-          <div className="hero-note hero-note-primary"><span>Start here</span><strong>One useful step at a time.</strong><i /></div>
-          <div className="hero-note hero-note-secondary"><span>Outside Inmates</span><strong>Resources, answers, and community.</strong></div>
-          <p>There is a next step.<br />You do not have to find it alone.</p>
-        </div>
+        <SiteMedia mediaKey={mediaKey ?? "home.hero"} sizes="(max-width: 720px) 100vw, (max-width: 1080px) 42vw, 520px" priority reserveSpaceWhenEmpty showCredit />
       </div>
     </section>
   );
