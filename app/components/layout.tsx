@@ -27,7 +27,7 @@ export function SiteFooter() {
           <p>A clearer path through incarceration and reentry—for individuals, families, and the people who stand beside them.</p>
         </div>
         <nav className="footer-links" aria-label="Footer navigation">
-          {footerLinks.map((link) => <a href="#site-footer" key={link}>{link}</a>)}
+          {footerLinks.map((link) => <a href={link.href} key={link.label}>{link.label}</a>)}
         </nav>
         <a className="crisis-card" href="https://988lifeline.org/get-help/" target="_blank" rel="noreferrer">
           <span className="eyebrow">Need immediate support?</span>

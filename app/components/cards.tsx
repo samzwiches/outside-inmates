@@ -13,7 +13,7 @@ export function PathwayCard({ title, detail, accent, number }: Pathway & { numbe
 
 export function ResourceCard({ title, description }: Resource) {
   return (
-    <li><a className="resource-card" href="#site-footer"><span>{title}</span><small>{description}</small><b aria-hidden="true">↗</b></a></li>
+    <li><a className="resource-card" href="/resources"><span>{title}</span><small>{description}</small><b aria-hidden="true">↗</b></a></li>
   );
 }
 

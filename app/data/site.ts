@@ -3,7 +3,7 @@ export type Resource = { title: string; description: string };
 export type ForumPost = { title: string; category: string; replies: number; time: string };
 
 export const navigation = [
-  { label: "Resources", href: "#resources" },
+  { label: "Resources", href: "/resources" },
   { label: "Community", href: "#community" },
   { label: "Families", href: "#families" },
   { label: "Reentry", href: "#reentry" },
@@ -41,11 +41,11 @@ export const forumPosts: ForumPost[] = [
 export const trustItems = ["Privacy-minded", "Moderated community", "Lived experience welcome", "No judgment", "Resources reviewed regularly"];
 
 export const footerLinks = [
-  "Resources",
-  "Community Guidelines",
-  "Privacy",
-  "Terms",
-  "Submit a Resource",
-  "Volunteer",
-  "Contact",
+  { label: "Resources", href: "/resources" },
+  { label: "Community Guidelines", href: "#site-footer" },
+  { label: "Privacy", href: "#site-footer" },
+  { label: "Terms", href: "#site-footer" },
+  { label: "Submit a Resource", href: "/resources#submit-resource" },
+  { label: "Volunteer", href: "#site-footer" },
+  { label: "Contact", href: "#site-footer" },
 ];

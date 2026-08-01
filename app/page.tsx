@@ -38,12 +38,12 @@ export default function Home() {
                 description="Start with a ZIP code or state. We will help narrow the next useful place to look."
                 inverted
               />
-              <form className="resource-search" action="#resources">
+              <form className="resource-search" action="/resources/results" method="get">
                 <label className="sr-only" htmlFor="location">ZIP code or state</label>
                 <input id="location" name="location" type="text" placeholder="Enter ZIP code or state" inputMode="numeric" />
                 <button className="button button-light" type="submit">Search resources <span aria-hidden="true">→</span></button>
               </form>
-              <p className="search-note">Search is being prepared for launch. This first version helps you see what will be available.</p>
+              <p className="search-note">The directory currently uses clearly labeled demonstration data while live resources are prepared.</p>
             </div>
             <ul className="resource-grid" aria-label="Resource categories">
               {resourceCategories.map((resource) => <ResourceCard key={resource.title} {...resource} />)}

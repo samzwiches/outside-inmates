@@ -1,6 +1,29 @@
 import { PrimaryButton, SecondaryButton } from "./buttons";
 
-export function PageHero() {
+type PageHeroProps = {
+  variant?: "home" | "page";
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  children?: React.ReactNode;
+};
+
+export function PageHero({ variant = "home", eyebrow, title, description, children }: PageHeroProps) {
+  if (variant === "page") {
+    return (
+      <section className="directory-page-hero" aria-labelledby="directory-hero-heading">
+        <div className="container directory-page-hero-inner">
+          <div>
+            <p className="eyebrow">{eyebrow}</p>
+            <h1 id="directory-hero-heading">{title}</h1>
+            <p>{description}</p>
+          </div>
+          {children}
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="hero" aria-labelledby="hero-heading">
       <div className="container hero-grid">

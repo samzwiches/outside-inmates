@@ -1,0 +1,111 @@
+export const resourceCategoryOptions = [
+  { slug: "housing", name: "Housing", description: "A place to land and a way to stay housed." },
+  { slug: "employment", name: "Employment", description: "Work, training, and second-chance career support." },
+  { slug: "identification-documents", name: "Identification and Documents", description: "IDs, records, and the paperwork that opens doors." },
+  { slug: "legal-help", name: "Legal Help", description: "Rights information and community advocacy." },
+  { slug: "family-support", name: "Family Support", description: "Support for the people carrying this, too." },
+  { slug: "mental-health", name: "Mental Health", description: "Care, counseling, and someone to talk to." },
+  { slug: "substance-use-recovery", name: "Substance Use Recovery", description: "Recovery planning and peer support." },
+  { slug: "transportation", name: "Transportation", description: "Getting to appointments, work, and home." },
+  { slug: "education", name: "Education", description: "Learning, credentials, and a fresh start." },
+  { slug: "food-basic-needs", name: "Food and Basic Needs", description: "Food, clothing, and everyday essentials." },
+  { slug: "reentry-planning", name: "Reentry Planning", description: "A steady checklist for the next chapter." },
+  { slug: "communication-visitation", name: "Communication and Visitation", description: "Staying connected from the outside." },
+] as const;
+
+export type ResourceCategorySlug = (typeof resourceCategoryOptions)[number]["slug"];
+export type ServiceAreaType = "Local" | "Statewide" | "Remote / national";
+
+export type ResourceData = {
+  id: string;
+  slug: string;
+  name: string;
+  shortDescription: string;
+  fullDescription: string;
+  categories: ResourceCategorySlug[];
+  services: string[];
+  eligibility: string;
+  location: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  countiesServed: string[];
+  serviceArea: string;
+  serviceAreaType: ServiceAreaType;
+  phone: string | null;
+  website: string | null;
+  email: string | null;
+  hours: string;
+  cost: string;
+  freeOrLowCost: boolean;
+  applicationProcess: string;
+  documentsNeeded: string[];
+  languages: string[];
+  accessibilityNotes: string;
+  verifiedDate: string;
+  featured: boolean;
+  emergency: boolean;
+  remoteServices: boolean;
+  isDemonstration: boolean;
+};
+
+export const sampleResources: ResourceData[] = [
+  {
+    id: "demo-001", slug: "harbor-house-transition-center", name: "Harbor House Transition Center", shortDescription: "Short-term housing navigation and move-in support for people returning home.", fullDescription: "Harbor House is a demonstration listing for a neighborhood-based reentry housing desk. It shows how a resource can explain both immediate options and the slower work of finding stable housing.", categories: ["housing", "reentry-planning"], services: ["Housing search", "Move-in planning", "Landlord communication", "Benefits screening"], eligibility: "Adults returning to Kenton, Campbell, or Boone County within the past 18 months.", location: "24 Riverbend Way", city: "Covington", state: "KY", zipCode: "41011", countiesServed: ["Kenton", "Campbell", "Boone"], serviceArea: "Northern Kentucky", serviceAreaType: "Local", phone: "(555) 014-2011", website: "https://example.org/harbor-house", email: "housing@harborhouse.example", hours: "Mon–Fri, 9 a.m.–5 p.m.; walk-ins Wednesday afternoon.", cost: "Free", freeOrLowCost: true, applicationProcess: "Call for an intake time or bring a referral from a reentry partner. Same-week appointments are typically offered in this demonstration flow.", documentsNeeded: ["Photo ID if available", "Release paperwork if available", "Proof of income or benefits, if any"], languages: ["English", "Spanish by appointment"], accessibilityNotes: "Ground-floor meeting space; phone intake available for people without transportation.", verifiedDate: "2026-07-18", featured: true, emergency: false, remoteServices: false, isDemonstration: true,
+  },
+  {
+    id: "demo-002", slug: "riverbend-work-and-training-desk", name: "Riverbend Work & Training Desk", shortDescription: "Job leads, résumé support, and training referrals built for a fresh start.", fullDescription: "This demonstration resource models a low-barrier employment desk that helps people translate past experience into a résumé and identify employers open to second-chance hiring.", categories: ["employment", "education"], services: ["Résumé help", "Interview practice", "Training referrals", "Job lead lists"], eligibility: "Adults ages 18+ with a barrier to employment; no referral required.", location: "1800 Walnut Street, Suite 210", city: "Cincinnati", state: "OH", zipCode: "45202", countiesServed: ["Hamilton", "Butler", "Clermont"], serviceArea: "Greater Cincinnati", serviceAreaType: "Local", phone: "(555) 014-2202", website: "https://example.org/riverbend-work", email: "hello@riverbendwork.example", hours: "Mon–Thu, 10 a.m.–6 p.m.; Fri, 10 a.m.–3 p.m.", cost: "Free", freeOrLowCost: true, applicationProcess: "Drop in during welcome hours or reserve a 45-minute planning appointment by phone.", documentsNeeded: ["Any work history you remember", "ID if available", "Email address if you have one"], languages: ["English"], accessibilityNotes: "Elevator access and video appointments available.", verifiedDate: "2026-07-22", featured: true, emergency: false, remoteServices: true, isDemonstration: true,
+  },
+  {
+    id: "demo-003", slug: "ready-papers-clinic", name: "Ready Papers Clinic", shortDescription: "A practical place to sort out IDs, birth certificates, and record requests.", fullDescription: "Ready Papers is a sample document-navigation clinic. It demonstrates how a listing can make a complicated paperwork process feel smaller by naming the documents to prepare and the first useful call to make.", categories: ["identification-documents", "reentry-planning"], services: ["State ID planning", "Birth certificate requests", "Social Security record guidance", "Fee-waiver referrals"], eligibility: "People preparing for release or within two years of release in the tri-state area.", location: "12 Bridge Street", city: "Newport", state: "KY", zipCode: "41071", countiesServed: ["Campbell", "Kenton", "Hamilton"], serviceArea: "Tri-state region", serviceAreaType: "Local", phone: "(555) 014-2303", website: null, email: "papers@readypapers.example", hours: "Tue–Sat, 10 a.m.–4 p.m.; appointments encouraged.", cost: "Free help; document fees may apply", freeOrLowCost: true, applicationProcess: "Start with a short call so the clinic can tell you which documents to bring and which fees might be waived.", documentsNeeded: ["Release paperwork if available", "Any expired ID", "Names and dates connected to the record request"], languages: ["English", "Spanish"], accessibilityNotes: "Large-print checklists available; phone interpretation can be arranged.", verifiedDate: "2026-07-16", featured: false, emergency: false, remoteServices: false, isDemonstration: true,
+  },
+  {
+    id: "demo-004", slug: "common-ground-legal-resource-desk", name: "Common Ground Legal Resource Desk", shortDescription: "Know what questions to ask before you spend hours searching for legal help.", fullDescription: "This sample legal-help listing models a community information desk. It does not provide representation, but can help someone prepare for a legal-aid screening and find the right type of advocacy resource.", categories: ["legal-help"], services: ["Legal-aid referrals", "Record-relief information", "Rights workshops", "Court form navigation"], eligibility: "Open to people with civil legal questions connected to reentry, family stability, or records.", location: "Remote appointments and monthly library clinics", city: "Lexington", state: "KY", zipCode: "40507", countiesServed: ["Fayette", "Kenton", "Campbell", "Boone"], serviceArea: "Kentucky and remote clinics", serviceAreaType: "Statewide", phone: "(555) 014-2404", website: "https://example.org/common-ground-legal", email: "intake@commongroundlegal.example", hours: "Mon–Fri, 11 a.m.–4 p.m.; evening clinic twice monthly.", cost: "Free", freeOrLowCost: true, applicationProcess: "Leave a callback number or use the sample website intake form to request a 20-minute screening.", documentsNeeded: ["Court paperwork if you have it", "A timeline of key dates", "Questions you want answered"], languages: ["English", "Spanish interpretation by request"], accessibilityNotes: "Remote appointments available; clinics rotate through accessible public libraries.", verifiedDate: "2026-07-20", featured: false, emergency: false, remoteServices: true, isDemonstration: true,
+  },
+  {
+    id: "demo-005", slug: "family-line-support-circle", name: "Family Line Support Circle", shortDescription: "Peer support and practical guidance for families carrying the weight from the outside.", fullDescription: "Family Line is a demonstration support circle for parents, partners, siblings, and caregivers. It pairs shared experience with plain-language guides about communication, children, and navigating the system.", categories: ["family-support", "communication-visitation"], services: ["Family peer groups", "Parenting support", "Visitation preparation", "Child-friendly conversation guides"], eligibility: "Family members and close supporters of incarcerated people; no referral required.", location: "Remote groups with quarterly gatherings", city: "Louisville", state: "KY", zipCode: "40202", countiesServed: ["Statewide"], serviceArea: "Kentucky, with remote groups", serviceAreaType: "Statewide", phone: "(555) 014-2505", website: null, email: "support@familyline.example", hours: "Support line Mon–Thu, noon–7 p.m.; groups evenings.", cost: "Free", freeOrLowCost: true, applicationProcess: "Call or email to choose a group. You can attend once before deciding whether it feels useful.", documentsNeeded: ["None"], languages: ["English"], accessibilityNotes: "Captioned video groups available; no one is required to share personal details.", verifiedDate: "2026-07-12", featured: true, emergency: false, remoteServices: true, isDemonstration: true,
+  },
+  {
+    id: "demo-006", slug: "steady-mind-counseling-access", name: "Steady Mind Counseling Access", shortDescription: "Low-cost counseling connections for the stress that does not end when someone comes home.", fullDescription: "Steady Mind is a fictional, clearly labeled demonstration listing for an access point that connects people to counseling, peer support, and trauma-informed providers.", categories: ["mental-health"], services: ["Counseling referrals", "Peer support", "Trauma-informed provider matching", "Crisis planning"], eligibility: "Adults and families affected by incarceration or reentry; sliding-scale options highlighted.", location: "240 Elm Avenue", city: "Fort Thomas", state: "KY", zipCode: "41075", countiesServed: ["Campbell", "Kenton", "Pendleton"], serviceArea: "Northern Kentucky", serviceAreaType: "Local", phone: "(555) 014-2606", website: "https://example.org/steady-mind", email: "care@steadymind.example", hours: "Mon–Fri, 8 a.m.–6 p.m.; callback line after hours.", cost: "Free screening; sliding-scale counseling referrals", freeOrLowCost: true, applicationProcess: "Call for a confidential screening. If you need immediate emotional support, use the 988 Lifeline in the site footer instead of relying on this sample listing.", documentsNeeded: ["Insurance information if you want to use it", "None required for the initial screening"], languages: ["English", "Spanish interpretation by request"], accessibilityNotes: "Telehealth options available; sensory-considerate appointment times can be requested.", verifiedDate: "2026-07-17", featured: false, emergency: true, remoteServices: true, isDemonstration: true,
+  },
+  {
+    id: "demo-007", slug: "turning-point-recovery-navigation", name: "Turning Point Recovery Navigation", shortDescription: "Peer-led recovery planning, treatment referrals, and a next-step conversation without judgment.", fullDescription: "Turning Point is demonstration data for a recovery navigator. It illustrates a warm, practical listing for someone balancing reentry, substance use recovery, appointments, and transportation.", categories: ["substance-use-recovery", "mental-health"], services: ["Peer recovery coaching", "Treatment referrals", "Medication-assisted treatment information", "Recovery meeting schedules"], eligibility: "Adults seeking recovery support, including people returning from incarceration.", location: "85 Madison Place", city: "Covington", state: "KY", zipCode: "41011", countiesServed: ["Kenton", "Campbell", "Boone"], serviceArea: "Northern Kentucky", serviceAreaType: "Local", phone: "(555) 014-2707", website: null, email: "start@turningpoint.example", hours: "Daily, 9 a.m.–7 p.m.; peer line weekends noon–5 p.m.", cost: "Free navigation; treatment costs vary", freeOrLowCost: true, applicationProcess: "Call or stop by for a same-day conversation about what support could fit.", documentsNeeded: ["None to talk with a peer", "Insurance card if you want help comparing treatment options"], languages: ["English"], accessibilityNotes: "Bus passes may be available for first appointments; no sobriety requirement for an initial conversation.", verifiedDate: "2026-07-14", featured: false, emergency: false, remoteServices: false, isDemonstration: true,
+  },
+  {
+    id: "demo-008", slug: "ride-forward-mobility-fund", name: "Ride Forward Mobility Fund", shortDescription: "Rides and transit help for interviews, appointments, treatment, and getting home.", fullDescription: "Ride Forward is a demonstration resource designed to show a concise transportation listing. It makes the limits clear: rides need advance notice, and availability can change.", categories: ["transportation", "employment"], services: ["Bus passes", "Interview rides", "Appointment rides", "Transit planning"], eligibility: "People within 12 months of release or actively working with a reentry partner.", location: "Service coordinated by phone", city: "Cincinnati", state: "OH", zipCode: "45219", countiesServed: ["Hamilton", "Kenton", "Campbell"], serviceArea: "Greater Cincinnati and Northern Kentucky", serviceAreaType: "Local", phone: "(555) 014-2808", website: null, email: "rides@rideforward.example", hours: "Mon–Fri, 8:30 a.m.–4:30 p.m.; request rides 48 hours ahead.", cost: "Free for eligible trips", freeOrLowCost: true, applicationProcess: "Call with the appointment date, pickup area, and a callback number. Bus passes may be available the same day.", documentsNeeded: ["Appointment or interview details", "Photo ID if available"], languages: ["English", "Spanish by phone"], accessibilityNotes: "Wheelchair-accessible rides can be requested; advance notice is needed.", verifiedDate: "2026-07-11", featured: false, emergency: false, remoteServices: false, isDemonstration: true,
+  },
+  {
+    id: "demo-009", slug: "new-start-learning-lab", name: "New Start Learning Lab", shortDescription: "GED support, digital skills, and enrollment guidance for people returning to school or training.", fullDescription: "New Start Learning Lab is a fictional demonstration listing that shows how education support can feel practical: start with what you need for enrollment, then make a plan that works around work and family.", categories: ["education", "employment"], services: ["GED preparation", "Digital skills", "College enrollment guidance", "Training program referrals"], eligibility: "Adults returning to school, training, or a credential program.", location: "720 Central Parkway", city: "Cincinnati", state: "OH", zipCode: "45202", countiesServed: ["Hamilton", "Butler", "Warren"], serviceArea: "Greater Cincinnati", serviceAreaType: "Local", phone: "(555) 014-2909", website: "https://example.org/new-start-learning", email: "learn@newstart.example", hours: "Mon–Thu, 9 a.m.–7 p.m.; Sat, 10 a.m.–2 p.m.", cost: "Free", freeOrLowCost: true, applicationProcess: "Book an orientation by phone or arrive during drop-in hours with questions about your next credential.", documentsNeeded: ["Any school records you have", "ID if available", "A list of goals or programs you are considering"], languages: ["English"], accessibilityNotes: "Computers, printing, and screen-reader tools are available on site.", verifiedDate: "2026-07-21", featured: false, emergency: false, remoteServices: true, isDemonstration: true,
+  },
+  {
+    id: "demo-010", slug: "neighbors-table-basic-needs-desk", name: "Neighbors' Table Basic Needs Desk", shortDescription: "Food, clothing, hygiene supplies, and a warm handoff to longer-term support.", fullDescription: "Neighbors' Table is sample data for a basic-needs resource. The listing focuses on what someone can get today while pointing them toward more stable help for the week ahead.", categories: ["food-basic-needs", "family-support"], services: ["Food pantry", "Hygiene supplies", "Seasonal clothing", "Benefits referrals"], eligibility: "Individuals and families in the 41011 and 41071 ZIP codes; photo ID is not required for a first visit.", location: "310 Pike Street", city: "Covington", state: "KY", zipCode: "41011", countiesServed: ["Kenton", "Campbell"], serviceArea: "Covington and Newport", serviceAreaType: "Local", phone: "(555) 014-3010", website: null, email: "welcome@neighborstable.example", hours: "Tue and Thu, 1 p.m.–6 p.m.; Sat, 10 a.m.–noon.", cost: "Free", freeOrLowCost: true, applicationProcess: "Walk in during open hours. Ask at the welcome table if you need a private conversation about additional support.", documentsNeeded: ["None for first visit", "Proof of address if you want ongoing pantry support"], languages: ["English", "Spanish"], accessibilityNotes: "Step-free entrance; delivery referral available for people with limited mobility.", verifiedDate: "2026-07-09", featured: false, emergency: false, remoteServices: false, isDemonstration: true,
+  },
+  {
+    id: "demo-011", slug: "step-by-step-reentry-planning", name: "Step by Step Reentry Planning", shortDescription: "A one-to-one reentry checklist for housing, documents, benefits, work, and follow-through.", fullDescription: "Step by Step is a demonstration planning resource for people who need one person to help turn a long list into a next step. It is designed to show the level of detail a good local listing should offer.", categories: ["reentry-planning", "housing", "identification-documents"], services: ["Reentry action plan", "Benefits navigation", "Appointment coordination", "Family transition planning"], eligibility: "Adults within 90 days of release or within the first year home.", location: "Remote and partner sites", city: "Indianapolis", state: "IN", zipCode: "46204", countiesServed: ["Marion", "Hamilton", "Hendricks"], serviceArea: "Central Indiana with remote check-ins", serviceAreaType: "Statewide", phone: "(555) 014-3111", website: "https://example.org/step-by-step", email: "plan@stepbystep.example", hours: "Mon–Fri, 9 a.m.–5 p.m.; evening appointments available.", cost: "Free", freeOrLowCost: true, applicationProcess: "Start with a 30-minute planning call. A peer navigator will help choose the first two or three tasks.", documentsNeeded: ["Release date or timeline", "Any current ID", "A safe way to receive follow-up messages"], languages: ["English"], accessibilityNotes: "Phone-based planning available; no smartphone or computer required.", verifiedDate: "2026-07-23", featured: true, emergency: false, remoteServices: true, isDemonstration: true,
+  },
+  {
+    id: "demo-012", slug: "connection-and-visitation-guide", name: "Connection & Visitation Guide", shortDescription: "Plain-language support for calls, mail, visitation, transfers, and staying connected with children.", fullDescription: "Connection & Visitation Guide is demonstration data for a family navigation line. It shows how a resource can give clear, nonjudgmental help without pretending every facility follows the same rules.", categories: ["communication-visitation", "family-support"], services: ["Visitation preparation", "Mail and phone guidance", "Facility transfer checklists", "Family communication planning"], eligibility: "Family members and close supporters seeking general navigation help.", location: "Remote information line", city: "Columbus", state: "OH", zipCode: "43215", countiesServed: ["Statewide"], serviceArea: "Ohio, with remote information sessions", serviceAreaType: "Statewide", phone: "(555) 014-3212", website: null, email: "connect@visitationguide.example", hours: "Mon–Fri, 10 a.m.–6 p.m.; evening webinar monthly.", cost: "Free", freeOrLowCost: true, applicationProcess: "Call for a short information session or join a monthly online orientation. Bring the facility name if you know it.", documentsNeeded: ["Facility name or ID number if available", "Questions you want answered"], languages: ["English", "Spanish interpretation by request"], accessibilityNotes: "Information is available by phone and in large-print PDF format.", verifiedDate: "2026-07-19", featured: false, emergency: false, remoteServices: true, isDemonstration: true,
+  },
+];
+
+export const resourcePathways = [
+  { title: "I just need a place to start", detail: "Build a small reentry plan first.", href: "/resources/results?category=reentry-planning" },
+  { title: "I am trying to get documents together", detail: "Start with ID and record support.", href: "/resources/results?category=identification-documents" },
+  { title: "I need work or training", detail: "Find employment support and learning options.", href: "/resources/results?category=employment" },
+  { title: "My family needs help staying connected", detail: "Explore family and visitation support.", href: "/resources/results?category=family-support" },
+];
+
+export const stateOptions = [
+  { value: "", label: "Any state" },
+  { value: "KY", label: "Kentucky" },
+  { value: "OH", label: "Ohio" },
+  { value: "IN", label: "Indiana" },
+];
+
+export function getCategoryName(slug: ResourceCategorySlug) {
+  return resourceCategoryOptions.find((category) => category.slug === slug)?.name ?? slug;
+}
+
+export function getResourceBySlug(slug: string) {
+  return sampleResources.find((resource) => resource.slug === slug);
+}
