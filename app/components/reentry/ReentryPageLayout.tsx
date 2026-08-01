@@ -15,10 +15,13 @@ import { ReentryResourceLinks } from "./ReentryResourceLinks";
 import { ReentryWorksheet } from "./ReentryWorksheet";
 
 const reentryGuideMediaKeys: Partial<Record<ReentrySlug, SiteMediaKey>> = {
+  "first-week": "reentry.first-week",
   documents: "reentry.documents",
   housing: "reentry.housing",
   employment: "reentry.employment",
   health: "reentry.health",
+  supervision: "reentry.supervision",
+  transportation: "reentry.transportation",
   "family-transition": "reentry.family-transition",
 };
 

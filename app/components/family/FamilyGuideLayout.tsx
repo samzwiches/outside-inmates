@@ -10,8 +10,9 @@ import { SiteMedia } from "../media/SiteMedia";
 import { SupportCallout } from "./SupportCallout";
 
 const guideMediaKeys: Partial<Record<FamilyGuideSlug, SiteMediaKey>> = {
+  "just-incarcerated": "families.just-incarcerated",
+  "staying-connected": "families.staying-connected",
   children: "families.children",
-  "staying-connected": "families.visitation",
   visitation: "families.visitation",
   "emotional-support": "families.emotional-support",
 };

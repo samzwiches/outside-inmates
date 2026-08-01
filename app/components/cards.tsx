@@ -1,5 +1,9 @@
 import type { ForumPost, Pathway, Resource } from "../data/site";
 import Link from "next/link";
+import type { SiteMediaKey } from "../data/media";
+import { appearanceStyle } from "../lib/site-appearance";
+import { getSitePresentation } from "../lib/site-media-server";
+import { SiteMedia } from "./media/SiteMedia";
 
 export function PathwayCard({ title, detail, accent, number }: Pathway & { number: number }) {
   return (
@@ -28,18 +32,22 @@ export function ForumPreviewCard({ title, category, replies, time }: ForumPost) 
   );
 }
 
-type ActionCardProps = { id: string; eyebrow: string; title: string; description: string; action: string; href: string; theme: "clay" | "sage"; visual: "family" | "reentry" };
+type ActionCardProps = { id: string; eyebrow: string; title: string; description: string; action: string; href: string; theme: "clay" | "sage"; visual: "family" | "reentry"; mediaKey?: SiteMediaKey };
 
-export function ActionCard({ id, eyebrow, title, description, action, href, theme, visual }: ActionCardProps) {
+export async function ActionCard({ id, eyebrow, title, description, action, href, theme, visual, mediaKey }: ActionCardProps) {
+  const presentation = mediaKey ? await getSitePresentation(mediaKey) : null;
+  const hasMedia = Boolean(presentation?.media.imagePath);
+
   return (
-    <article className={`action-card action-${theme}`} id={id}>
+    <article className={`action-card action-${theme} ${hasMedia ? "has-site-media" : ""}`} id={id} data-media-key={mediaKey} style={appearanceStyle(presentation?.appearance)}>
+      {mediaKey && presentation && hasMedia ? <SiteMedia mediaKey={mediaKey} media={presentation.media} sizes="(max-width: 720px) 100vw, 50vw" /> : null}
       <div className="action-content">
         <p className="eyebrow">{eyebrow}</p>
         <h2>{title}</h2>
         <p>{description}</p>
         <Link href={href}>{action} <span aria-hidden="true">→</span></Link>
       </div>
-      <div className={`action-visual visual-${visual}`} aria-hidden="true"><span /><i /><b /></div>
+      {!hasMedia ? <div className={`action-visual visual-${visual}`} aria-hidden="true"><span /><i /><b /></div> : null}
     </article>
   );
 }

@@ -5,10 +5,11 @@ import { SiteFooter, SiteHeader } from "./components/layout";
 import { PageHero } from "./components/page-hero";
 import { SectionHeading } from "./components/section-heading";
 import { TrustStrip } from "./components/trust-strip";
+import { EditableMediaSection } from "./components/media/EditableMediaSection";
 import { forumPosts, resourceCategories } from "./data/site";
 import { journeys } from "./data/journeys";
 
-export default function Home() {
+export default async function Home() {
   return (
     <>
       <a className="skip-link" href="#main-content">Skip to content</a>
@@ -16,7 +17,7 @@ export default function Home() {
       <main id="main-content">
         <PageHero mediaKey="home.hero" />
 
-        <section className="section section-pathways home-journey-section" aria-labelledby="start-here-heading">
+        <EditableMediaSection mediaKey="home.journeys" className="section section-pathways home-journey-section" labelledBy="start-here-heading">
           <div className="container">
             <SectionHeading
               eyebrow="Start here"
@@ -29,9 +30,9 @@ export default function Home() {
             </div>
             <a className="quiet-link home-journey-link" href="/start">See all guided paths <span aria-hidden="true">→</span></a>
           </div>
-        </section>
+        </EditableMediaSection>
 
-        <section className="section resource-section" id="resources" aria-labelledby="resource-heading">
+        <EditableMediaSection mediaKey="home.resources" className="section resource-section" id="resources" labelledBy="resource-heading">
           <div className="container resource-layout">
             <div>
               <SectionHeading
@@ -52,7 +53,7 @@ export default function Home() {
               {resourceCategories.map((resource) => <ResourceCard key={resource.title} {...resource} />)}
             </ul>
           </div>
-        </section>
+        </EditableMediaSection>
 
         <section className="section community-section" id="community" aria-labelledby="community-heading">
           <div className="container">
@@ -82,6 +83,7 @@ export default function Home() {
               href="/families"
               theme="clay"
               visual="family"
+              mediaKey="home.families"
             />
             <ActionCard
               id="reentry"
@@ -92,6 +94,7 @@ export default function Home() {
               href="/reentry"
               theme="sage"
               visual="reentry"
+              mediaKey="home.reentry"
             />
           </div>
         </section>
