@@ -28,16 +28,16 @@ export function ForumPreviewCard({ title, category, replies, time }: ForumPost) 
   );
 }
 
-type ActionCardProps = { id: string; eyebrow: string; title: string; description: string; action: string; theme: "clay" | "sage"; visual: "family" | "reentry" };
+type ActionCardProps = { id: string; eyebrow: string; title: string; description: string; action: string; href: string; theme: "clay" | "sage"; visual: "family" | "reentry" };
 
-export function ActionCard({ id, eyebrow, title, description, action, theme, visual }: ActionCardProps) {
+export function ActionCard({ id, eyebrow, title, description, action, href, theme, visual }: ActionCardProps) {
   return (
     <article className={`action-card action-${theme}`} id={id}>
       <div className="action-content">
         <p className="eyebrow">{eyebrow}</p>
         <h2>{title}</h2>
         <p>{description}</p>
-        <a href="#resources">{action} <span aria-hidden="true">→</span></a>
+        <Link href={href}>{action} <span aria-hidden="true">→</span></Link>
       </div>
       <div className={`action-visual visual-${visual}`} aria-hidden="true"><span /><i /><b /></div>
     </article>

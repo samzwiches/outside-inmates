@@ -79,6 +79,7 @@ export default function Home() {
               title="Support from the outside still matters."
               description="Visitation, communication, parenting, emotional support, and navigating the system from the outside."
               action="Explore family support"
+              href="/families"
               theme="clay"
               visual="family"
             />
@@ -88,6 +89,7 @@ export default function Home() {
               title="Build the next chapter with support."
               description="Housing, employment, documents, treatment, transportation, and the practical steps toward steadier ground."
               action="Explore reentry support"
+              href="/reentry"
               theme="sage"
               visual="reentry"
             />

@@ -7,7 +7,7 @@ export const navigation = [
   { label: "Start Here", href: "/start", emphasis: true },
   { label: "Community", href: "/#community" },
   { label: "Families", href: "/families" },
-  { label: "Reentry", href: "/start/coming-home" },
+  { label: "Reentry", href: "/reentry" },
   { label: "Ask for Help", href: "/start/not-sure" },
   { label: "About", href: "/#about" },
 ];
