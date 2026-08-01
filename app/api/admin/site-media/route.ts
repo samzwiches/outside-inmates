@@ -33,8 +33,8 @@ async function requireMediaAdmin() {
   return admin;
 }
 
-function requiredSlot(value: string | null) {
-  if (!value) throw new RequestError("Choose an approved media slot.");
+function requiredSlot(value: unknown) {
+  if (typeof value !== "string" || !value) throw new RequestError("Choose an approved media slot.");
   const slot = getSiteMediaSlot(value);
   if (!slot) throw new RequestError("That media slot is not available.");
   return slot;
@@ -150,7 +150,7 @@ export async function POST(request: Request) {
   try {
     const admin = await requireMediaAdmin();
     const formData = await request.formData();
-    const slot = requiredSlot(formData.get("mediaKey") as string | null);
+    const slot = requiredSlot(formData.get("mediaKey"));
     const client = getSupabaseAdminClient();
     const { data: previous } = await client
       .from("site_media")

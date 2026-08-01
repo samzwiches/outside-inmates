@@ -138,7 +138,6 @@ create trigger set_site_media_updated_at
 alter table public.site_media enable row level security;
 revoke all on table public.site_media from anon, authenticated;
 grant select on table public.site_media to anon, authenticated;
-grant insert, update, delete on table public.site_media to authenticated;
 grant all on table public.site_media to service_role;
 
 drop policy if exists "Public site media is readable" on public.site_media;
@@ -146,10 +145,6 @@ create policy "Public site media is readable"
   on public.site_media for select to anon, authenticated using (true);
 
 drop policy if exists "Administrators can manage site media" on public.site_media;
-create policy "Administrators can manage site media"
-  on public.site_media for all to authenticated
-  using ((select private.is_site_admin((select auth.uid()))))
-  with check ((select private.is_site_admin((select auth.uid()))));
 
 create table if not exists public.site_section_appearance (
   section_key text primary key,
@@ -197,7 +192,6 @@ create trigger set_site_section_appearance_updated_at
 alter table public.site_section_appearance enable row level security;
 revoke all on table public.site_section_appearance from anon, authenticated;
 grant select on table public.site_section_appearance to anon, authenticated;
-grant insert, update, delete on table public.site_section_appearance to authenticated;
 grant all on table public.site_section_appearance to service_role;
 
 drop policy if exists "Public section appearance is readable" on public.site_section_appearance;
@@ -205,10 +199,6 @@ create policy "Public section appearance is readable"
   on public.site_section_appearance for select to anon, authenticated using (true);
 
 drop policy if exists "Administrators can manage section appearance" on public.site_section_appearance;
-create policy "Administrators can manage section appearance"
-  on public.site_section_appearance for all to authenticated
-  using ((select private.is_site_admin((select auth.uid()))))
-  with check ((select private.is_site_admin((select auth.uid()))));
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values (
@@ -235,7 +225,3 @@ create policy "Assigned Outside Inmates media is readable"
   );
 
 drop policy if exists "Outside Inmates administrators can manage media objects" on storage.objects;
-create policy "Outside Inmates administrators can manage media objects"
-  on storage.objects for all to authenticated
-  using (bucket_id = 'site-media' and (select private.is_site_admin((select auth.uid()))))
-  with check (bucket_id = 'site-media' and (select private.is_site_admin((select auth.uid()))));

@@ -54,7 +54,7 @@ An assignment may include a primary image, optional mobile crop, alt text, capti
 - Storage paths are generated on the server from the approved media key and a UUID. The client cannot provide a path.
 - SVGs, executables, path traversal, and unapproved media keys are rejected.
 - Replaced or reset uploads are removed only if no `site_media` row still references them.
-- The `site-media` bucket is private. Public reads are allowed only for objects referenced by a public assignment. The service-role key is used only in server code.
+- The `site-media` bucket is private. Public reads are allowed only for objects referenced by a public assignment. The service-role key is used only in server code; browser users have no direct table or Storage write grants.
 
 ## Appearance scope
 
