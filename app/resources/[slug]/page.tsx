@@ -7,6 +7,7 @@ import { VerificationBadge } from "../../components/resources/VerificationBadge"
 import { SiteFooter, SiteHeader } from "../../components/layout";
 import { getCategoryName, getResourceBySlug, sampleResources } from "../../data/resources";
 import { formatReviewDate } from "../../lib/resource-search";
+import Link from "next/link";
 
 export default async function ResourceDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -21,7 +22,7 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
       <main id="main-content" className="resource-detail-page">
         <section className="resource-detail-hero">
           <div className="container">
-            <a className="back-link" href="/resources/results">← Back to search results</a>
+            <Link className="back-link" href="/resources/results">← Back to search results</Link>
             <div className="detail-hero-grid">
               <div><VerificationBadge emergency={resource.emergency} /><p className="eyebrow">{resource.city}, {resource.state} · {resource.serviceArea}</p><h1>{resource.name}</h1><p>{resource.shortDescription}</p><div className="category-tags">{resource.categories.map((category) => <span key={category}>{getCategoryName(category)}</span>)}</div></div>
               <ResourceContactPanel resource={resource} />
@@ -40,7 +41,7 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
               <ResourceDetailSection title="Documents to prepare"><ul>{resource.documentsNeeded.map((document) => <li key={document}>{document}</li>)}</ul></ResourceDetailSection>
               <ResourceDetailSection title="Accessibility and language information"><p><strong>Languages:</strong> {resource.languages.join(", ")}</p><p>{resource.accessibilityNotes}</p></ResourceDetailSection>
             </div>
-            <aside className="detail-side-notes"><p><strong>Sample review date</strong>{formatReviewDate(resource.verifiedDate)}</p><p>This is a demonstration listing. It is not independently verified.</p><a href="/resources#submit-resource">Submit a correction or update <span aria-hidden="true">→</span></a></aside>
+            <aside className="detail-side-notes"><p><strong>Sample review date</strong>{formatReviewDate(resource.verifiedDate)}</p><p>This is a demonstration listing. It is not independently verified.</p><Link href="/resources#submit-resource">Submit a correction or update <span aria-hidden="true">→</span></Link></aside>
           </div>
         </section>
         <div className="container"><ResourceDisclaimer /></div>

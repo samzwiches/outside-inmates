@@ -1,5 +1,6 @@
 import { resourceCategoryOptions, stateOptions } from "../../data/resources";
 import type { ResourceSearchFilters } from "../../lib/resource-search";
+import Link from "next/link";
 
 export function ResourceFilters({ filters }: { filters: ResourceSearchFilters }) {
   return (
@@ -38,7 +39,7 @@ export function ResourceFilters({ filters }: { filters: ResourceSearchFilters })
             <select name="sort" defaultValue={filters.sort}><option value="featured">Featured first</option><option value="reviewed">Most recently reviewed</option><option value="name">Name A–Z</option></select>
           </fieldset>
           <button className="button button-primary filter-submit" type="submit">Apply filters</button>
-          <a className="clear-filters" href="/resources/results">Clear filters</a>
+          <Link className="clear-filters" href="/resources/results">Clear filters</Link>
         </form>
       </details>
     </aside>

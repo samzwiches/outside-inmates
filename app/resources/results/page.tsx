@@ -6,6 +6,7 @@ import { ResourceSearchPanel } from "../../components/resources/ResourceSearchPa
 import { SiteFooter, SiteHeader } from "../../components/layout";
 import { sampleResources } from "../../data/resources";
 import { filterResources, hasNarrowingFilters, hasSearchCriteria, parseResourceFilters, type ResourceSearchParams } from "../../lib/resource-search";
+import Link from "next/link";
 
 export default async function ResourceResultsPage({ searchParams }: { searchParams: Promise<ResourceSearchParams> }) {
   const filters = parseResourceFilters(await searchParams);
@@ -32,7 +33,7 @@ export default async function ResourceResultsPage({ searchParams }: { searchPara
             <div className="results-layout">
               <ResourceFilters filters={filters} />
               <div className="results-content" aria-live="polite">
-                <div className="results-summary"><p>{hasCriteria ? `${results.length} demonstration ${results.length === 1 ? "resource" : "resources"} found` : "Choose a starting point to see resources"}</p>{hasCriteria && <a href="/resources/results">Clear filters</a>}</div>
+                <div className="results-summary"><p>{hasCriteria ? `${results.length} demonstration ${results.length === 1 ? "resource" : "resources"} found` : "Choose a starting point to see resources"}</p>{hasCriteria && <Link href="/resources/results">Clear filters</Link>}</div>
                 {!results.length ? <ResourceEmptyState variant={emptyVariant} /> : <div className="results-list">{results.map((resource) => <ResourceResultCard resource={resource} key={resource.id} />)}</div>}
               </div>
             </div>

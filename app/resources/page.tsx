@@ -5,6 +5,7 @@ import { PageHero } from "../components/page-hero";
 import { SectionHeading } from "../components/section-heading";
 import { SiteFooter, SiteHeader } from "../components/layout";
 import { resourceCategoryOptions, resourcePathways, sampleResources } from "../data/resources";
+import Link from "next/link";
 
 export default function ResourcesPage() {
   const featured = sampleResources.filter((resource) => resource.featured).slice(0, 3);
@@ -33,14 +34,14 @@ export default function ResourcesPage() {
           <div className="container">
             <SectionHeading eyebrow="Guided pathways" id="directory-pathway-heading" title="Start with your situation." description="When you are not sure what category fits, begin with the question that is taking up the most room right now." />
             <div className="directory-pathway-grid">
-              {resourcePathways.map((pathway, index) => <a href={pathway.href} className="directory-pathway-card" key={pathway.title}><span>0{index + 1}</span><strong>{pathway.title}</strong><small>{pathway.detail}</small><b aria-hidden="true">→</b></a>)}
+              {resourcePathways.map((pathway, index) => <Link href={pathway.href} className="directory-pathway-card" key={pathway.title}><span>0{index + 1}</span><strong>{pathway.title}</strong><small>{pathway.detail}</small><b aria-hidden="true">→</b></Link>)}
             </div>
           </div>
         </section>
 
         <section className="section directory-featured-section" aria-labelledby="featured-resource-heading">
           <div className="container">
-            <div className="section-split-heading"><SectionHeading eyebrow="Featured demonstration listings" id="featured-resource-heading" title="A few places to begin." description="These sample entries show the level of clarity we want every future listing to offer." /><a className="button button-secondary" href="/resources/results?location=41011">Browse all resources <span aria-hidden="true">→</span></a></div>
+            <div className="section-split-heading"><SectionHeading eyebrow="Featured demonstration listings" id="featured-resource-heading" title="A few places to begin." description="These sample entries show the level of clarity we want every future listing to offer." /><Link className="button button-secondary" href="/resources/results?location=41011">Browse all resources <span aria-hidden="true">→</span></Link></div>
             <div className="featured-resource-grid">{featured.map((resource) => <ResourceResultCard resource={resource} key={resource.id} />)}</div>
           </div>
         </section>

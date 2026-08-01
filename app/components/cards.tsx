@@ -1,4 +1,5 @@
 import type { ForumPost, Pathway, Resource } from "../data/site";
+import Link from "next/link";
 
 export function PathwayCard({ title, detail, accent, number }: Pathway & { number: number }) {
   return (
@@ -13,7 +14,7 @@ export function PathwayCard({ title, detail, accent, number }: Pathway & { numbe
 
 export function ResourceCard({ title, description }: Resource) {
   return (
-    <li><a className="resource-card" href="/resources"><span>{title}</span><small>{description}</small><b aria-hidden="true">↗</b></a></li>
+    <li><Link className="resource-card" href="/resources"><span>{title}</span><small>{description}</small><b aria-hidden="true">↗</b></Link></li>
   );
 }
 

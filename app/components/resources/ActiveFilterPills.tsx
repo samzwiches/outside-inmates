@@ -1,5 +1,6 @@
 import { getCategoryName } from "../../data/resources";
 import { resultsUrl, type ResourceSearchFilters } from "../../lib/resource-search";
+import Link from "next/link";
 
 export function ActiveFilterPills({ filters }: { filters: ResourceSearchFilters }) {
   const pills = [
@@ -14,5 +15,5 @@ export function ActiveFilterPills({ filters }: { filters: ResourceSearchFilters 
   ].filter(Boolean) as { label: string; href: string }[];
 
   if (!pills.length) return null;
-  return <div className="active-filter-pills" aria-label="Active filters">{pills.map((pill) => <a href={pill.href} key={`${pill.label}-${pill.href}`}>{pill.label}<span aria-hidden="true">×</span></a>)}<a className="clear-all" href="/resources/results">Clear all</a></div>;
+  return <div className="active-filter-pills" aria-label="Active filters">{pills.map((pill) => <Link href={pill.href} key={`${pill.label}-${pill.href}`}>{pill.label}<span aria-hidden="true">×</span></Link>)}<Link className="clear-all" href="/resources/results">Clear all</Link></div>;
 }
