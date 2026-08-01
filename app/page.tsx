@@ -7,7 +7,17 @@ import { SectionHeading } from "./components/section-heading";
 import { TrustStrip } from "./components/trust-strip";
 import { EditableMediaSection } from "./components/media/EditableMediaSection";
 import { forumPosts, resourceCategories } from "./data/site";
-import { journeys } from "./data/journeys";
+import { journeys, type JourneySlug } from "./data/journeys";
+import type { SiteMediaKey } from "./data/media";
+
+const homeJourneyMediaKeys: Record<JourneySlug, SiteMediaKey> = {
+  "just-arrested": "home.journey.just-arrested",
+  "currently-incarcerated": "home.journey.currently-incarcerated",
+  "coming-home": "home.journey.coming-home",
+  rebuilding: "home.journey.rebuilding",
+  "supporting-someone": "home.journey.supporting-someone",
+  "not-sure": "home.journey.not-sure",
+};
 
 export default async function Home() {
   return (
@@ -26,7 +36,7 @@ export default async function Home() {
               description="Choose the situation that feels closest to yours. You do not need to understand the system before you begin."
             />
             <div className="journey-card-grid home-journey-grid">
-              {journeys.map((journey, index) => <JourneyCard key={journey.slug} journey={journey} number={index + 1} compact />)}
+              {journeys.map((journey, index) => <JourneyCard key={journey.slug} journey={journey} number={index + 1} compact mediaKey={homeJourneyMediaKeys[journey.slug]} />)}
             </div>
             <a className="quiet-link home-journey-link" href="/start">See all guided paths <span aria-hidden="true">→</span></a>
           </div>

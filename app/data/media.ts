@@ -1,6 +1,12 @@
 export const siteMediaKeys = [
   "home.hero",
   "home.journeys",
+  "home.journey.just-arrested",
+  "home.journey.currently-incarcerated",
+  "home.journey.coming-home",
+  "home.journey.rebuilding",
+  "home.journey.supporting-someone",
+  "home.journey.not-sure",
   "home.resources",
   "home.families",
   "home.reentry",
@@ -82,6 +88,7 @@ export type SiteMediaRecord = {
   revalidationRoute: string;
   fallbackPath?: string;
   expectedLocalFilename?: string;
+  editorNote?: string;
   alt: string;
   attribution?: MediaAttribution;
   objectPositionDesktop: MediaPosition;
@@ -176,6 +183,60 @@ export const siteMediaRegistry: Record<SiteMediaKey, SiteMediaRecord> = {
     status: "manual-download-required",
   },
   "home.journeys": unassigned("home.journeys", "Home", "Guided pathways", "Home", "/", "section"),
+  "home.journey.just-arrested": {
+    ...unassigned("home.journey.just-arrested", "Home", "Just arrested pathway card", "Home", "/", "section"),
+    placement: "journey-card",
+    editorNote: "Photo only: keep headlines, labels, and calls to action out of the file. The pathway copy stays live and accessible on the card.",
+    objectPositionDesktop: { x: 50, y: 48 },
+    objectPositionMobile: { x: 50, y: 45 },
+    overlayTone: "dark",
+    overlayOpacity: 0.12,
+  },
+  "home.journey.currently-incarcerated": {
+    ...unassigned("home.journey.currently-incarcerated", "Home", "Currently incarcerated pathway card", "Home", "/", "section"),
+    placement: "journey-card",
+    editorNote: "Photo only: keep headlines, labels, and calls to action out of the file. The pathway copy stays live and accessible on the card.",
+    objectPositionDesktop: { x: 50, y: 48 },
+    objectPositionMobile: { x: 50, y: 45 },
+    overlayTone: "dark",
+    overlayOpacity: 0.12,
+  },
+  "home.journey.coming-home": {
+    ...unassigned("home.journey.coming-home", "Home", "Coming home pathway card", "Home", "/", "section"),
+    placement: "journey-card",
+    editorNote: "Photo only: keep headlines, labels, and calls to action out of the file. The pathway copy stays live and accessible on the card.",
+    objectPositionDesktop: { x: 50, y: 48 },
+    objectPositionMobile: { x: 50, y: 45 },
+    overlayTone: "dark",
+    overlayOpacity: 0.12,
+  },
+  "home.journey.rebuilding": {
+    ...unassigned("home.journey.rebuilding", "Home", "Rebuilding pathway card", "Home", "/", "section"),
+    placement: "journey-card",
+    editorNote: "Photo only: keep headlines, labels, and calls to action out of the file. The pathway copy stays live and accessible on the card.",
+    objectPositionDesktop: { x: 50, y: 48 },
+    objectPositionMobile: { x: 50, y: 45 },
+    overlayTone: "dark",
+    overlayOpacity: 0.12,
+  },
+  "home.journey.supporting-someone": {
+    ...unassigned("home.journey.supporting-someone", "Home", "Supporting someone pathway card", "Home", "/", "section"),
+    placement: "journey-card",
+    editorNote: "Photo only: keep headlines, labels, and calls to action out of the file. The pathway copy stays live and accessible on the card.",
+    objectPositionDesktop: { x: 50, y: 48 },
+    objectPositionMobile: { x: 50, y: 45 },
+    overlayTone: "dark",
+    overlayOpacity: 0.12,
+  },
+  "home.journey.not-sure": {
+    ...unassigned("home.journey.not-sure", "Home", "Not sure pathway card", "Home", "/", "section"),
+    placement: "journey-card",
+    editorNote: "Photo only: keep headlines, labels, and calls to action out of the file. The pathway copy stays live and accessible on the card.",
+    objectPositionDesktop: { x: 50, y: 48 },
+    objectPositionMobile: { x: 50, y: 45 },
+    overlayTone: "dark",
+    overlayOpacity: 0.12,
+  },
   "home.resources": unassigned("home.resources", "Home", "Resource Finder", "Home", "/", "section"),
   "home.families": unassigned("home.families", "Home", "Family support feature", "Home", "/", "section"),
   "home.reentry": unassigned("home.reentry", "Home", "Reentry support feature", "Home", "/", "section"),
