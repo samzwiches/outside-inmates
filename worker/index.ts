@@ -1,6 +1,8 @@
 /// <reference types="@cloudflare/workers-types" />
 import handler from "vinext/server/app-router-entry";
 
+type ExecutionContext = import("@cloudflare/workers-types").ExecutionContext;
+
 interface Env { ASSETS: KVNamespace; }
 
 const worker = {

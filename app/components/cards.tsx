@@ -1,7 +1,7 @@
 import type { ForumPost, Pathway, Resource } from "../data/site";
 import Link from "next/link";
 import type { SiteMediaKey } from "../data/media";
-import { appearanceStyle } from "../lib/site-appearance";
+import { appearanceStyle, getJourneyAppearanceSettings, hasMediaVisualOverrides } from "../lib/site-appearance";
 import { getSitePresentation } from "../lib/site-media-server";
 import { SiteMedia } from "./media/SiteMedia";
 
@@ -37,10 +37,12 @@ type ActionCardProps = { id: string; eyebrow: string; title: string; description
 export async function ActionCard({ id, eyebrow, title, description, action, href, theme, visual, mediaKey }: ActionCardProps) {
   const presentation = mediaKey ? await getSitePresentation(mediaKey) : null;
   const hasMedia = Boolean(presentation?.media.imagePath);
+  const hasVisualOverrides = hasMediaVisualOverrides(presentation?.appearance);
+  const visualSettings = getJourneyAppearanceSettings(presentation?.appearance);
 
   return (
-    <article className={`action-card action-${theme} ${hasMedia ? "has-site-media" : ""}`} id={id} data-media-key={mediaKey} style={appearanceStyle(presentation?.appearance)}>
-      {mediaKey && presentation && hasMedia ? <SiteMedia mediaKey={mediaKey} media={presentation.media} sizes="(max-width: 720px) 100vw, 50vw" /> : null}
+    <article className={`action-card action-${theme} ${hasMedia ? "has-site-media" : ""}`} id={id} data-media-key={mediaKey} data-media-visual-controls={hasVisualOverrides ? "true" : undefined} data-media-overlay-direction={hasVisualOverrides ? visualSettings.backgroundOverlayDirection : undefined} data-media-overlay-distribution={hasVisualOverrides ? visualSettings.backgroundOverlayDistribution : undefined} style={appearanceStyle(presentation?.appearance)}>
+      {mediaKey && presentation && hasMedia ? <SiteMedia mediaKey={mediaKey} media={presentation.media} sizes="(max-width: 720px) 100vw, 50vw" showOverlay={!hasVisualOverrides} /> : null}
       <div className="action-content">
         <p className="eyebrow">{eyebrow}</p>
         <h2>{title}</h2>

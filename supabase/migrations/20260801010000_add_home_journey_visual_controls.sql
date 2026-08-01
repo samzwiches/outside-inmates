@@ -1,4 +1,4 @@
--- Scoped visual controls for the homepage Guided pathways section.
+-- Shared visual controls for approved hero, section, and card media slots.
 -- Values stay constrained to the Media + Appearance registry and are never raw CSS.
 
 alter table public.site_section_appearance

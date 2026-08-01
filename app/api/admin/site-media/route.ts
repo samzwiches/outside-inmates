@@ -277,6 +277,7 @@ export async function DELETE(request: Request) {
     const url = new URL(request.url);
     const mediaKey = url.searchParams.get("mediaKey");
     const appearanceKey = url.searchParams.get("appearanceKey");
+    const appearanceScope = url.searchParams.get("appearanceScope");
     if (Boolean(mediaKey) === Boolean(appearanceKey)) throw new RequestError("Choose either a media reset or an appearance reset.");
     const slot = requiredSlot(mediaKey ?? appearanceKey);
     const client = getSupabaseAdminClient();
@@ -290,6 +291,41 @@ export async function DELETE(request: Request) {
       const { error } = await client.from("site_media").delete().eq("media_key", slot.key);
       if (error) throw new RequestError("The media assignment could not be reset.", 502);
       await deleteUnreferenced([previous?.storage_path, previous?.mobile_storage_path]);
+    } else if (appearanceScope) {
+      if (slot.key !== "home.journeys" || !["background", "cards"].includes(appearanceScope)) {
+        throw new RequestError("That appearance reset is not available for this location.");
+      }
+      const resetFields = appearanceScope === "background"
+        ? {
+            background_image_fit: null,
+            background_image_zoom: null,
+            background_overlay_enabled: null,
+            background_overlay_tone: null,
+            background_overlay_color: null,
+            background_overlay_opacity: null,
+            background_overlay_direction: null,
+            background_overlay_distribution: null,
+            background_blur: null,
+          }
+        : {
+            card_surface_preset: null,
+            card_surface_opacity: null,
+            card_border_tone: null,
+            card_border_opacity: null,
+            card_shadow: null,
+            card_backdrop_blur: null,
+            card_text_tone: null,
+            card_image_enabled: null,
+          };
+      const { data, error } = await client
+        .from("site_section_appearance")
+        .update(resetFields)
+        .eq("section_key", slot.key)
+        .select()
+        .maybeSingle();
+      if (error || !data) throw new RequestError("The appearance settings could not be reset.", 502);
+      revalidateSlot(slot.key);
+      return NextResponse.json({ ok: true, appearance: data });
     } else {
       const { error } = await client.from("site_section_appearance").delete().eq("section_key", slot.key);
       if (error) throw new RequestError("The appearance settings could not be reset.", 502);

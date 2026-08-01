@@ -152,7 +152,7 @@ const centered: MediaPosition = { x: 50, y: 50 };
 const allMediaFields = mediaEditorFields;
 const heroAppearanceFields = [...baseAppearanceEditorFields, ...journeyAppearanceEditorFields] as const;
 const sectionAppearanceFields = [...baseAppearanceEditorFields.filter((field) => !["hero_edge_style", "hero_edge_size"].includes(field)), ...journeyAppearanceEditorFields] as const;
-const journeySectionAppearanceFields = [...sectionAppearanceFields, ...journeyAppearanceEditorFields] as const;
+const journeySectionAppearanceFields = sectionAppearanceFields;
 
 function unassigned(
   key: SiteMediaKey,
