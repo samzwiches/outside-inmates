@@ -4,11 +4,12 @@ export type ForumPost = { title: string; category: string; replies: number; time
 
 export const navigation = [
   { label: "Resources", href: "/resources" },
-  { label: "Community", href: "#community" },
+  { label: "Start Here", href: "/start", emphasis: true },
+  { label: "Community", href: "/#community" },
   { label: "Families", href: "/families" },
-  { label: "Reentry", href: "#reentry" },
-  { label: "Ask for Help", href: "#ask-an-advocate" },
-  { label: "About", href: "#about" },
+  { label: "Reentry", href: "/start/coming-home" },
+  { label: "Ask for Help", href: "/start/not-sure" },
+  { label: "About", href: "/#about" },
 ];
 
 export const pathways: Pathway[] = [

@@ -1,17 +1,18 @@
 import { footerLinks, navigation } from "../data/site";
+import Link from "next/link";
 import { PrimaryButton } from "./buttons";
 
 export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <a className="wordmark" href="#main-content" aria-label="Outside Inmates home">Outside <em>Inmates</em></a>
+        <Link className="wordmark" href="/" aria-label="Outside Inmates home">Outside <em>Inmates</em></Link>
         <nav className="main-nav" aria-label="Primary navigation">
-          {navigation.map((item) => <a key={item.label} href={item.href}>{item.label}</a>)}
+          {navigation.map((item) => <Link className={item.emphasis ? "nav-start" : undefined} key={item.label} href={item.href}>{item.label}</Link>)}
         </nav>
         <div className="header-actions">
           <button className="sign-in" type="button" disabled title="Sign in is not available yet">Sign In</button>
-          <PrimaryButton href="#ask-an-advocate">Get Help</PrimaryButton>
+          <PrimaryButton href="/start/not-sure">Get Help</PrimaryButton>
         </div>
       </div>
     </header>
@@ -23,7 +24,7 @@ export function SiteFooter() {
     <footer className="site-footer" id="site-footer">
       <div className="container footer-top">
         <div className="footer-intro">
-          <a className="wordmark footer-wordmark" href="#main-content">Outside <em>Inmates</em></a>
+          <Link className="wordmark footer-wordmark" href="/">Outside <em>Inmates</em></Link>
           <p>A clearer path through incarceration and reentry—for individuals, families, and the people who stand beside them.</p>
         </div>
         <nav className="footer-links" aria-label="Footer navigation">

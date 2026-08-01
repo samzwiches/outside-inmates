@@ -1,10 +1,12 @@
-import { ActionCard, ForumPreviewCard, PathwayCard, ResourceCard } from "./components/cards";
+import { ActionCard, ForumPreviewCard, ResourceCard } from "./components/cards";
 import { PrimaryButton, SecondaryButton } from "./components/buttons";
+import { JourneyCard } from "./components/journeys/JourneyCard";
 import { SiteFooter, SiteHeader } from "./components/layout";
 import { PageHero } from "./components/page-hero";
 import { SectionHeading } from "./components/section-heading";
 import { TrustStrip } from "./components/trust-strip";
-import { forumPosts, pathways, resourceCategories } from "./data/site";
+import { forumPosts, resourceCategories } from "./data/site";
+import { journeys } from "./data/journeys";
 
 export default function Home() {
   return (
@@ -14,17 +16,18 @@ export default function Home() {
       <main id="main-content">
         <PageHero />
 
-        <section className="section section-pathways" aria-labelledby="start-here-heading">
+        <section className="section section-pathways home-journey-section" aria-labelledby="start-here-heading">
           <div className="container">
             <SectionHeading
               eyebrow="Start here"
               id="start-here-heading"
-              title="Start where you are."
-              description="You do not need to know the right system, form, agency, or phrase. Choose the situation that feels closest to yours."
+              title="Where are you today?"
+              description="Choose the situation that feels closest to yours. You do not need to understand the system before you begin."
             />
-            <div className="pathway-grid">
-              {pathways.map((pathway, index) => <PathwayCard key={pathway.title} number={index + 1} {...pathway} />)}
+            <div className="journey-card-grid home-journey-grid">
+              {journeys.map((journey, index) => <JourneyCard key={journey.slug} journey={journey} number={index + 1} compact />)}
             </div>
+            <a className="quiet-link home-journey-link" href="/start">See all guided paths <span aria-hidden="true">→</span></a>
           </div>
         </section>
 
