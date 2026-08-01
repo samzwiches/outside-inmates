@@ -1,5 +1,6 @@
 import { PrimaryButton, SecondaryButton } from "./buttons";
 import type { SiteMediaKey } from "../data/media";
+import { resolveSiteMedia } from "../data/media";
 import { EditablePageHero } from "./media/EditablePageHero";
 import { SiteMedia } from "./media/SiteMedia";
 
@@ -26,9 +27,12 @@ export function PageHero({ variant = "home", eyebrow, title, description, childr
     );
   }
 
+  const homeMediaKey = mediaKey ?? "home.hero";
+  const hasHomeMedia = Boolean(resolveSiteMedia(homeMediaKey).imagePath);
+
   return (
     <section className="hero" aria-labelledby="hero-heading">
-      <div className="container hero-grid">
+      <div className={`container hero-grid ${hasHomeMedia ? "" : "hero-grid--no-media"}`}>
         <div className="hero-copy">
           <p className="eyebrow">Resources · community · a steadier way forward</p>
           <h1 className="hero-title" id="hero-heading">Support does not stop at the prison gate.</h1>
@@ -39,7 +43,7 @@ export function PageHero({ variant = "home", eyebrow, title, description, childr
           </div>
           <a className="quiet-link" href="#ask-an-advocate">or ask for help <span aria-hidden="true">→</span></a>
         </div>
-        <SiteMedia mediaKey={mediaKey ?? "home.hero"} sizes="(max-width: 720px) 100vw, (max-width: 1080px) 42vw, 520px" priority reserveSpaceWhenEmpty showCredit />
+        {hasHomeMedia ? <SiteMedia mediaKey={homeMediaKey} sizes="(max-width: 720px) 100vw, (max-width: 1080px) 42vw, 520px" priority showCredit /> : null}
       </div>
     </section>
   );

@@ -1,0 +1,753 @@
+- main [ref=e2]:
+  - generic [ref=e3]:
+    - paragraph [ref=e4]: Local development only
+    - heading "Media desk" [level=1] [ref=e5]
+    - paragraph [ref=e6]: This is a read-only preview of Outside Inmates' typed media registry. Assigning files, changing credits, or saving crop settings is intentionally disabled until administrator authentication and persistent media storage are connected.
+    - status [ref=e7]:
+      - strong [ref=e8]: "Production safeguard:"
+      - text: this route returns a not-found response in production. It is not a public editing surface.
+    - generic [ref=e9]:
+      - text: Find a media location
+      - searchbox "Find a media location" [ref=e10]
+    - paragraph [ref=e11]: 20 of 20 media locations shown
+    - generic [ref=e12]:
+      - article [ref=e13]:
+        - generic [ref=e14]:
+          - generic [ref=e15]:
+            - paragraph [ref=e16]: Home
+            - heading "home.hero" [level=2] [ref=e17]
+            - paragraph [ref=e18]: Homepage hero
+          - generic [ref=e19]: manual download required
+        - 'figure "Desktop crop target: 62% across, 50% down." [ref=e20]'
+        - generic [ref=e25]:
+          - generic [ref=e26]:
+            - term [ref=e27]: Fallback
+            - definition [ref=e28]: public/media/home-hero-doorway.jpg
+          - generic [ref=e29]:
+            - term [ref=e30]: Mobile crop
+            - definition [ref=e31]: 68% across, 50% down · shown
+          - generic [ref=e32]:
+            - term [ref=e33]: Overlay
+            - definition [ref=e34]: ink, bottom, 16%
+          - generic [ref=e35]:
+            - term [ref=e36]: Attribution
+            - definition [ref=e37]: Alexander Mass / Unsplash
+        - group "Saved media controls" [ref=e38]:
+          - generic [ref=e40]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e41]: /media/home-hero-doorway.jpg
+          - generic [ref=e42]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e43]: An open doorway leading from a shaded room to a sunlit backyard.
+          - generic [ref=e44]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e45]: Alexander Mass
+          - generic [ref=e46]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e47]: Unsplash · Unsplash License
+          - generic [ref=e48]:
+            - button "Assign or replace image" [disabled] [ref=e49]
+            - button "Restore fallback" [disabled] [ref=e50]
+      - article [ref=e51]:
+        - generic [ref=e52]:
+          - generic [ref=e53]:
+            - paragraph [ref=e54]: Home
+            - heading "home.journeys" [level=2] [ref=e55]
+            - paragraph [ref=e56]: Guided pathways
+          - generic [ref=e57]: unassigned
+        - 'figure "Desktop crop target: 50% across, 50% down." [ref=e58]'
+        - generic [ref=e63]:
+          - generic [ref=e64]:
+            - term [ref=e65]: Fallback
+            - definition [ref=e66]: No source-controlled fallback selected
+          - generic [ref=e67]:
+            - term [ref=e68]: Mobile crop
+            - definition [ref=e69]: 50% across, 50% down · shown
+          - generic [ref=e70]:
+            - term [ref=e71]: Overlay
+            - definition [ref=e72]: "Off"
+          - generic [ref=e73]:
+            - term [ref=e74]: Attribution
+            - definition [ref=e75]: Not set
+        - group "Saved media controls" [ref=e76]:
+          - generic [ref=e78]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e79]: No image assigned
+          - generic [ref=e80]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e81]
+          - generic [ref=e82]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e83]
+          - generic [ref=e84]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e85]
+          - generic [ref=e86]:
+            - button "Assign or replace image" [disabled] [ref=e87]
+            - button "Restore fallback" [disabled] [ref=e88]
+      - article [ref=e89]:
+        - generic [ref=e90]:
+          - generic [ref=e91]:
+            - paragraph [ref=e92]: Home
+            - heading "home.resources" [level=2] [ref=e93]
+            - paragraph [ref=e94]: Resource Finder
+          - generic [ref=e95]: unassigned
+        - 'figure "Desktop crop target: 50% across, 50% down." [ref=e96]'
+        - generic [ref=e101]:
+          - generic [ref=e102]:
+            - term [ref=e103]: Fallback
+            - definition [ref=e104]: No source-controlled fallback selected
+          - generic [ref=e105]:
+            - term [ref=e106]: Mobile crop
+            - definition [ref=e107]: 50% across, 50% down · shown
+          - generic [ref=e108]:
+            - term [ref=e109]: Overlay
+            - definition [ref=e110]: "Off"
+          - generic [ref=e111]:
+            - term [ref=e112]: Attribution
+            - definition [ref=e113]: Not set
+        - group "Saved media controls" [ref=e114]:
+          - generic [ref=e116]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e117]: No image assigned
+          - generic [ref=e118]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e119]
+          - generic [ref=e120]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e121]
+          - generic [ref=e122]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e123]
+          - generic [ref=e124]:
+            - button "Assign or replace image" [disabled] [ref=e125]
+            - button "Restore fallback" [disabled] [ref=e126]
+      - article [ref=e127]:
+        - generic [ref=e128]:
+          - generic [ref=e129]:
+            - paragraph [ref=e130]: Home
+            - heading "home.families" [level=2] [ref=e131]
+            - paragraph [ref=e132]: Family support feature
+          - generic [ref=e133]: unassigned
+        - 'figure "Desktop crop target: 50% across, 50% down." [ref=e134]'
+        - generic [ref=e139]:
+          - generic [ref=e140]:
+            - term [ref=e141]: Fallback
+            - definition [ref=e142]: No source-controlled fallback selected
+          - generic [ref=e143]:
+            - term [ref=e144]: Mobile crop
+            - definition [ref=e145]: 50% across, 50% down · shown
+          - generic [ref=e146]:
+            - term [ref=e147]: Overlay
+            - definition [ref=e148]: "Off"
+          - generic [ref=e149]:
+            - term [ref=e150]: Attribution
+            - definition [ref=e151]: Not set
+        - group "Saved media controls" [ref=e152]:
+          - generic [ref=e154]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e155]: No image assigned
+          - generic [ref=e156]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e157]
+          - generic [ref=e158]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e159]
+          - generic [ref=e160]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e161]
+          - generic [ref=e162]:
+            - button "Assign or replace image" [disabled] [ref=e163]
+            - button "Restore fallback" [disabled] [ref=e164]
+      - article [ref=e165]:
+        - generic [ref=e166]:
+          - generic [ref=e167]:
+            - paragraph [ref=e168]: Home
+            - heading "home.reentry" [level=2] [ref=e169]
+            - paragraph [ref=e170]: Reentry support feature
+          - generic [ref=e171]: unassigned
+        - 'figure "Desktop crop target: 50% across, 50% down." [ref=e172]'
+        - generic [ref=e177]:
+          - generic [ref=e178]:
+            - term [ref=e179]: Fallback
+            - definition [ref=e180]: No source-controlled fallback selected
+          - generic [ref=e181]:
+            - term [ref=e182]: Mobile crop
+            - definition [ref=e183]: 50% across, 50% down · shown
+          - generic [ref=e184]:
+            - term [ref=e185]: Overlay
+            - definition [ref=e186]: "Off"
+          - generic [ref=e187]:
+            - term [ref=e188]: Attribution
+            - definition [ref=e189]: Not set
+        - group "Saved media controls" [ref=e190]:
+          - generic [ref=e192]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e193]: No image assigned
+          - generic [ref=e194]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e195]
+          - generic [ref=e196]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e197]
+          - generic [ref=e198]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e199]
+          - generic [ref=e200]:
+            - button "Assign or replace image" [disabled] [ref=e201]
+            - button "Restore fallback" [disabled] [ref=e202]
+      - article [ref=e203]:
+        - generic [ref=e204]:
+          - generic [ref=e205]:
+            - paragraph [ref=e206]: Resources
+            - heading "resources.hero" [level=2] [ref=e207]
+            - paragraph [ref=e208]: Resource Finder hero
+          - generic [ref=e209]: manual download required
+        - 'figure "Desktop crop target: 64% across, 52% down." [ref=e210]'
+        - generic [ref=e215]:
+          - generic [ref=e216]:
+            - term [ref=e217]: Fallback
+            - definition [ref=e218]: public/media/resources-hero-documents.jpg
+          - generic [ref=e219]:
+            - term [ref=e220]: Mobile crop
+            - definition [ref=e221]: 61% across, 50% down · shown
+          - generic [ref=e222]:
+            - term [ref=e223]: Overlay
+            - definition [ref=e224]: paper, left, 30%
+          - generic [ref=e225]:
+            - term [ref=e226]: Attribution
+            - definition [ref=e227]: Olena Kholina / Unsplash
+        - group "Saved media controls" [ref=e228]:
+          - generic [ref=e230]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e231]: /media/resources-hero-documents.jpg
+          - generic [ref=e232]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e233]: Two people reviewing papers together at a table.
+          - generic [ref=e234]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e235]: Olena Kholina
+          - generic [ref=e236]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e237]: Unsplash · Unsplash License
+          - generic [ref=e238]:
+            - button "Assign or replace image" [disabled] [ref=e239]
+            - button "Restore fallback" [disabled] [ref=e240]
+      - article [ref=e241]:
+        - generic [ref=e242]:
+          - generic [ref=e243]:
+            - paragraph [ref=e244]: Families
+            - heading "families.hero" [level=2] [ref=e245]
+            - paragraph [ref=e246]: Family Support hero
+          - generic [ref=e247]: manual download required
+        - 'figure "Desktop crop target: 62% across, 48% down." [ref=e248]'
+        - generic [ref=e253]:
+          - generic [ref=e254]:
+            - term [ref=e255]: Fallback
+            - definition [ref=e256]: public/media/families-hero-table.jpg
+          - generic [ref=e257]:
+            - term [ref=e258]: Mobile crop
+            - definition [ref=e259]: 60% across, 50% down · shown
+          - generic [ref=e260]:
+            - term [ref=e261]: Overlay
+            - definition [ref=e262]: paper, left, 28%
+          - generic [ref=e263]:
+            - term [ref=e264]: Attribution
+            - definition [ref=e265]: olia danilevich / Pexels
+        - group "Saved media controls" [ref=e266]:
+          - generic [ref=e268]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e269]: /media/families-hero-table.jpg
+          - generic [ref=e270]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e271]: A family sitting together at a table.
+          - generic [ref=e272]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e273]: olia danilevich
+          - generic [ref=e274]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e275]: Pexels · Pexels License
+          - generic [ref=e276]:
+            - button "Assign or replace image" [disabled] [ref=e277]
+            - button "Restore fallback" [disabled] [ref=e278]
+      - article [ref=e279]:
+        - generic [ref=e280]:
+          - generic [ref=e281]:
+            - paragraph [ref=e282]: Families
+            - heading "families.children" [level=2] [ref=e283]
+            - paragraph [ref=e284]: Children guide hero
+          - generic [ref=e285]: unassigned
+        - 'figure "Desktop crop target: 50% across, 50% down." [ref=e286]'
+        - generic [ref=e291]:
+          - generic [ref=e292]:
+            - term [ref=e293]: Fallback
+            - definition [ref=e294]: No source-controlled fallback selected
+          - generic [ref=e295]:
+            - term [ref=e296]: Mobile crop
+            - definition [ref=e297]: 50% across, 50% down · shown
+          - generic [ref=e298]:
+            - term [ref=e299]: Overlay
+            - definition [ref=e300]: "Off"
+          - generic [ref=e301]:
+            - term [ref=e302]: Attribution
+            - definition [ref=e303]: Not set
+        - group "Saved media controls" [ref=e304]:
+          - generic [ref=e306]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e307]: No image assigned
+          - generic [ref=e308]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e309]
+          - generic [ref=e310]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e311]
+          - generic [ref=e312]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e313]
+          - generic [ref=e314]:
+            - button "Assign or replace image" [disabled] [ref=e315]
+            - button "Restore fallback" [disabled] [ref=e316]
+      - article [ref=e317]:
+        - generic [ref=e318]:
+          - generic [ref=e319]:
+            - paragraph [ref=e320]: Families
+            - heading "families.visitation" [level=2] [ref=e321]
+            - paragraph [ref=e322]: Visitation guide hero
+          - generic [ref=e323]: unassigned
+        - 'figure "Desktop crop target: 50% across, 50% down." [ref=e324]'
+        - generic [ref=e329]:
+          - generic [ref=e330]:
+            - term [ref=e331]: Fallback
+            - definition [ref=e332]: No source-controlled fallback selected
+          - generic [ref=e333]:
+            - term [ref=e334]: Mobile crop
+            - definition [ref=e335]: 50% across, 50% down · shown
+          - generic [ref=e336]:
+            - term [ref=e337]: Overlay
+            - definition [ref=e338]: "Off"
+          - generic [ref=e339]:
+            - term [ref=e340]: Attribution
+            - definition [ref=e341]: Not set
+        - group "Saved media controls" [ref=e342]:
+          - generic [ref=e344]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e345]: No image assigned
+          - generic [ref=e346]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e347]
+          - generic [ref=e348]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e349]
+          - generic [ref=e350]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e351]
+          - generic [ref=e352]:
+            - button "Assign or replace image" [disabled] [ref=e353]
+            - button "Restore fallback" [disabled] [ref=e354]
+      - article [ref=e355]:
+        - generic [ref=e356]:
+          - generic [ref=e357]:
+            - paragraph [ref=e358]: Families
+            - heading "families.emotional-support" [level=2] [ref=e359]
+            - paragraph [ref=e360]: Emotional support guide hero
+          - generic [ref=e361]: unassigned
+        - 'figure "Desktop crop target: 50% across, 50% down." [ref=e362]'
+        - generic [ref=e367]:
+          - generic [ref=e368]:
+            - term [ref=e369]: Fallback
+            - definition [ref=e370]: No source-controlled fallback selected
+          - generic [ref=e371]:
+            - term [ref=e372]: Mobile crop
+            - definition [ref=e373]: 50% across, 50% down · shown
+          - generic [ref=e374]:
+            - term [ref=e375]: Overlay
+            - definition [ref=e376]: "Off"
+          - generic [ref=e377]:
+            - term [ref=e378]: Attribution
+            - definition [ref=e379]: Not set
+        - group "Saved media controls" [ref=e380]:
+          - generic [ref=e382]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e383]: No image assigned
+          - generic [ref=e384]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e385]
+          - generic [ref=e386]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e387]
+          - generic [ref=e388]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e389]
+          - generic [ref=e390]:
+            - button "Assign or replace image" [disabled] [ref=e391]
+            - button "Restore fallback" [disabled] [ref=e392]
+      - article [ref=e393]:
+        - generic [ref=e394]:
+          - generic [ref=e395]:
+            - paragraph [ref=e396]: Reentry
+            - heading "reentry.hero" [level=2] [ref=e397]
+            - paragraph [ref=e398]: Reentry landing hero
+          - generic [ref=e399]: unassigned
+        - 'figure "Desktop crop target: 50% across, 50% down." [ref=e400]'
+        - generic [ref=e405]:
+          - generic [ref=e406]:
+            - term [ref=e407]: Fallback
+            - definition [ref=e408]: No source-controlled fallback selected
+          - generic [ref=e409]:
+            - term [ref=e410]: Mobile crop
+            - definition [ref=e411]: 50% across, 50% down · shown
+          - generic [ref=e412]:
+            - term [ref=e413]: Overlay
+            - definition [ref=e414]: "Off"
+          - generic [ref=e415]:
+            - term [ref=e416]: Attribution
+            - definition [ref=e417]: Not set
+        - group "Saved media controls" [ref=e418]:
+          - generic [ref=e420]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e421]: No image assigned
+          - generic [ref=e422]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e423]
+          - generic [ref=e424]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e425]
+          - generic [ref=e426]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e427]
+          - generic [ref=e428]:
+            - button "Assign or replace image" [disabled] [ref=e429]
+            - button "Restore fallback" [disabled] [ref=e430]
+      - article [ref=e431]:
+        - generic [ref=e432]:
+          - generic [ref=e433]:
+            - paragraph [ref=e434]: Reentry
+            - heading "reentry.documents" [level=2] [ref=e435]
+            - paragraph [ref=e436]: Documents guide hero
+          - generic [ref=e437]: unassigned
+        - 'figure "Desktop crop target: 50% across, 50% down." [ref=e438]'
+        - generic [ref=e443]:
+          - generic [ref=e444]:
+            - term [ref=e445]: Fallback
+            - definition [ref=e446]: No source-controlled fallback selected
+          - generic [ref=e447]:
+            - term [ref=e448]: Mobile crop
+            - definition [ref=e449]: 50% across, 50% down · shown
+          - generic [ref=e450]:
+            - term [ref=e451]: Overlay
+            - definition [ref=e452]: "Off"
+          - generic [ref=e453]:
+            - term [ref=e454]: Attribution
+            - definition [ref=e455]: Not set
+        - group "Saved media controls" [ref=e456]:
+          - generic [ref=e458]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e459]: No image assigned
+          - generic [ref=e460]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e461]
+          - generic [ref=e462]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e463]
+          - generic [ref=e464]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e465]
+          - generic [ref=e466]:
+            - button "Assign or replace image" [disabled] [ref=e467]
+            - button "Restore fallback" [disabled] [ref=e468]
+      - article [ref=e469]:
+        - generic [ref=e470]:
+          - generic [ref=e471]:
+            - paragraph [ref=e472]: Reentry
+            - heading "reentry.housing" [level=2] [ref=e473]
+            - paragraph [ref=e474]: Housing guide hero
+          - generic [ref=e475]: unassigned
+        - 'figure "Desktop crop target: 50% across, 50% down." [ref=e476]'
+        - generic [ref=e481]:
+          - generic [ref=e482]:
+            - term [ref=e483]: Fallback
+            - definition [ref=e484]: No source-controlled fallback selected
+          - generic [ref=e485]:
+            - term [ref=e486]: Mobile crop
+            - definition [ref=e487]: 50% across, 50% down · shown
+          - generic [ref=e488]:
+            - term [ref=e489]: Overlay
+            - definition [ref=e490]: "Off"
+          - generic [ref=e491]:
+            - term [ref=e492]: Attribution
+            - definition [ref=e493]: Not set
+        - group "Saved media controls" [ref=e494]:
+          - generic [ref=e496]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e497]: No image assigned
+          - generic [ref=e498]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e499]
+          - generic [ref=e500]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e501]
+          - generic [ref=e502]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e503]
+          - generic [ref=e504]:
+            - button "Assign or replace image" [disabled] [ref=e505]
+            - button "Restore fallback" [disabled] [ref=e506]
+      - article [ref=e507]:
+        - generic [ref=e508]:
+          - generic [ref=e509]:
+            - paragraph [ref=e510]: Reentry
+            - heading "reentry.employment" [level=2] [ref=e511]
+            - paragraph [ref=e512]: Employment guide hero
+          - generic [ref=e513]: unassigned
+        - 'figure "Desktop crop target: 50% across, 50% down." [ref=e514]'
+        - generic [ref=e519]:
+          - generic [ref=e520]:
+            - term [ref=e521]: Fallback
+            - definition [ref=e522]: No source-controlled fallback selected
+          - generic [ref=e523]:
+            - term [ref=e524]: Mobile crop
+            - definition [ref=e525]: 50% across, 50% down · shown
+          - generic [ref=e526]:
+            - term [ref=e527]: Overlay
+            - definition [ref=e528]: "Off"
+          - generic [ref=e529]:
+            - term [ref=e530]: Attribution
+            - definition [ref=e531]: Not set
+        - group "Saved media controls" [ref=e532]:
+          - generic [ref=e534]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e535]: No image assigned
+          - generic [ref=e536]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e537]
+          - generic [ref=e538]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e539]
+          - generic [ref=e540]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e541]
+          - generic [ref=e542]:
+            - button "Assign or replace image" [disabled] [ref=e543]
+            - button "Restore fallback" [disabled] [ref=e544]
+      - article [ref=e545]:
+        - generic [ref=e546]:
+          - generic [ref=e547]:
+            - paragraph [ref=e548]: Reentry
+            - heading "reentry.health" [level=2] [ref=e549]
+            - paragraph [ref=e550]: Health guide hero
+          - generic [ref=e551]: unassigned
+        - 'figure "Desktop crop target: 50% across, 50% down." [ref=e552]'
+        - generic [ref=e557]:
+          - generic [ref=e558]:
+            - term [ref=e559]: Fallback
+            - definition [ref=e560]: No source-controlled fallback selected
+          - generic [ref=e561]:
+            - term [ref=e562]: Mobile crop
+            - definition [ref=e563]: 50% across, 50% down · shown
+          - generic [ref=e564]:
+            - term [ref=e565]: Overlay
+            - definition [ref=e566]: "Off"
+          - generic [ref=e567]:
+            - term [ref=e568]: Attribution
+            - definition [ref=e569]: Not set
+        - group "Saved media controls" [ref=e570]:
+          - generic [ref=e572]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e573]: No image assigned
+          - generic [ref=e574]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e575]
+          - generic [ref=e576]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e577]
+          - generic [ref=e578]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e579]
+          - generic [ref=e580]:
+            - button "Assign or replace image" [disabled] [ref=e581]
+            - button "Restore fallback" [disabled] [ref=e582]
+      - article [ref=e583]:
+        - generic [ref=e584]:
+          - generic [ref=e585]:
+            - paragraph [ref=e586]: Reentry
+            - heading "reentry.family-transition" [level=2] [ref=e587]
+            - paragraph [ref=e588]: Family transition guide hero
+          - generic [ref=e589]: unassigned
+        - 'figure "Desktop crop target: 50% across, 50% down." [ref=e590]'
+        - generic [ref=e595]:
+          - generic [ref=e596]:
+            - term [ref=e597]: Fallback
+            - definition [ref=e598]: No source-controlled fallback selected
+          - generic [ref=e599]:
+            - term [ref=e600]: Mobile crop
+            - definition [ref=e601]: 50% across, 50% down · shown
+          - generic [ref=e602]:
+            - term [ref=e603]: Overlay
+            - definition [ref=e604]: "Off"
+          - generic [ref=e605]:
+            - term [ref=e606]: Attribution
+            - definition [ref=e607]: Not set
+        - group "Saved media controls" [ref=e608]:
+          - generic [ref=e610]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e611]: No image assigned
+          - generic [ref=e612]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e613]
+          - generic [ref=e614]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e615]
+          - generic [ref=e616]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e617]
+          - generic [ref=e618]:
+            - button "Assign or replace image" [disabled] [ref=e619]
+            - button "Restore fallback" [disabled] [ref=e620]
+      - article [ref=e621]:
+        - generic [ref=e622]:
+          - generic [ref=e623]:
+            - paragraph [ref=e624]: Start Here
+            - heading "start.hero" [level=2] [ref=e625]
+            - paragraph [ref=e626]: Start Here hero
+          - generic [ref=e627]: unassigned
+        - 'figure "Desktop crop target: 50% across, 50% down." [ref=e628]'
+        - generic [ref=e633]:
+          - generic [ref=e634]:
+            - term [ref=e635]: Fallback
+            - definition [ref=e636]: No source-controlled fallback selected
+          - generic [ref=e637]:
+            - term [ref=e638]: Mobile crop
+            - definition [ref=e639]: 50% across, 50% down · shown
+          - generic [ref=e640]:
+            - term [ref=e641]: Overlay
+            - definition [ref=e642]: "Off"
+          - generic [ref=e643]:
+            - term [ref=e644]: Attribution
+            - definition [ref=e645]: Not set
+        - group "Saved media controls" [ref=e646]:
+          - generic [ref=e648]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e649]: No image assigned
+          - generic [ref=e650]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e651]
+          - generic [ref=e652]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e653]
+          - generic [ref=e654]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e655]
+          - generic [ref=e656]:
+            - button "Assign or replace image" [disabled] [ref=e657]
+            - button "Restore fallback" [disabled] [ref=e658]
+      - article [ref=e659]:
+        - generic [ref=e660]:
+          - generic [ref=e661]:
+            - paragraph [ref=e662]: About
+            - heading "about.hero" [level=2] [ref=e663]
+            - paragraph [ref=e664]: About hero
+          - generic [ref=e665]: unassigned
+        - 'figure "Desktop crop target: 50% across, 50% down." [ref=e666]'
+        - generic [ref=e671]:
+          - generic [ref=e672]:
+            - term [ref=e673]: Fallback
+            - definition [ref=e674]: No source-controlled fallback selected
+          - generic [ref=e675]:
+            - term [ref=e676]: Mobile crop
+            - definition [ref=e677]: 50% across, 50% down · shown
+          - generic [ref=e678]:
+            - term [ref=e679]: Overlay
+            - definition [ref=e680]: "Off"
+          - generic [ref=e681]:
+            - term [ref=e682]: Attribution
+            - definition [ref=e683]: Not set
+        - group "Saved media controls" [ref=e684]:
+          - generic [ref=e686]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e687]: No image assigned
+          - generic [ref=e688]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e689]
+          - generic [ref=e690]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e691]
+          - generic [ref=e692]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e693]
+          - generic [ref=e694]:
+            - button "Assign or replace image" [disabled] [ref=e695]
+            - button "Restore fallback" [disabled] [ref=e696]
+      - article [ref=e697]:
+        - generic [ref=e698]:
+          - generic [ref=e699]:
+            - paragraph [ref=e700]: Community
+            - heading "community.hero" [level=2] [ref=e701]
+            - paragraph [ref=e702]: Community hero
+          - generic [ref=e703]: unassigned
+        - 'figure "Desktop crop target: 50% across, 50% down." [ref=e704]'
+        - generic [ref=e709]:
+          - generic [ref=e710]:
+            - term [ref=e711]: Fallback
+            - definition [ref=e712]: No source-controlled fallback selected
+          - generic [ref=e713]:
+            - term [ref=e714]: Mobile crop
+            - definition [ref=e715]: 50% across, 50% down · shown
+          - generic [ref=e716]:
+            - term [ref=e717]: Overlay
+            - definition [ref=e718]: "Off"
+          - generic [ref=e719]:
+            - term [ref=e720]: Attribution
+            - definition [ref=e721]: Not set
+        - group "Saved media controls" [ref=e722]:
+          - generic [ref=e724]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e725]: No image assigned
+          - generic [ref=e726]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e727]
+          - generic [ref=e728]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e729]
+          - generic [ref=e730]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e731]
+          - generic [ref=e732]:
+            - button "Assign or replace image" [disabled] [ref=e733]
+            - button "Restore fallback" [disabled] [ref=e734]
+      - article [ref=e735]:
+        - generic [ref=e736]:
+          - generic [ref=e737]:
+            - paragraph [ref=e738]: Ask for Help
+            - heading "ask-for-help.hero" [level=2] [ref=e739]
+            - paragraph [ref=e740]: Advocacy hero
+          - generic [ref=e741]: manual download required
+        - 'figure "Desktop crop target: 56% across, 50% down." [ref=e742]'
+        - generic [ref=e747]:
+          - generic [ref=e748]:
+            - term [ref=e749]: Fallback
+            - definition [ref=e750]: public/media/ask-for-help-hero-writing.jpg
+          - generic [ref=e751]:
+            - term [ref=e752]: Mobile crop
+            - definition [ref=e753]: 58% across, 50% down · shown
+          - generic [ref=e754]:
+            - term [ref=e755]: Overlay
+            - definition [ref=e756]: paper, left, 26%
+          - generic [ref=e757]:
+            - term [ref=e758]: Attribution
+            - definition [ref=e759]: Monica Melton / Unsplash
+        - group "Saved media controls" [ref=e760]:
+          - generic [ref=e762]:
+            - text: Image assignment
+            - textbox "Image assignment" [disabled] [ref=e763]: /media/ask-for-help-hero-writing.jpg
+          - generic [ref=e764]:
+            - text: Alt text
+            - textbox "Alt text" [disabled] [ref=e765]: A person writing at a table with materials nearby.
+          - generic [ref=e766]:
+            - text: Credit
+            - textbox "Credit" [disabled] [ref=e767]: Monica Melton
+          - generic [ref=e768]:
+            - text: Source and license
+            - textbox "Source and license" [disabled] [ref=e769]: Unsplash · Unsplash License
+          - generic [ref=e770]:
+            - button "Assign or replace image" [disabled] [ref=e771]
+            - button "Restore fallback" [disabled] [ref=e772]
