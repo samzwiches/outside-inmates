@@ -36,6 +36,7 @@ type ResourceRow = {
   remote_services: boolean | null;
   free_or_low_cost: boolean | null;
   service_area_type: string | null;
+  is_demonstration: boolean | null;
   published: boolean | null;
   status: string | null;
 };
@@ -114,6 +115,7 @@ export async function getPublishedResources(): Promise<ResourceData[]> {
     .select("*")
     .eq("published", true)
     .eq("status", "published")
+    .eq("is_demonstration", false)
     .order("featured", { ascending: false })
     .order("verified_date", { ascending: false });
 
