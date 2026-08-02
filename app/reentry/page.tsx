@@ -9,8 +9,7 @@ import { SiteFooter, SiteHeader } from "../components/layout";
 import { PageHero } from "../components/page-hero";
 import { SectionHeading } from "../components/section-heading";
 import { comprehensiveReentryChecklist, reentryGuides, reentryPathways, reentryPriorityGroups, reentryResourceCategories } from "../data/reentry";
-import { sampleResources } from "../data/resources";
-
+import { getPublishedResources } from "../lib/resources-server";
 export const metadata: Metadata = { title: "Reentry Support | Outside Inmates", description: "Practical, respectful guidance for release preparation and the days, weeks, and months after incarceration." };
 
 export default function ReentryPage() {
