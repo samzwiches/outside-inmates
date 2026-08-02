@@ -2,6 +2,7 @@ node_modules/
 .next/
 .wrangler/
 dist/
+.playwright-cli/
 *.tsbuildinfo
 .DS_Store
 .env*

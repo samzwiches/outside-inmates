@@ -99,7 +99,6 @@ export type ResourceData = {
   featured: boolean;
   emergency: boolean;
   remoteServices: boolean;
-  isDemonstration: boolean;
 };
 
 export const resourcePathways = [

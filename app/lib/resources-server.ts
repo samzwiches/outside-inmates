@@ -36,7 +36,6 @@ type ResourceRow = {
   remote_services: boolean | null;
   free_or_low_cost: boolean | null;
   service_area_type: string | null;
-  is_demonstration: boolean | null;
   published: boolean | null;
   status: string | null;
 };
@@ -99,7 +98,6 @@ function mapResourceRow(row: ResourceRow): ResourceData {
     featured: Boolean(row.featured),
     emergency: Boolean(row.emergency),
     remoteServices: Boolean(row.remote_services),
-    isDemonstration: Boolean(row.is_demonstration),
   };
 }
 

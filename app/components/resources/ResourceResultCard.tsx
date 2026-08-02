@@ -14,11 +14,11 @@ export function ResourceResultCard({ resource }: { resource: ResourceData }) {
       <dl className="result-facts">
         <div><dt>Who it is for</dt><dd>{resource.eligibility}</dd></div>
         <div><dt>Cost</dt><dd>{resource.cost}</dd></div>
-        <div><dt>Sample review</dt><dd>{formatReviewDate(resource.verifiedDate)}</dd></div>
+        <div><dt>Last reviewed</dt><dd>{formatReviewDate(resource.verifiedDate)}</dd></div>
       </dl>
       <div className="result-actions">
-        {resource.phone && <a className="text-action" href={`tel:${resource.phone.replace(/[^+\d]/g, "")}`}>Call sample number</a>}
-        {resource.website && <a className="text-action" href={resource.website} target="_blank" rel="noreferrer">Sample website</a>}
+        {resource.phone && <a className="text-action" href={`tel:${resource.phone.replace(/[^+\d]/g, "")}`}>Call</a>}
+        {resource.website && <a className="text-action" href={resource.website} target="_blank" rel="noreferrer">Visit website</a>}
         <Link className="button button-secondary" href={`/resources/${resource.slug}`}>View details <span aria-hidden="true">→</span></Link>
       </div>
     </article>
