@@ -80,7 +80,7 @@ export const journeys: JourneyData[] = [
     firstAction: "Confirm the release date, release conditions, and any reporting instructions through official channels.",
     steps: ["Confirm the release date and release conditions", "Secure identification and documents", "Plan transportation", "Review housing options", "Prepare for supervision requirements", "Plan medications and treatment", "Discuss communication and household expectations", "Prepare children and family members", "Build a first week plan"],
     recommendedGuides: [
-      { title: "Resource Finder: reentry planning", description: "Use sample listings to see the kinds of planning support to look for.", href: "/resources/results?category=reentry-planning" },
+      { title: "Resource Finder: reentry planning", description: "Explore available listings to see the kinds of planning support to look for.", href: "/resources/results?category=reentry-planning" },
       { title: "Identification and documents", description: "Start with the paperwork that can unlock other next steps.", href: "/resources/results?category=identification-documents" },
       { title: "Housing resources", description: "Explore practical housing support and what to ask about eligibility.", href: "/resources/results?category=housing" },
       { title: "Family Support", description: "Prepare for changing routines and family expectations together.", href: "/families" },
@@ -113,7 +113,7 @@ export const journeys: JourneyData[] = [
     checklistItems: ["Identify the most urgent need for the next 24 hours", "Keep any current identification, release paperwork, and agency contacts together", "Find a safe place to sleep or ask about short-term housing options", "Plan food, medication, and a way to get to essential appointments", "Confirm any reporting or supervision requirements directly", "Choose one document, housing, work, recovery, or health step for this week", "Ask before sharing your information with a provider or another person", "Save a few resource options, then take a break if you need one"],
     relatedJourneySlugs: ["coming-home", "supporting-someone", "not-sure"],
     detailSections: [
-      { title: "Start with stability, not an ideal timeline.", body: ["For some people, identification is the first task. For others, it is a safe place to sleep, a meal, medication, a report date, or a way to get to an appointment. The useful order can be different for everyone.", "Use the Resource Finder to browse one category at a time. Its current entries are demonstration data, so confirm details directly with any provider before relying on them."] },
+      { title: "Start with stability, not an ideal timeline.", body: ["For some people, identification is the first task. For others, it is a safe place to sleep, a meal, medication, a report date, or a way to get to an appointment. The useful order can be different for everyone.", "Use the Resource Finder to browse one category at a time. Program details can change, so confirm information directly with any provider before relying on it."] },
       { title: "Let support be practical.", body: ["A provider, peer, family member, or friend may be able to help make a call, find a bus route, gather a document, or sit with you while you sort a list. You can choose what support feels useful and keep your personal information private until you are ready to share it."] },
     ],
     urgentSupport: true,
