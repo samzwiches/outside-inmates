@@ -61,7 +61,7 @@ export default async function Home() {
                 <input id="location" name="location" type="text" placeholder="Enter ZIP code or state" inputMode="numeric" />
                 <button className="button button-light" type="submit">Search resources <span aria-hidden="true">→</span></button>
               </form>
-              <p className="search-note">The directory currently uses clearly labeled demonstration data while live resources are prepared.</p>
+              <p className="search-note">Program details can change. Confirm current information directly with each provider.</p>
             </div>
             <ul className="resource-grid" aria-label="Resource categories">
               {resourceCategories.map((resource) => <ResourceCard key={resource.title} {...resource} />)}
