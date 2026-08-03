@@ -126,12 +126,16 @@ export const resourcePathways = [
 
 export const stateOptions = [
   { value: "", label: "Any state" },
+  { value: "DE", label: "Delaware" },
   { value: "IN", label: "Indiana" },
   { value: "KY", label: "Kentucky" },
   { value: "ME", label: "Maine" },
   { value: "MA", label: "Massachusetts" },
   { value: "NH", label: "New Hampshire" },
+  { value: "NY", label: "New York" },
   { value: "OH", label: "Ohio" },
+  { value: "PA", label: "Pennsylvania" },
+  { value: "RI", label: "Rhode Island" },
   { value: "VT", label: "Vermont" },
   { value: "WV", label: "West Virginia" },
 ] as const;
