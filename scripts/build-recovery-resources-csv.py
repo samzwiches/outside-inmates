@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the Supabase resources import CSV from the four state source files."""
+"""Build the Supabase resources import CSV from every maintained state source file."""
 
 from __future__ import annotations
 
@@ -12,52 +12,71 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = ROOT / "data" / "resources" / "recovery"
 OUTPUT_PATH = SOURCE_DIR / "outside_inmates_resources_supabase_import.csv"
 
-SOURCE_FILES = [
-    SOURCE_DIR / "ohio-source.csv",
-    SOURCE_DIR / "kentucky-source.csv",
-    SOURCE_DIR / "indiana-source.csv",
-    SOURCE_DIR / "west-virginia-source.csv",
-]
-
 STATE_ABBR = {
-    "Ohio": "OH",
-    "Kentucky": "KY",
+    "Delaware": "DE",
+    "Georgia": "GA",
     "Indiana": "IN",
+    "Kentucky": "KY",
+    "Maine": "ME",
+    "Massachusetts": "MA",
+    "New Hampshire": "NH",
+    "New York": "NY",
+    "North Carolina": "NC",
+    "Ohio": "OH",
+    "Pennsylvania": "PA",
+    "Rhode Island": "RI",
+    "South Carolina": "SC",
+    "Vermont": "VT",
+    "Virginia": "VA",
     "West Virginia": "WV",
 }
 
 OUTPUT_COLUMNS = [
-    "slug",
-    "name",
-    "short_description",
-    "full_description",
-    "categories",
-    "services",
-    "eligibility",
-    "location",
-    "city",
-    "state",
-    "zip_code",
-    "counties_served",
-    "service_area",
-    "phone",
-    "website",
-    "email",
-    "hours",
-    "cost",
-    "application_process",
-    "documents_needed",
-    "languages",
-    "accessibility_notes",
-    "verified_date",
-    "featured",
-    "emergency",
-    "remote_services",
-    "free_or_low_cost",
-    "service_area_type",
-    "is_demonstration",
-    "status",
-    "published",
+    "slug", "name", "short_description", "full_description", "categories",
+    "services", "eligibility", "location", "city", "state", "zip_code",
+    "counties_served", "service_area", "phone", "website", "email", "hours",
+    "cost", "application_process", "documents_needed", "languages",
+    "accessibility_notes", "verified_date", "featured", "emergency",
+    "remote_services", "free_or_low_cost", "service_area_type",
+    "is_demonstration", "status", "published",
+]
+
+CATEGORY_RULES = [
+    ("Housing", ["housing", "house", "shelter", "residence", "residential", "halfway", "transitional", "sober living"]),
+    ("Employment", ["employment", "job", "career", "workforce", "training", "apprentice"]),
+    ("Identification and Documents", ["identification", "document", "id card", "state id", "non-driver id", "photo id", "dmv", "bmv", "rmv", "dds"]),
+    ("Legal Help", ["legal", "lawyer", "civil legal", "lawline", "cori", "court"]),
+    ("Family Support", ["family", "families", "parent", "children", "maternal", "pregnant", "mommy and me"]),
+    ("Mental Health", ["mental health", "behavioral health", "crisis", "warm line", "psychiatric", "co-occurring", "dual-diagnosis"]),
+    ("Substance Use Recovery", ["recovery", "substance use", "addiction", "sober", "detox", "oxford house", "harm reduction", "iop", "php", "saiop", "sacot", "outpatient", "opioid"]),
+    ("Transportation", ["transportation", "transit", "ride"]),
+    ("Education", ["education", "school", "credential", "literacy", "ged"]),
+    ("Food and Basic Needs", ["food", "pantry", "basic needs", "clothing", "meal", "snap"]),
+    ("Reentry Planning", ["reentry", "justice involved", "justice-involved", "correction", "parole", "probation", "supervision", "returning citizen", "formerly incarcerated"]),
+    ("Communication and Visitation", ["visitation", "communication", "family contact"]),
+]
+
+SERVICE_RULES = [
+    ("Resource navigation", ["resource navigator", "211", "directory", "locator", "finder", "availability dashboard"]),
+    ("Housing referrals", ["housing assistance", "housing and shelter", "homelessness services"]),
+    ("Emergency shelter", ["emergency shelter"]),
+    ("Recovery housing", ["recovery housing", "sober living", "recovery residence", "recovery house"]),
+    ("Oxford House", ["oxford house"]),
+    ("Partial hospitalization", ["php", "partial hospitalization", "day treatment", "high intensity outpatient", "high-intensity outpatient", "sacot"]),
+    ("Intensive outpatient", ["iop", "intensive outpatient", "intensive services", "saiop"]),
+    ("Standard outpatient", ["outpatient"]),
+    ("Residential recovery", ["residential recovery", "residential substance", "residential treatment", "residential rehabilitation"]),
+    ("Medication support", ["medication", "mat", "moud", "buprenorphine", "methadone", "opioid treatment"]),
+    ("Treatment referrals", ["helpline", "treatment and recovery directory", "access system", "access line", "treatment search"]),
+    ("Reentry planning", ["reentry planning", "reentry navigation", "reentry services", "returning citizen"]),
+    ("Transitional housing", ["transitional housing", "reentry housing"]),
+    ("Legal assistance", ["legal help", "legal intake", "legal services", "lawline"]),
+    ("Employment support", ["employment", "career center", "job center", "job seeker", "workforce"]),
+    ("Food assistance", ["food", "pantry", "snap"]),
+    ("Mental health support", ["mental health", "warm line", "behavioral health", "psychiatric", "crisis"]),
+    ("Identification help", ["identification", "id card", "state id", "non-driver id", "photo id", "dmv", "bmv", "rmv", "dds"]),
+    ("Peer support", ["peer support", "recovery community"]),
+    ("Family support", ["family", "maternal", "parenting", "children"]),
 ]
 
 
@@ -71,104 +90,34 @@ def slugify(value: str) -> str:
     return re.sub(r"[^a-zA-Z0-9]+", "-", ascii_value.lower()).strip("-")
 
 
-def unique_parts(values: list[str]) -> list[str]:
-    result: list[str] = []
+def unique(values: list[str]) -> list[str]:
+    output: list[str] = []
     seen: set[str] = set()
     for value in values:
         value = clean(value)
-        key = value.lower()
-        if value and key not in seen:
-            result.append(value)
-            seen.add(key)
-    return result
+        if value and value.lower() not in seen:
+            output.append(value)
+            seen.add(value.lower())
+    return output
+
+
+def text_for(row: dict[str, str]) -> str:
+    return " ".join([
+        clean(row.get("resource_name")), clean(row.get("category")),
+        clean(row.get("services")), clean(row.get("population_served")),
+    ]).lower()
 
 
 def categories_for(row: dict[str, str]) -> str:
-    text = " ".join(
-        [
-            clean(row.get("resource_name")),
-            clean(row.get("category")),
-            clean(row.get("services")),
-            clean(row.get("population_served")),
-        ]
-    ).lower()
-
-    categories: list[str] = []
-
-    if any(term in text for term in [
-        "housing", "house", "sober living", "residence", "residential",
-        "halfway", "transitional living", "shelter",
-    ]):
-        categories.append("Housing")
-
-    if any(term in text for term in [
-        "recovery", "substance use", "addiction", "sober", "oxford house",
-        "detox", "medication for addiction",
-    ]):
-        categories.append("Substance Use Recovery")
-
-    if any(term in text for term in [
-        "reentry", "justice involved", "corrections", "parole", "probation",
-        "formerly incarcerated", "community transition", "halfway",
-    ]):
-        categories.append("Reentry Planning")
-
-    if any(term in text for term in [
-        "mental health", "behavioral health", "counseling", "crisis",
-    ]):
-        categories.append("Mental Health")
-
-    if any(term in text for term in [
-        "family", "families", "women and children", "parents", "children",
-    ]):
-        categories.append("Family Support")
-
-    if any(term in text for term in [
-        "employment", "job", "workforce", "training", "career",
-    ]):
-        categories.append("Employment")
-
-    if "transportation" in text:
-        categories.append("Transportation")
-
-    if not categories:
-        categories.append("Substance Use Recovery")
-
-    return ";".join(unique_parts(categories))
+    text = text_for(row)
+    categories = [name for name, terms in CATEGORY_RULES if any(term in text for term in terms)]
+    return ";".join(unique(categories or ["Reentry Planning"]))
 
 
 def services_for(row: dict[str, str]) -> str:
-    category = clean(row.get("category")).lower()
-    text = " ".join(
-        [clean(row.get("resource_name")), category, clean(row.get("services"))]
-    ).lower()
-    labels: list[str] = []
-
-    if "helpline" in category or "call center" in text:
-        labels += ["Helpline", "Treatment referrals", "Recovery support"]
-    if "resource navigator" in category or "211" in text:
-        labels += ["Resource navigation", "Housing referrals", "Community referrals"]
-    if "directory" in category or "registry" in category or "locator" in text:
-        labels += ["Resource directory", "Housing search", "Provider contacts"]
-    if "oxford house" in text:
-        labels += ["Oxford House", "Sober living", "Peer supported recovery housing"]
-    if any(term in text for term in ["halfway", "reentry", "justice involved", "corrections"]):
-        labels += ["Residential reentry", "Case management", "Community transition"]
-    if any(term in text for term in ["recovery housing", "sober living", "recovery residence"]):
-        labels += ["Recovery housing", "Peer support", "Recovery accountability"]
-    if any(term in text for term in ["residential recovery", "residential treatment", "detox"]):
-        labels += ["Residential recovery", "Life skills", "Peer support"]
-    if "mental health" in text or "behavioral health" in text:
-        labels.append("Mental health support")
-    if any(term in text for term in ["employment", "jobs and hope", "workforce"]):
-        labels.append("Employment support")
-    if "family" in text or "parents" in text:
-        labels.append("Family support")
-
-    if not labels:
-        labels.append(clean(row.get("category")) or "Recovery support")
-
-    return ";".join(unique_parts(labels))
+    text = text_for(row)
+    services = [name for name, terms in SERVICE_RULES if any(term in text for term in terms)]
+    return ";".join(unique(services or [clean(row.get("category")) or "Community support"]))
 
 
 def extract_zip(address: str) -> str:
@@ -177,11 +126,12 @@ def extract_zip(address: str) -> str:
 
 
 def counties_from(service_area: str) -> str:
-    match = re.search(r"(.+?)\s+Count(?:y|ies)\b", clean(service_area), re.I)
+    value = clean(service_area)
+    match = re.search(r"(.+?)\s+Count(?:y|ies)\b", value, re.I)
     if not match:
         return ""
-    value = match.group(1).replace(" and ", ", ").replace("&", ",")
-    counties = [re.sub(r"\s+", " ", item).strip(" ,") for item in value.split(",")]
+    county_text = match.group(1).replace(" and ", ", ").replace("&", ",")
+    counties = [re.sub(r"\s+", " ", item).strip(" ,") for item in county_text.split(",")]
     return ";".join(item for item in counties if item and len(item) < 40)
 
 
@@ -209,30 +159,18 @@ def service_area_type_for(row: dict[str, str]) -> str:
 
 
 def is_remote(row: dict[str, str]) -> bool:
-    text = " ".join([clean(row.get("resource_name")), clean(row.get("category"))]).lower()
-    return any(term in text for term in [
-        "helpline", "directory", "registry", "resource navigator", "211",
-        "vacancy locator", "call center",
-    ])
+    text = text_for(row)
+    return any(term in text for term in ["helpline", "directory", "registry", "resource navigator", "211", "vacancy locator", "warm line", "availability dashboard", "finder"])
 
 
 def is_emergency(row: dict[str, str]) -> bool:
-    text = " ".join(
-        [clean(row.get("resource_name")), clean(row.get("category")), clean(row.get("availability_note"))]
-    ).lower()
-    return any(term in text for term in ["24 hours", "24/7", "crisis"]) and any(
-        term in text for term in ["helpline", "careline", "help4wv", "immediate"]
-    )
+    text = f"{text_for(row)} {clean(row.get('availability_note')).lower()}"
+    return any(term in text for term in ["24 hours", "24/7"]) and any(term in text for term in ["crisis", "bh link", "988", "gcal"])
 
 
 def is_free_or_low_cost(row: dict[str, str]) -> bool:
-    text = " ".join(
-        [clean(row.get("category")), clean(row.get("cost_notes")), clean(row.get("services"))]
-    ).lower()
-    return any(term in text for term in [
-        "no cost", "free confidential", "211", "helpline", "directory",
-        "registry", "locator", "resource navigator",
-    ])
+    text = f"{text_for(row)} {clean(row.get('cost_notes')).lower()}"
+    return any(term in text for term in ["free", "public funding", "publicly funded", "state-funded", "211", "helpline", "food bank", "legal aid", "resource directory", "nonprofit program"])
 
 
 def hours_for(row: dict[str, str]) -> str:
@@ -253,7 +191,7 @@ def short_description_for(row: dict[str, str]) -> str:
     elif area:
         value = f"{category} serving {area}."
     else:
-        value = f"{category} and recovery support resource."
+        value = f"{category} and community support resource."
     return value[:280]
 
 
@@ -271,10 +209,12 @@ def full_description_for(row: dict[str, str]) -> str:
 
 
 def main() -> None:
+    source_files = sorted(SOURCE_DIR.glob("*-source.csv"))
+    if not source_files:
+        raise FileNotFoundError(f"No source CSV files found in {SOURCE_DIR}")
+
     source_rows: list[dict[str, str]] = []
-    for source_file in SOURCE_FILES:
-        if not source_file.exists():
-            raise FileNotFoundError(f"Missing source file: {source_file}")
+    for source_file in source_files:
         with source_file.open("r", newline="", encoding="utf-8") as handle:
             source_rows.extend(csv.DictReader(handle))
 
@@ -282,16 +222,17 @@ def main() -> None:
     output_rows: list[dict[str, str]] = []
 
     for row in source_rows:
+        state_name = clean(row.get("state"))
+        if state_name not in STATE_ABBR:
+            raise ValueError(f"Unsupported state in source data: {state_name}")
+
         name = clean(row.get("resource_name"))
-        state = STATE_ABBR[clean(row.get("state"))]
         city = clean(row.get("city"))
         address = clean(row.get("address"))
         service_area = clean(row.get("service_area"))
+        state = STATE_ABBR[state_name]
 
-        slug_parts = [name, state]
-        if city and city.lower() not in name.lower():
-            slug_parts.append(city)
-        base_slug = slugify("-".join(slug_parts))
+        base_slug = slugify("-".join([name, state, city]))
         slug = base_slug
         suffix = 2
         while slug in used_slugs:
@@ -299,53 +240,52 @@ def main() -> None:
             suffix += 1
         used_slugs.add(slug)
 
-        eligibility = " ".join(
-            unique_parts([clean(row.get("population_served")), clean(row.get("eligibility_and_intake"))])
-        )
+        eligibility = " ".join(unique([
+            clean(row.get("population_served")),
+            clean(row.get("eligibility_and_intake")),
+        ]))
         mat_note = clean(row.get("mat_notes"))
 
-        output_rows.append(
-            {
-                "slug": slug,
-                "name": name,
-                "short_description": short_description_for(row),
-                "full_description": full_description_for(row),
-                "categories": categories_for(row),
-                "services": services_for(row),
-                "eligibility": eligibility,
-                "location": address or service_area,
-                "city": city,
-                "state": state,
-                "zip_code": extract_zip(address),
-                "counties_served": counties_from(service_area),
-                "service_area": service_area,
-                "phone": phone_for(row),
-                "website": clean(row.get("website")),
-                "email": "",
-                "hours": hours_for(row),
-                "cost": clean(row.get("cost_notes")),
-                "application_process": clean(row.get("eligibility_and_intake")),
-                "documents_needed": "",
-                "languages": "",
-                "accessibility_notes": f"Medication policy information: {mat_note}" if mat_note else "",
-                "verified_date": clean(row.get("last_verified")) or "2026-08-02",
-                "featured": "false",
-                "emergency": str(is_emergency(row)).lower(),
-                "remote_services": str(is_remote(row)).lower(),
-                "free_or_low_cost": str(is_free_or_low_cost(row)).lower(),
-                "service_area_type": service_area_type_for(row),
-                "is_demonstration": "false",
-                "status": "published",
-                "published": "true",
-            }
-        )
+        output_rows.append({
+            "slug": slug,
+            "name": name,
+            "short_description": short_description_for(row),
+            "full_description": full_description_for(row),
+            "categories": categories_for(row),
+            "services": services_for(row),
+            "eligibility": eligibility,
+            "location": address or service_area,
+            "city": city,
+            "state": state,
+            "zip_code": extract_zip(address),
+            "counties_served": counties_from(service_area),
+            "service_area": service_area,
+            "phone": phone_for(row),
+            "website": clean(row.get("website")),
+            "email": "",
+            "hours": hours_for(row),
+            "cost": clean(row.get("cost_notes")),
+            "application_process": clean(row.get("eligibility_and_intake")),
+            "documents_needed": "",
+            "languages": "",
+            "accessibility_notes": f"Medication policy information: {mat_note}" if mat_note else "",
+            "verified_date": clean(row.get("last_verified")) or "",
+            "featured": "false",
+            "emergency": str(is_emergency(row)).lower(),
+            "remote_services": str(is_remote(row)).lower(),
+            "free_or_low_cost": str(is_free_or_low_cost(row)).lower(),
+            "service_area_type": service_area_type_for(row),
+            "is_demonstration": "false",
+            "status": "published",
+            "published": "true",
+        })
 
     with OUTPUT_PATH.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=OUTPUT_COLUMNS)
         writer.writeheader()
         writer.writerows(output_rows)
 
-    print(f"Created {OUTPUT_PATH.relative_to(ROOT)} with {len(output_rows)} resources.")
+    print(f"Created {OUTPUT_PATH.relative_to(ROOT)} with {len(output_rows)} resources from {len(source_files)} state files.")
 
 
 if __name__ == "__main__":
