@@ -125,26 +125,15 @@ export const resourcePathways = [
 ] as const;
 
 export const stateOptions = [
-  {
-    value: "",
-    label: "Any state",
-  },
-  {
-    value: "KY",
-    label: "Kentucky",
-  },
-  {
-    value: "OH",
-    label: "Ohio",
-  },
-  {
-    value: "IN",
-    label: "Indiana",
-  },
-  {
-    value: "WV",
-    label: "West Virginia",
-  },
+  { value: "", label: "Any state" },
+  { value: "IN", label: "Indiana" },
+  { value: "KY", label: "Kentucky" },
+  { value: "ME", label: "Maine" },
+  { value: "MA", label: "Massachusetts" },
+  { value: "NH", label: "New Hampshire" },
+  { value: "OH", label: "Ohio" },
+  { value: "VT", label: "Vermont" },
+  { value: "WV", label: "West Virginia" },
 ] as const;
 
 export function getCategoryName(
