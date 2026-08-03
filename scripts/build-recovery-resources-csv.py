@@ -14,16 +14,20 @@ OUTPUT_PATH = SOURCE_DIR / "outside_inmates_resources_supabase_import.csv"
 
 STATE_ABBR = {
     "Delaware": "DE",
+    "Georgia": "GA",
     "Indiana": "IN",
     "Kentucky": "KY",
     "Maine": "ME",
     "Massachusetts": "MA",
     "New Hampshire": "NH",
     "New York": "NY",
+    "North Carolina": "NC",
     "Ohio": "OH",
     "Pennsylvania": "PA",
     "Rhode Island": "RI",
+    "South Carolina": "SC",
     "Vermont": "VT",
+    "Virginia": "VA",
     "West Virginia": "WV",
 }
 
@@ -40,37 +44,37 @@ OUTPUT_COLUMNS = [
 CATEGORY_RULES = [
     ("Housing", ["housing", "house", "shelter", "residence", "residential", "halfway", "transitional", "sober living"]),
     ("Employment", ["employment", "job", "career", "workforce", "training", "apprentice"]),
-    ("Identification and Documents", ["identification", "document", "id card", "non-driver id", "photo id", "dmv", "bmv", "rmv"]),
-    ("Legal Help", ["legal", "lawyer", "civil legal", "cori", "court"]),
+    ("Identification and Documents", ["identification", "document", "id card", "state id", "non-driver id", "photo id", "dmv", "bmv", "rmv", "dds"]),
+    ("Legal Help", ["legal", "lawyer", "civil legal", "lawline", "cori", "court"]),
     ("Family Support", ["family", "families", "parent", "children", "maternal", "pregnant", "mommy and me"]),
-    ("Mental Health", ["mental health", "behavioral health", "crisis", "warm line", "psychiatric", "co-occurring"]),
-    ("Substance Use Recovery", ["recovery", "substance use", "addiction", "sober", "detox", "oxford house", "harm reduction", "iop", "php", "outpatient", "opioid"]),
+    ("Mental Health", ["mental health", "behavioral health", "crisis", "warm line", "psychiatric", "co-occurring", "dual-diagnosis"]),
+    ("Substance Use Recovery", ["recovery", "substance use", "addiction", "sober", "detox", "oxford house", "harm reduction", "iop", "php", "saiop", "sacot", "outpatient", "opioid"]),
     ("Transportation", ["transportation", "transit", "ride"]),
     ("Education", ["education", "school", "credential", "literacy", "ged"]),
     ("Food and Basic Needs", ["food", "pantry", "basic needs", "clothing", "meal", "snap"]),
-    ("Reentry Planning", ["reentry", "justice involved", "justice-involved", "correction", "parole", "probation", "returning citizen", "formerly incarcerated"]),
+    ("Reentry Planning", ["reentry", "justice involved", "justice-involved", "correction", "parole", "probation", "supervision", "returning citizen", "formerly incarcerated"]),
     ("Communication and Visitation", ["visitation", "communication", "family contact"]),
 ]
 
 SERVICE_RULES = [
-    ("Resource navigation", ["resource navigator", "211", "directory", "locator", "availability dashboard"]),
+    ("Resource navigation", ["resource navigator", "211", "directory", "locator", "finder", "availability dashboard"]),
     ("Housing referrals", ["housing assistance", "housing and shelter", "homelessness services"]),
     ("Emergency shelter", ["emergency shelter"]),
     ("Recovery housing", ["recovery housing", "sober living", "recovery residence", "recovery house"]),
     ("Oxford House", ["oxford house"]),
-    ("Partial hospitalization", ["php", "partial hospitalization", "day treatment", "high intensity outpatient"]),
-    ("Intensive outpatient", ["iop", "intensive outpatient", "intensive services"]),
+    ("Partial hospitalization", ["php", "partial hospitalization", "day treatment", "high intensity outpatient", "high-intensity outpatient", "sacot"]),
+    ("Intensive outpatient", ["iop", "intensive outpatient", "intensive services", "saiop"]),
     ("Standard outpatient", ["outpatient"]),
     ("Residential recovery", ["residential recovery", "residential substance", "residential treatment", "residential rehabilitation"]),
-    ("Medication support", ["medication", "mat", "buprenorphine", "opioid treatment"]),
-    ("Treatment referrals", ["helpline", "treatment and recovery directory", "access system", "treatment search"]),
+    ("Medication support", ["medication", "mat", "moud", "buprenorphine", "methadone", "opioid treatment"]),
+    ("Treatment referrals", ["helpline", "treatment and recovery directory", "access system", "access line", "treatment search"]),
     ("Reentry planning", ["reentry planning", "reentry navigation", "reentry services", "returning citizen"]),
     ("Transitional housing", ["transitional housing", "reentry housing"]),
-    ("Legal assistance", ["legal help", "legal intake", "legal services"]),
-    ("Employment support", ["employment", "career center", "job center", "workforce"]),
+    ("Legal assistance", ["legal help", "legal intake", "legal services", "lawline"]),
+    ("Employment support", ["employment", "career center", "job center", "job seeker", "workforce"]),
     ("Food assistance", ["food", "pantry", "snap"]),
     ("Mental health support", ["mental health", "warm line", "behavioral health", "psychiatric", "crisis"]),
-    ("Identification help", ["identification", "id card", "non-driver id", "photo id", "dmv", "bmv", "rmv"]),
+    ("Identification help", ["identification", "id card", "state id", "non-driver id", "photo id", "dmv", "bmv", "rmv", "dds"]),
     ("Peer support", ["peer support", "recovery community"]),
     ("Family support", ["family", "maternal", "parenting", "children"]),
 ]
@@ -156,17 +160,17 @@ def service_area_type_for(row: dict[str, str]) -> str:
 
 def is_remote(row: dict[str, str]) -> bool:
     text = text_for(row)
-    return any(term in text for term in ["helpline", "directory", "registry", "resource navigator", "211", "vacancy locator", "warm line", "availability dashboard"])
+    return any(term in text for term in ["helpline", "directory", "registry", "resource navigator", "211", "vacancy locator", "warm line", "availability dashboard", "finder"])
 
 
 def is_emergency(row: dict[str, str]) -> bool:
     text = f"{text_for(row)} {clean(row.get('availability_note')).lower()}"
-    return any(term in text for term in ["24 hours", "24/7"]) and any(term in text for term in ["crisis", "bh link"])
+    return any(term in text for term in ["24 hours", "24/7"]) and any(term in text for term in ["crisis", "bh link", "988", "gcal"])
 
 
 def is_free_or_low_cost(row: dict[str, str]) -> bool:
     text = f"{text_for(row)} {clean(row.get('cost_notes')).lower()}"
-    return any(term in text for term in ["free", "public funding", "publicly funded", "211", "helpline", "food bank", "legal aid", "resource directory"])
+    return any(term in text for term in ["free", "public funding", "publicly funded", "state-funded", "211", "helpline", "food bank", "legal aid", "resource directory", "nonprofit program"])
 
 
 def hours_for(row: dict[str, str]) -> str:
