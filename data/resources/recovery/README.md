@@ -5,19 +5,23 @@ This folder contains maintained research for recovery housing, private sober liv
 ## Current state coverage
 
 * Delaware
+* Georgia
 * Indiana
 * Kentucky
 * Maine
 * Massachusetts
 * New Hampshire
 * New York
+* North Carolina
 * Ohio
 * Pennsylvania
 * Rhode Island
+* South Carolina
 * Vermont
+* Virginia
 * West Virginia
 
-The twelve `*-source.csv` files contain 304 resources. The first four states were verified on 2026-08-02. The remaining eight states were verified on 2026-08-03.
+The sixteen `*-source.csv` files contain 428 resources. The first four states were verified on 2026-08-02. The remaining twelve states were verified on 2026-08-03.
 
 `ohio.csv` is the original Supabase formatted Ohio import created during the first upload pass. The `*-source.csv` files are the canonical research source going forward.
 
@@ -35,7 +39,7 @@ The builder automatically reads every `*-source.csv` file and creates:
 data/resources/recovery/outside_inmates_resources_supabase_import.csv
 ```
 
-The generated headers match the existing Supabase `resources` table used by the site. It sets `is_demonstration` to false, `status` to published, and `published` to true. Treatment levels such as partial hospitalization, intensive outpatient, standard outpatient, medication support, recovery housing, and residential recovery are preserved as service labels.
+The generated headers match the existing Supabase `resources` table used by the site. It sets `is_demonstration` to false, `status` to published, and `published` to true. Treatment levels such as partial hospitalization, intensive outpatient, standard outpatient, medication support, recovery housing, and residential recovery are preserved as service labels. North Carolina SACOT and SAIOP terminology is normalized into the matching PHP and IOP service labels.
 
 ## Publish to the live site
 
