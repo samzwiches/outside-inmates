@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { JourneySlug } from "../../data/journeys";
 import { getJourney, getRelatedJourneys } from "../../data/journeys";
