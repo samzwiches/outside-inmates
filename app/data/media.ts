@@ -263,6 +263,20 @@ export const siteMediaRegistry: Record<SiteMediaKey, SiteMediaRecord> = {
     overlayTone: "dark",
     overlayOpacity: 0.12,
   },
+  "journey.not-sure.hero": {
+    ...unassigned(
+      "journey.not-sure.hero",
+      "Start Here",
+      "I do not know where to start hero",
+      "Start Here",
+      "/start/not-sure"
+    ),
+    editorNote: "Use a calm, human image that supports the pathway without showing text, logos, jail bars, handcuffs, or identifiable legal documents.",
+    objectPositionDesktop: { x: 50, y: 50 },
+    objectPositionMobile: { x: 50, y: 50 },
+    overlayTone: "none",
+    overlayOpacity: 0,
+  },
   "home.resources": unassigned("home.resources", "Home", "Resource Finder", "Home", "/", "section"),
   "home.families": unassigned("home.families", "Home", "Family support feature", "Home", "/", "section"),
   "home.reentry": unassigned("home.reentry", "Home", "Reentry support feature", "Home", "/", "section"),
