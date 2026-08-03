@@ -749,6 +749,19 @@
 @media (max-width: 720px) {
   .main-nav .nav-start::after {
     display: none;
+.journey-page-hero-grid {
+  grid-template-columns: 1fr;
+  gap: 28px;
+}
+.journey-page-hero-image {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  aspect-ratio: 4 / 3;
+}
+.journey-page-hero-copy > p:not(.eyebrow) {
+  font-size: 0.94rem;
+}
   }
   .start-breadcrumb {
     padding-top: 16px;
@@ -898,3 +911,4 @@
     display: block;
   }
 }
+
