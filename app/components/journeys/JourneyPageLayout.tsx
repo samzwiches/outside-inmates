@@ -47,34 +47,7 @@ export function JourneyPageLayout({
       </a>
       <SiteHeader />
       <main id="main-content" className="journey-page">
-        <section className={`journey-page-hero ${slug === "not-sure" ? "has-image" : ""}`}>
-  <div className="container">
-    <nav className="breadcrumbs" aria-label="Breadcrumb">
-      <Link href="/">Home</Link>
-      <span aria-hidden="true">/</span>
-      <Link href="/start">Start Here</Link>
-      <span aria-hidden="true">/</span>
-      <span>{journey.cardTitle}</span>
-    </nav>
-
-    <div className="journey-page-hero-grid">
-      <div className="journey-page-hero-copy">
-        <p className="eyebrow">Journey pathway</p>
-        <h1>{journey.title}</h1>
-        <p>{journey.intro}</p>
-      </div>
-
-      {slug === "not-sure" && (
-        <div className="journey-page-hero-image">
-          <img
-            src="/images/journeys/not-sure-hero.jpg"
-            alt="A calm place to pause and decide what to do next"
-          />
-        </div>
-      )}
-    </div>
-  </div>
-</section>
+        
         <section className="journey-first-action">
           <div className="container">
             <p className="eyebrow">First recommended action</p>
