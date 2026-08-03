@@ -26,21 +26,7 @@ export const siteMediaKeys = [
   "reentry.supervision",
   "reentry.transportation",
   "reentry.family-transition",
-  "start.hero"
-  "journey.not-sure.hero": {
-  "journey.not-sure.hero",
-  "Start Here",
-  "I do not know where to start hero",
-  "Start Here",
-  "/start/not-sure",
-  ),
-  editorNote:
-    "Use a calm, human image that supports the pathway without showing text, logos, jail bars, handcuffs, or identifiable legal documents.",
-  objectPositionDesktop: { x: 50, y: 50 },
-  objectPositionMobile: { x: 50, y: 50 },
-  overlayTone: "none",
-  overlayOpacity: 0,
-},,
+  "start.hero",
   "about.hero",
 ] as const;
 
