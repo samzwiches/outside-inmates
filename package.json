@@ -33,5 +33,12 @@
     "vite": "8.0.13",
     "wrangler": "4.114.0"
   },
-  "type": "module"
+  "type": "module",
+  "allowScripts": {
+    "sharp@0.34.5": true,
+    "sharp@0.35.2": true,
+    "esbuild@0.28.1": true,
+    "workerd@1.20260722.1": true,
+    "unrs-resolver@1.12.2": true
+  }
 }
