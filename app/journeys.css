@@ -269,35 +269,7 @@
   gap: 28px;
   align-items: center;
 }
-.journey-page-hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) 420px;
-  gap: clamp(40px, 6vw, 80px);
-  align-items: center;
-}
-
-.journey-page-hero-copy {
-  min-width: 0;
-}
-
-.journey-page-hero-copy p:not(.eyebrow) {
-  max-width: 760px;
-}
-
-.journey-page-hero-image {
-  overflow: hidden;
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  aspect-ratio: 4 / 5;
-  background: #ddd;
-}
-
-.journey-page-hero-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}.journey-first-action .eyebrow {
+.journey-first-action .eyebrow {
   margin: 0;
 }
 .journey-first-action p:last-child {
@@ -774,7 +746,6 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
 @media (max-width: 720px) {
   .main-nav .nav-start::after {
     display: none;
