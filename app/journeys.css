@@ -749,7 +749,39 @@
 @media (max-width: 720px) {
   .main-nav .nav-start::after {
     display: none;
-  }
+  .journey-page-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) 420px;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
+}
+
+.journey-page-hero-copy {
+  min-width: 0;
+}
+
+.journey-page-hero-copy > p:not(.eyebrow) {
+  max-width: 755px;
+  margin: 0;
+  color: rgba(24, 36, 43, 0.75);
+  font-size: 1.03rem;
+  line-height: 1.74;
+}
+
+.journey-page-hero-image {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  aspect-ratio: 4 / 5;
+  background: #dce5e7;
+}
+
+.journey-page-hero-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}}
   .journey-page-hero-grid {
     grid-template-columns: 1fr;
     gap: 28px;
