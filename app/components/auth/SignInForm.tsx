@@ -6,10 +6,15 @@ import { createSupabaseBrowserClient, type BrowserSupabaseConfig } from "../../l
 
 function statusMessage(status: string | null) {
   if (status === "access-denied") return "You are signed in, but this account cannot access administration.";
-  if (status === "sign-in-required") return "Sign in to continue to administration.";
+  if (status === "sign-in-required") return "Sign in to continue.";
   if (status === "session-unavailable") return "We could not confirm your session. Please sign in again.";
   if (status === "signed-out") return "You have been signed out.";
   return null;
+}
+
+function safeNextPath(value: string | null) {
+  if (!value || !value.startsWith("/") || value.startsWith("//")) return "/admin";
+  return value;
 }
 
 export function SignInForm({ config }: { config: BrowserSupabaseConfig | null }) {
@@ -40,12 +45,12 @@ export function SignInForm({ config }: { config: BrowserSupabaseConfig | null })
       return;
     }
 
-    const next = searchParams.get("next");
+    const next = safeNextPath(searchParams.get("next"));
     router.refresh();
-    router.replace(next?.startsWith("/admin") ? next : "/admin");
+    router.replace(next);
   }
 
-  if (!configured) return <div className="auth-setup-note"><p className="eyebrow">Setup required</p><h2>Admin sign-in is not connected yet.</h2><p>This environment needs its own Outside Inmates Supabase URL and anonymous key before an administrator can sign in. Follow <code>docs/SUPABASE_SETUP.md</code>; no credentials are stored in this repository.</p></div>;
+  if (!configured) return <div className="auth-setup-note"><p className="eyebrow">Setup required</p><h2>Sign in is not connected yet.</h2><p>This environment needs its Outside Inmates Supabase URL and anonymous key before anyone can sign in. Follow <code>docs/SUPABASE_SETUP.md</code>; no credentials are stored in this repository.</p></div>;
 
   const message = statusMessage(searchParams.get("status"));
   const statusClass = status.kind === "error" ? "auth-status is-error" : "auth-status";
