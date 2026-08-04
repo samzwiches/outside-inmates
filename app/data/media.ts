@@ -28,6 +28,7 @@ export const siteMediaKeys = [
   "reentry.family-transition",
   "journey.not-sure.hero",
   "start.hero",
+  "community.hero",
   "support.hero",
   "about.hero",
 ] as const;
@@ -324,6 +325,14 @@ export const siteMediaRegistry: Record<SiteMediaKey, SiteMediaRecord> = {
   "reentry.transportation": unassigned("reentry.transportation", "Reentry", "Transportation guide hero", "Reentry", "/reentry/transportation"),
   "reentry.family-transition": unassigned("reentry.family-transition", "Reentry", "Family transition guide hero", "Reentry", "/reentry/family-transition"),
   "start.hero": unassigned("start.hero", "Start Here", "Start Here hero", "Start Here", "/start"),
+  "community.hero": {
+    ...unassigned("community.hero", "Community", "Community landing hero", "Community", "/community"),
+    editorNote: "Use a warm, welcoming image without embedded text, logos, identifiable case information, or imagery that suggests every community member has the same experience.",
+    objectPositionDesktop: { x: 62, y: 50 },
+    objectPositionMobile: { x: 50, y: 50 },
+    overlayTone: "dark",
+    overlayOpacity: 0.28,
+  },
   "support.hero": {
     ...unassigned("support.hero", "Support", "Support the Work hero", "Support", "/support"),
     editorNote: "Use a warm, collaborative image without embedded text, logos, donation jars, or staged corporate handshakes.",
