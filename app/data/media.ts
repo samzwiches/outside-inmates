@@ -11,6 +11,7 @@ export const siteMediaKeys = [
   "home.families",
   "home.reentry",
   "resources.hero",
+  "resources.submit.hero",
   "families.hero",
   "families.just-incarcerated",
   "families.staying-connected",
@@ -290,6 +291,14 @@ export const siteMediaRegistry: Record<SiteMediaKey, SiteMediaRecord> = {
     overlayTone: "cream",
     overlayOpacity: 0.3,
     status: "manual-download-required",
+  },
+  "resources.submit.hero": {
+    ...unassigned("resources.submit.hero", "Resources", "Submit a Resource hero", "Resources", "/resources/submit"),
+    editorNote: "Use a clear, welcoming image that suggests sharing useful information. Avoid embedded text, visible private records, forms with readable personal details, or staged corporate handshakes.",
+    objectPositionDesktop: { x: 62, y: 50 },
+    objectPositionMobile: { x: 50, y: 50 },
+    overlayTone: "dark",
+    overlayOpacity: 0.28,
   },
   "families.hero": {
     ...unassigned("families.hero", "Families", "Family Support hero", "Families", "/families"),
