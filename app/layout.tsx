@@ -7,6 +7,7 @@ import "./reentry.css";
 import "./organization.css";
 import "./auth.css";
 import "./community.css";
+import "./resource-submit.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
