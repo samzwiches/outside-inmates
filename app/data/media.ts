@@ -28,6 +28,7 @@ export const siteMediaKeys = [
   "reentry.family-transition",
   "journey.not-sure.hero",
   "start.hero",
+  "support.hero",
   "about.hero",
 ] as const;
 
@@ -183,10 +184,6 @@ function unassigned(
   } satisfies SiteMediaRecord;
 }
 
-/**
- * The registry is the one allowlist for public slots. It drives admin labels,
- * permitted fields, public fallback behavior, and targeted revalidation.
- */
 export const siteMediaRegistry: Record<SiteMediaKey, SiteMediaRecord> = {
   "home.hero": {
     ...unassigned("home.hero", "Home", "Homepage hero", "Home", "/"),
@@ -265,13 +262,7 @@ export const siteMediaRegistry: Record<SiteMediaKey, SiteMediaRecord> = {
     overlayOpacity: 0.12,
   },
   "journey.not-sure.hero": {
-    ...unassigned(
-      "journey.not-sure.hero",
-      "Start Here",
-      "I do not know where to start hero",
-      "Start Here",
-      "/start/not-sure"
-    ),
+    ...unassigned("journey.not-sure.hero", "Start Here", "I do not know where to start hero", "Start Here", "/start/not-sure"),
     editorNote: "Use a calm, human image that supports the pathway without showing text, logos, jail bars, handcuffs, or identifiable legal documents.",
     objectPositionDesktop: { x: 50, y: 50 },
     objectPositionMobile: { x: 50, y: 50 },
@@ -333,6 +324,14 @@ export const siteMediaRegistry: Record<SiteMediaKey, SiteMediaRecord> = {
   "reentry.transportation": unassigned("reentry.transportation", "Reentry", "Transportation guide hero", "Reentry", "/reentry/transportation"),
   "reentry.family-transition": unassigned("reentry.family-transition", "Reentry", "Family transition guide hero", "Reentry", "/reentry/family-transition"),
   "start.hero": unassigned("start.hero", "Start Here", "Start Here hero", "Start Here", "/start"),
+  "support.hero": {
+    ...unassigned("support.hero", "Support", "Support the Work hero", "Support", "/support"),
+    editorNote: "Use a warm, collaborative image without embedded text, logos, donation jars, or staged corporate handshakes.",
+    objectPositionDesktop: { x: 58, y: 50 },
+    objectPositionMobile: { x: 50, y: 50 },
+    overlayTone: "cream",
+    overlayOpacity: 0.24,
+  },
   "about.hero": unassigned("about.hero", "About", "About hero", "About", "/about"),
 };
 
