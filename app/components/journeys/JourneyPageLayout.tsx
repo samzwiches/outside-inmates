@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { JourneySlug } from "../../data/journeys";
 import { getJourney, getRelatedJourneys } from "../../data/journeys";
 import { SiteFooter, SiteHeader } from "../layout";
+import { SiteMedia } from "../media/SiteMedia";
 import { JourneyBoundaryNotice } from "./JourneyBoundaryNotice";
 import { JourneyCard } from "./JourneyCard";
 import { JourneyChecklist } from "./JourneyChecklist";
@@ -29,7 +30,7 @@ const checklistTitles: Partial<
   },
 };
 
-export function JourneyPageLayout({
+export async function JourneyPageLayout({
   slug,
   children,
 }: {
@@ -47,7 +48,37 @@ export function JourneyPageLayout({
       </a>
       <SiteHeader />
       <main id="main-content" className="journey-page">
-        
+        <section className="journey-page-hero">
+          <div className="container">
+            <nav className="breadcrumbs" aria-label="Breadcrumb">
+              <Link href="/">Home</Link>
+              <span aria-hidden="true">/</span>
+              <Link href="/start">Start Here</Link>
+              <span aria-hidden="true">/</span>
+              <span>{journey.cardTitle}</span>
+            </nav>
+
+            <div className={`journey-page-hero-grid ${slug === "not-sure" ? "has-image-slot" : ""}`}>
+              <div className="journey-page-hero-copy">
+                <p className="eyebrow">Journey pathway</p>
+                <h1>{journey.title}</h1>
+                <p>{journey.intro}</p>
+              </div>
+
+              {slug === "not-sure" ? (
+                <div className="journey-page-hero-image">
+                  <SiteMedia
+                    mediaKey="journey.not-sure.hero"
+                    sizes="(max-width: 720px) 100vw, 420px"
+                    priority
+                    reserveSpaceWhenEmpty
+                  />
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </section>
+
         <section className="journey-first-action">
           <div className="container">
             <p className="eyebrow">First recommended action</p>
