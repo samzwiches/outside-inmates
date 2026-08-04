@@ -165,24 +165,20 @@ export default async function ResourcesPage() {
             <h2>Know a resource that belongs here?</h2>
 
             <p>
-              Families, returning citizens, and providers will be able to
-              suggest resources and flag updates. Good information should not
-              stay hidden.
+              Suggest a new program or send a correction to an existing listing.
+              Every submission enters a private review queue before anything is published.
             </p>
 
-            <a
+            <Link
               className="button button-primary"
-              href="#resource-submission-note"
+              href="/resources/submit"
             >
               Submit or correct a resource
               <span aria-hidden="true">→</span>
-            </a>
+            </Link>
 
-            <p
-              className="submission-note"
-              id="resource-submission-note"
-            >
-              Resource submissions are not connected yet.
+            <p className="submission-note">
+              Include an official website, public contact number, or source link when possible.
             </p>
           </div>
         </section>
