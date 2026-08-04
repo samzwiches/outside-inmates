@@ -271,6 +271,7 @@
   min-width: 0;
 }
 .journey-page-hero-image {
+  position: relative;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -776,6 +777,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 @media (max-width: 720px) {
   .main-nav .nav-start::after {
     display: none;
@@ -928,6 +930,9 @@
   .journey-reading h3,
   .journey-first-action p:last-child {
     color: #000;
+  }
+  .journey-page-hero-image {
+    display: none;
   }
   .journey-first-action {
     border-color: #000;
