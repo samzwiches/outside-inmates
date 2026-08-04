@@ -11,8 +11,16 @@ export const metadata: Metadata = {
   description: "Ask practical questions, share lived experience, and find steadier next steps through incarceration and reentry.",
 };
 
-export default async function CommunityPage() {
-  const [categories, threads] = await Promise.all([getForumCategories(), getRecentForumThreads(30)]);
+type CommunityPageProps = { searchParams: Promise<{ category?: string }> };
+
+export default async function CommunityPage({ searchParams }: CommunityPageProps) {
+  const [{ category: selectedCategory }, categories, allThreads] = await Promise.all([
+    searchParams,
+    getForumCategories(),
+    getRecentForumThreads(60),
+  ]);
+  const activeCategory = categories.find((category) => category.slug === selectedCategory);
+  const threads = activeCategory ? allThreads.filter((thread) => thread.categorySlug === activeCategory.slug) : allThreads;
 
   return <>
     <a className="skip-link" href="#main-content">Skip to content</a>
@@ -33,25 +41,26 @@ export default async function CommunityPage() {
             <p className="eyebrow">Browse by topic</p>
             <h2 id="community-categories-heading">Start where the question belongs.</h2>
             <nav aria-label="Community categories">
-              {categories.map((category) => <a href={`#${category.slug}`} key={category.id}><span>{category.name}</span><small>{category.description}</small></a>)}
+              <Link href="/community#community-board" aria-current={!activeCategory ? "page" : undefined}><span>All discussions</span><small>See the newest conversations from every topic.</small></Link>
+              {categories.map((category) => <Link href={`/community?category=${category.slug}#community-board`} aria-current={activeCategory?.id === category.id ? "page" : undefined} key={category.id}><span>{category.name}</span><small>{category.description}</small></Link>)}
             </nav>
           </aside>
 
           <div className="community-thread-list" id="community-board">
             <div className="community-thread-list-heading">
-              <div><p className="eyebrow">Recent discussions</p><h2 id="community-board-heading">Questions, answers, and lived experience.</h2></div>
+              <div><p className="eyebrow">{activeCategory ? activeCategory.name : "Recent discussions"}</p><h2 id="community-board-heading">{activeCategory ? activeCategory.description : "Questions, answers, and lived experience."}</h2></div>
               <span>{threads.length} {threads.length === 1 ? "discussion" : "discussions"}</span>
             </div>
 
-            {threads.length ? threads.map((thread) => <article className="community-thread-card" id={thread.categorySlug} key={thread.id}>
+            {threads.length ? threads.map((thread) => <article className="community-thread-card" key={thread.id}>
               <div className="community-thread-meta"><span>{thread.categoryName}</span>{thread.isPinned ? <b>Pinned</b> : null}{thread.isLocked ? <b>Locked</b> : null}</div>
               <h3><Link href={`/community/${thread.id}`}>{thread.title}</Link></h3>
               <p>{thread.body.length > 220 ? `${thread.body.slice(0, 217)}…` : thread.body}</p>
               <footer><span>Asked by {thread.authorDisplayName}</span><span>{thread.replyCount} {thread.replyCount === 1 ? "reply" : "replies"}</span><span>{formatForumTime(thread.lastActivityAt)}</span></footer>
             </article>) : <div className="community-empty-state">
               <p className="eyebrow">The room is ready</p>
-              <h3>Be the first person to ask the question someone else is afraid to say out loud.</h3>
-              <p>The categories are set up, the privacy reminders are in place, and the board is ready for its first real conversation.</p>
+              <h3>{activeCategory ? `No one has started a ${activeCategory.name.toLowerCase()} discussion yet.` : "Be the first person to ask the question someone else is afraid to say out loud."}</h3>
+              <p>The privacy reminders are in place and the board is ready for a real conversation.</p>
               <Link className="button button-primary" href="#new-thread">Start the first discussion</Link>
             </div>}
           </div>
