@@ -6,9 +6,10 @@ import { PageHero } from "./components/page-hero";
 import { SectionHeading } from "./components/section-heading";
 import { TrustStrip } from "./components/trust-strip";
 import { EditableMediaSection } from "./components/media/EditableMediaSection";
-import { forumPosts, resourceCategories } from "./data/site";
+import { resourceCategories } from "./data/site";
 import { journeys, type JourneySlug } from "./data/journeys";
 import type { SiteMediaKey } from "./data/media";
+import { formatForumTime, getRecentForumThreads } from "./lib/community";
 import { getJourneyAppearanceSettings } from "./lib/site-appearance";
 import { getSitePresentation } from "./lib/site-media-server";
 
@@ -22,7 +23,10 @@ const homeJourneyMediaKeys: Record<JourneySlug, SiteMediaKey> = {
 };
 
 export default async function Home() {
-  const journeyPresentation = await getSitePresentation("home.journeys");
+  const [journeyPresentation, recentThreads] = await Promise.all([
+    getSitePresentation("home.journeys"),
+    getRecentForumThreads(4),
+  ]);
   const journeyAppearance = getJourneyAppearanceSettings(journeyPresentation.appearance);
   return (
     <>
@@ -78,10 +82,10 @@ export default async function Home() {
                 title="You are not the only one asking."
                 description="Practical questions, shared honestly. Read from people who have been there, without needing to explain every detail first."
               />
-              <SecondaryButton href="#ask-an-advocate">Ask a question <span aria-hidden="true">↗</span></SecondaryButton>
+              <SecondaryButton href="/community#new-thread">Ask a question <span aria-hidden="true">↗</span></SecondaryButton>
             </div>
             <div className="forum-grid">
-              {forumPosts.map((post) => <ForumPreviewCard key={post.title} {...post} />)}
+              {recentThreads.length ? recentThreads.map((thread) => <ForumPreviewCard key={thread.id} title={thread.title} category={thread.categoryName} replies={thread.replyCount} time={formatForumTime(thread.lastActivityAt)} href={`/community/${thread.id}`} />) : <article className="forum-card" style={{ gridColumn: "1 / -1" }}><p className="forum-category">The board is ready</p><h3><a href="/community#new-thread">Start the first real discussion.</a></h3><footer><span>Eight topics are open</span><span>Community powered</span></footer></article>}
             </div>
           </div>
         </section>
@@ -123,7 +127,7 @@ export default async function Home() {
                 title="Ask someone who understands."
                 description="Submit a question to an advocate, peer supporter, or experienced community member. We cannot provide legal representation, but we can help you find the right direction."
               />
-              <PrimaryButton href="#site-footer">Submit a question <span aria-hidden="true">→</span></PrimaryButton>
+              <PrimaryButton href="/community#new-thread">Submit a question <span aria-hidden="true">→</span></PrimaryButton>
             </div>
           </div>
         </section>
