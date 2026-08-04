@@ -28,6 +28,7 @@ export default async function CommunityPage({ searchParams }: CommunityPageProps
     <main id="main-content" className="community-page">
       <PageHero
         variant="page"
+        mediaKey="community.hero"
         eyebrow="Community"
         title="You are not the only one asking."
         description="Ask practical questions, share what helped, and find people who understand the strange, exhausting corners of incarceration and reentry."
