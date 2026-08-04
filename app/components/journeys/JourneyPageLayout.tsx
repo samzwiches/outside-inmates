@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { JourneySlug } from "../../data/journeys";
 import { getJourney, getRelatedJourneys } from "../../data/journeys";
+import type { SiteMediaKey } from "../../data/media";
 import { SiteFooter, SiteHeader } from "../layout";
 import { SiteMedia } from "../media/SiteMedia";
 import { JourneyBoundaryNotice } from "./JourneyBoundaryNotice";
@@ -30,6 +31,15 @@ const checklistTitles: Partial<
   },
 };
 
+const journeyHeroMediaKeys: Record<JourneySlug, SiteMediaKey> = {
+  "just-arrested": "home.journey.just-arrested",
+  "currently-incarcerated": "home.journey.currently-incarcerated",
+  "coming-home": "home.journey.coming-home",
+  rebuilding: "home.journey.rebuilding",
+  "supporting-someone": "home.journey.supporting-someone",
+  "not-sure": "journey.not-sure.hero",
+};
+
 export async function JourneyPageLayout({
   slug,
   children,
@@ -41,6 +51,8 @@ export async function JourneyPageLayout({
   if (!journey) return null;
   const related = getRelatedJourneys(journey.relatedJourneySlugs);
   const checklist = checklistTitles[slug];
+  const heroMediaKey = journeyHeroMediaKeys[slug];
+
   return (
     <>
       <a className="skip-link" href="#main-content">
@@ -58,23 +70,21 @@ export async function JourneyPageLayout({
               <span>{journey.cardTitle}</span>
             </nav>
 
-            <div className={`journey-page-hero-grid ${slug === "not-sure" ? "has-image-slot" : ""}`}>
+            <div className="journey-page-hero-grid has-image-slot">
               <div className="journey-page-hero-copy">
                 <p className="eyebrow">Journey pathway</p>
                 <h1>{journey.title}</h1>
                 <p>{journey.intro}</p>
               </div>
 
-              {slug === "not-sure" ? (
-                <div className="journey-page-hero-image">
-                  <SiteMedia
-                    mediaKey="journey.not-sure.hero"
-                    sizes="(max-width: 720px) 100vw, 420px"
-                    priority
-                    reserveSpaceWhenEmpty
-                  />
-                </div>
-              ) : null}
+              <div className="journey-page-hero-image">
+                <SiteMedia
+                  mediaKey={heroMediaKey}
+                  sizes="(max-width: 720px) 100vw, 420px"
+                  priority
+                  reserveSpaceWhenEmpty
+                />
+              </div>
             </div>
           </div>
         </section>
