@@ -22,11 +22,11 @@ export function ResourceCard({ title, description }: Resource) {
   );
 }
 
-export function ForumPreviewCard({ title, category, replies, time }: ForumPost) {
+export function ForumPreviewCard({ title, category, replies, time, href = "/community" }: ForumPost) {
   return (
     <article className="forum-card">
       <p className="forum-category">{category}</p>
-      <h3>{title}</h3>
+      <h3><Link href={href}>{title}</Link></h3>
       <footer><span>{replies} replies</span><span>{time}</span></footer>
     </article>
   );
