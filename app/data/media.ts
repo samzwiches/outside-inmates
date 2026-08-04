@@ -26,6 +26,7 @@ export const siteMediaKeys = [
   "reentry.supervision",
   "reentry.transportation",
   "reentry.family-transition",
+  "journey.not-sure.hero",
   "start.hero",
   "about.hero",
 ] as const;
