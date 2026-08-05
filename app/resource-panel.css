@@ -1,0 +1,8 @@
+/* Let the Resource Directory hero image remain visible through the search panel. */
+.directory-page-hero.has-site-media .directory-search-panel {
+  border-color: rgba(252, 250, 246, 0.46);
+  background: rgba(243, 238, 230, 0.78);
+  box-shadow: 9px 10px 0 rgba(7, 16, 20, 0.16);
+  -webkit-backdrop-filter: blur(14px) saturate(0.9);
+  backdrop-filter: blur(14px) saturate(0.9);
+}
