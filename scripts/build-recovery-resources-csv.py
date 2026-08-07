@@ -13,22 +13,34 @@ SOURCE_DIR = ROOT / "data" / "resources" / "recovery"
 OUTPUT_PATH = SOURCE_DIR / "outside_inmates_resources_supabase_import.csv"
 
 STATE_ABBR = {
+    "Alabama": "AL",
+    "District of Columbia": "DC",
     "Delaware": "DE",
+    "Florida": "FL",
     "Georgia": "GA",
     "Indiana": "IN",
     "Kentucky": "KY",
+    "Louisiana": "LA",
     "Maine": "ME",
+    "Maryland": "MD",
     "Massachusetts": "MA",
+    "Michigan": "MI",
+    "Mississippi": "MS",
+    "Missouri": "MO",
     "New Hampshire": "NH",
+    "New Jersey": "NJ",
     "New York": "NY",
     "North Carolina": "NC",
     "Ohio": "OH",
     "Pennsylvania": "PA",
     "Rhode Island": "RI",
     "South Carolina": "SC",
+    "Tennessee": "TN",
+    "Texas": "TX",
     "Vermont": "VT",
     "Virginia": "VA",
     "West Virginia": "WV",
+    "Wisconsin": "WI",
 }
 
 OUTPUT_COLUMNS = [

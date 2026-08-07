@@ -13,7 +13,8 @@ export type ForumPost = {
 };
 
 export const navigation = [
-{ label: "Start Here", href: "/start", emphasis: true },  
+  { label: "Start Here", href: "/start", emphasis: true },
+  { label: "Resources", href: "/resources" },
   { label: "Community", href: "/community" },
   { label: "Families", href: "/families" },
   { label: "Reentry", href: "/reentry" },
