@@ -1,0 +1,19 @@
+/* Keep breadcrumbs readable when they sit directly on image-backed, darkened heroes. */
+:where(.directory-page-hero, .guide-page-hero, .reentry-page-hero).has-site-media .breadcrumbs {
+  color: rgba(252, 250, 246, 0.76);
+  text-shadow: 0 1px 3px rgba(7, 16, 20, 0.58);
+}
+
+:where(.directory-page-hero, .guide-page-hero, .reentry-page-hero).has-site-media .breadcrumbs a {
+  color: rgba(252, 250, 246, 0.96);
+  border-bottom-color: rgba(252, 250, 246, 0.42);
+}
+
+:where(.directory-page-hero, .guide-page-hero, .reentry-page-hero).has-site-media .breadcrumbs a:hover {
+  color: #e5b5a4;
+  border-bottom-color: currentColor;
+}
+
+:where(.directory-page-hero, .guide-page-hero, .reentry-page-hero).has-site-media .breadcrumbs > span:last-child {
+  color: rgba(252, 250, 246, 0.82);
+}
