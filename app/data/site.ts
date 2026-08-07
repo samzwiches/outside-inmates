@@ -3,8 +3,8 @@ export type Resource = { title: string; description: string };
 export type ForumPost = { title: string; category: string; replies: number; time: string; href?: string };
 
 export const navigation = [
-  { label: "Resources", href: "/resources" },
   { label: "Start Here", href: "/start", emphasis: true },
+  { label: "Resources", href: "/resources" },
   { label: "Community", href: "/community" },
   { label: "Families", href: "/families" },
   { label: "Reentry", href: "/reentry" },
