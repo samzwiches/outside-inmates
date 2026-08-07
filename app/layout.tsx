@@ -9,6 +9,7 @@ import "./auth.css";
 import "./community.css";
 import "./resource-submit.css";
 import "./resource-panel.css";
+import "./breadcrumb-contrast.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
