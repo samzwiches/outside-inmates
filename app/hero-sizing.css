@@ -1,6 +1,7 @@
-/* Keep image-backed interior heroes visually steady as people move between related pages. */
+/* Keep image-backed interior heroes visually steady as people move between related pages,
+   while preserving enough vertical canvas for documentary-style photography. */
 :root {
-  --interior-hero-height: 390px;
+  --interior-hero-height: 560px;
 }
 
 /* Family and reentry guide heroes should never jump in height from guide to guide. */
@@ -21,13 +22,13 @@
   }
 }
 
-/* Smaller screens need room for wrapping text, but retain a consistent starting height. */
+/* Smaller screens need room for wrapping text and meaningful image framing. */
 @media (max-width: 900px) {
   .guide-page-hero,
   .reentry-page-hero,
   .directory-page-hero:not(:has(.directory-search-panel)) {
     box-sizing: border-box;
-    min-height: 360px;
+    min-height: 480px;
   }
 }
 
@@ -35,6 +36,6 @@
   .guide-page-hero,
   .reentry-page-hero,
   .directory-page-hero:not(:has(.directory-search-panel)) {
-    min-height: 340px;
+    min-height: 430px;
   }
 }
