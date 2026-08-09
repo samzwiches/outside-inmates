@@ -1,0 +1,40 @@
+/* Keep image-backed interior heroes visually steady as people move between related pages. */
+:root {
+  --interior-hero-height: 390px;
+}
+
+/* Family and reentry guide heroes should never jump in height from guide to guide. */
+@media (min-width: 901px) {
+  .guide-page-hero,
+  .reentry-page-hero {
+    box-sizing: border-box;
+    height: var(--interior-hero-height);
+    min-height: var(--interior-hero-height);
+  }
+
+  /* Most landing-page heroes use the shared directory hero. Keep those in the same rhythm.
+     The Resource Directory is intentionally exempt because its search form needs more room. */
+  .directory-page-hero:not(:has(.directory-search-panel)) {
+    box-sizing: border-box;
+    height: var(--interior-hero-height);
+    min-height: var(--interior-hero-height);
+  }
+}
+
+/* Smaller screens need room for wrapping text, but retain a consistent starting height. */
+@media (max-width: 900px) {
+  .guide-page-hero,
+  .reentry-page-hero,
+  .directory-page-hero:not(:has(.directory-search-panel)) {
+    box-sizing: border-box;
+    min-height: 360px;
+  }
+}
+
+@media (max-width: 600px) {
+  .guide-page-hero,
+  .reentry-page-hero,
+  .directory-page-hero:not(:has(.directory-search-panel)) {
+    min-height: 340px;
+  }
+}
