@@ -20,6 +20,60 @@
     height: var(--interior-hero-height);
     min-height: var(--interior-hero-height);
   }
+
+  /* Give image-backed heroes a centered editorial text stack instead of letting copy drift
+     toward the bottom of the photo. */
+  .guide-page-hero.has-site-media > .container,
+  .reentry-page-hero.has-site-media > .container {
+    box-sizing: border-box;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 54px;
+    padding-bottom: 62px;
+  }
+
+  .directory-page-hero.has-site-media:not(:has(.directory-search-panel)) > .directory-page-hero-inner {
+    box-sizing: border-box;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    padding-top: 54px;
+    padding-bottom: 62px;
+  }
+
+  .directory-page-hero.has-site-media:not(:has(.directory-search-panel)) > .directory-page-hero-inner > div:first-child {
+    width: min(100%, 760px);
+  }
+
+  /* Preserve the serif voice, but let the documentary image remain part of the story. */
+  :where(.directory-page-hero, .guide-page-hero, .reentry-page-hero).has-site-media h1 {
+    max-width: 760px;
+    margin-bottom: 16px;
+    font-size: clamp(3.15rem, 4.35vw, 4.65rem);
+    line-height: 0.97;
+    letter-spacing: -0.042em;
+    text-wrap: balance;
+  }
+
+  :where(.directory-page-hero, .guide-page-hero, .reentry-page-hero).has-site-media .eyebrow {
+    margin-bottom: 12px;
+  }
+
+  .guide-page-hero.has-site-media .breadcrumbs,
+  .reentry-page-hero.has-site-media .breadcrumbs {
+    margin-bottom: 26px;
+  }
+
+  .directory-page-hero.has-site-media:not(:has(.directory-search-panel)) .directory-page-hero-inner > div:first-child > p:last-child,
+  .guide-page-hero.has-site-media > .container > p:not(.eyebrow),
+  .reentry-page-hero.has-site-media > .container > p:not(.eyebrow) {
+    max-width: 690px;
+    margin-bottom: 0;
+    font-size: clamp(0.94rem, 1.12vw, 1.04rem);
+    line-height: 1.58;
+  }
 }
 
 /* Smaller screens need room for wrapping text and meaningful image framing. */
@@ -30,6 +84,13 @@
     box-sizing: border-box;
     min-height: 480px;
   }
+
+  :where(.directory-page-hero, .guide-page-hero, .reentry-page-hero).has-site-media h1 {
+    max-width: 720px;
+    font-size: clamp(3rem, 7.4vw, 4.25rem);
+    line-height: 0.98;
+    text-wrap: balance;
+  }
 }
 
 @media (max-width: 600px) {
@@ -37,5 +98,16 @@
   .reentry-page-hero,
   .directory-page-hero:not(:has(.directory-search-panel)) {
     min-height: 430px;
+  }
+
+  :where(.directory-page-hero, .guide-page-hero, .reentry-page-hero).has-site-media h1 {
+    font-size: clamp(2.55rem, 12vw, 3.45rem);
+  }
+
+  .guide-page-hero.has-site-media > .container,
+  .reentry-page-hero.has-site-media > .container,
+  .directory-page-hero.has-site-media:not(:has(.directory-search-panel)) > .directory-page-hero-inner {
+    padding-top: 38px;
+    padding-bottom: 42px;
   }
 }
