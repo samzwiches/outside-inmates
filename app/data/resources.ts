@@ -127,7 +127,11 @@ export const resourcePathways = [
 export const stateOptions = [
   { value: "", label: "Any state" },
   { value: "AL", label: "Alabama" },
+  { value: "AK", label: "Alaska" },
+  { value: "AZ", label: "Arizona" },
   { value: "AR", label: "Arkansas" },
+  { value: "CA", label: "California" },
+  { value: "CO", label: "Colorado" },
   { value: "DC", label: "District of Columbia" },
   { value: "DE", label: "Delaware" },
   { value: "FL", label: "Florida" },
