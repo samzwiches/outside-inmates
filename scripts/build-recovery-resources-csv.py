@@ -14,6 +14,10 @@ OUTPUT_PATH = SOURCE_DIR / "outside_inmates_resources_supabase_import.csv"
 
 STATE_ABBR = {
     "Alabama": "AL",
+    "Alaska": "AK",
+    "Arizona": "AZ",
+    "California": "CA",
+    "Colorado": "CO",
     "District of Columbia": "DC",
     "Delaware": "DE",
     "Florida": "FL",
