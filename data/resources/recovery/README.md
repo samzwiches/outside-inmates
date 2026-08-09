@@ -4,7 +4,7 @@ This folder contains maintained research for recovery housing, private sober liv
 
 ## Live database coverage
 
-As of 2026-08-09, the live Outside Inmates resource database contains **1,000 published resources across 40 states and the District of Columbia where applicable in the coverage list below**.
+As of 2026-08-09, the live Outside Inmates resource database contains **1,000 published resources across 40 covered jurisdictions, including the District of Columbia**.
 
 Current covered jurisdictions:
 
@@ -73,7 +73,7 @@ Beginning with the 2026-08-09 audit, an existing state is not considered fully r
 * Reentry-specific housing and treatment
 * Programs where clients live in separate recovery housing and travel to a clinical site for PHP, IOP, classes, groups, or medication services
 
-The 2026-08-09 re-audit of the 40 covered states added 41 previously missing resources and strengthened several existing listings. After that pass, every covered state had at least one published result tagged for IOP, PHP, medication support, hospital or medical-system addiction care, recovery/transitional housing, and women-focused services. This is a coverage check, not a claim that every program in each category has been identified.
+The 2026-08-09 re-audit of the 40 covered jurisdictions added 41 previously missing resources and strengthened several existing listings. After that pass, every covered jurisdiction had at least one published result tagged for IOP, PHP, medication support, hospital or medical-system addiction care, recovery/transitional housing, and women-focused services. This is a coverage check, not a claim that every program in each category has been identified.
 
 ## Verification rules
 
