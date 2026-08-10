@@ -111,5 +111,5 @@ export const footerLinks = [
   { label: "Terms", href: "#site-footer" },
   { label: "Submit a Resource", href: "/resources/submit" },
   { label: "Volunteer", href: "/support#participation-note" },
-  { label: "Contact", href: "#site-footer" },
+  { label: "Contact", href: "/contact" },
 ];
