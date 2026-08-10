@@ -1,0 +1,289 @@
+/* Family pages: richer color, clearer card hierarchy, and optional editable imagery. */
+
+.families-page .family-pathway-section {
+  background: linear-gradient(180deg, #fbf8f3 0%, #f3eee6 100%);
+}
+
+.families-page .family-guides-section {
+  background: #f8f4ee;
+}
+
+.family-pathway-grid,
+.family-guide-grid {
+  gap: 16px;
+}
+
+.family-pathway-card,
+.family-guide-card {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  border-color: rgba(24, 36, 43, 0.15);
+  box-shadow: 6px 8px 0 rgba(24, 36, 43, 0.07);
+  transition: transform 170ms ease, box-shadow 170ms ease, border-color 170ms ease;
+}
+
+.family-pathway-card:hover,
+.family-guide-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(24, 36, 43, 0.25);
+  box-shadow: 9px 11px 0 rgba(24, 36, 43, 0.1);
+}
+
+.family-pathway-card::after {
+  display: none;
+}
+
+.family-pathway-clay {
+  background: #f6e7e1;
+}
+
+.family-pathway-sage {
+  background: #e8eee7;
+}
+
+.family-pathway-blue {
+  background: #e6edf0;
+}
+
+.family-pathway-clay:hover {
+  background: #f6e7e1;
+}
+
+.family-pathway-sage:hover {
+  background: #e8eee7;
+}
+
+.family-pathway-blue:hover {
+  background: #e6edf0;
+}
+
+.family-pathway-card-body,
+.family-guide-card-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  padding: 22px;
+}
+
+.family-pathway-card-body {
+  min-height: 218px;
+}
+
+.family-guide-card-body {
+  min-height: 250px;
+}
+
+.family-card-media {
+  position: relative;
+  inset: auto;
+  flex: 0 0 154px;
+  width: 100%;
+  height: 154px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(24, 36, 43, 0.13);
+  background: #dce5e7;
+}
+
+.family-card-media picture,
+.family-card-media .media-image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.family-card-media .media-image {
+  object-fit: cover;
+  transition: transform 260ms ease;
+}
+
+.family-pathway-card:hover .family-card-media .media-image,
+.family-guide-card:hover .family-card-media .media-image {
+  transform: scale(1.025);
+}
+
+.family-pathway-number {
+  margin-bottom: auto;
+  color: rgba(24, 36, 43, 0.52);
+}
+
+.family-pathway-card strong {
+  max-width: 90%;
+}
+
+.family-pathway-card small {
+  max-width: 92%;
+  color: rgba(24, 36, 43, 0.72);
+}
+
+.family-pathway-card b {
+  right: 22px;
+  bottom: 21px;
+}
+
+.family-guide-card:nth-child(3n + 1) {
+  background: #f7ebe6;
+}
+
+.family-guide-card:nth-child(3n + 2) {
+  background: #eaf0f2;
+}
+
+.family-guide-card:nth-child(3n + 3) {
+  background: #eaf0e8;
+}
+
+.family-guide-card .eyebrow {
+  color: var(--clay);
+}
+
+.family-guide-card:nth-child(3n + 2) .eyebrow {
+  color: #526c79;
+}
+
+.family-guide-card:nth-child(3n + 3) .eyebrow {
+  color: #667b6c;
+}
+
+.family-guide-card h3 {
+  margin-top: 5px;
+}
+
+.family-guide-card-body > p:not(.eyebrow) {
+  margin: 0;
+  color: rgba(24, 36, 43, 0.74);
+  font-size: 0.76rem;
+  line-height: 1.6;
+}
+
+.family-guide-card-body > a {
+  width: fit-content;
+  margin-top: auto;
+  padding-top: 22px;
+  border-bottom: 1px solid currentColor;
+  color: rgba(24, 36, 43, 0.82);
+  font-size: 0.67rem;
+  font-weight: 700;
+}
+
+.family-guide-card-body > a:hover {
+  color: var(--clay);
+}
+
+.family-guide-page {
+  background: #fbf8f3;
+}
+
+.family-guide-page .family-guide-navigation {
+  background: rgba(252, 250, 246, 0.88);
+}
+
+.family-guide-content {
+  position: relative;
+}
+
+.family-guide-content::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 44px;
+  right: -90px;
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  background: rgba(100, 125, 138, 0.08);
+  pointer-events: none;
+}
+
+.family-guide-content > * {
+  position: relative;
+  z-index: 1;
+}
+
+.guide-reading > section {
+  border-top-color: rgba(24, 36, 43, 0.13);
+}
+
+.guide-reading > section:nth-of-type(3n + 1) h2 {
+  color: #8f4f40;
+}
+
+.guide-reading > section:nth-of-type(3n + 2) h2 {
+  color: #506b77;
+}
+
+.guide-reading > section:nth-of-type(3n + 3) h2 {
+  color: #637768;
+}
+
+.printable-checklist,
+.facility-worksheet {
+  border-color: rgba(166, 95, 77, 0.24);
+  background: linear-gradient(145deg, #f8eee9 0%, #f3eee6 100%);
+  box-shadow: 6px 7px 0 rgba(24, 36, 43, 0.06);
+}
+
+.related-guides-section {
+  background: linear-gradient(180deg, #e7edef 0%, #edf1eb 100%);
+}
+
+.related-guides-section .family-guide-card {
+  min-height: 0;
+}
+
+.age-guidance-grid article {
+  border-color: rgba(24, 36, 43, 0.15);
+  box-shadow: 4px 5px 0 rgba(24, 36, 43, 0.05);
+}
+
+.age-guidance-grid article:nth-child(1) {
+  background: #f7ebe6;
+}
+
+.age-guidance-grid article:nth-child(2) {
+  background: #eaf0f2;
+}
+
+.age-guidance-grid article:nth-child(3) {
+  background: #eaf0e8;
+}
+
+.family-journey li:nth-child(3n + 1) {
+  background: #1f3038;
+}
+
+.family-journey li:nth-child(3n + 2) {
+  background: #25343b;
+}
+
+.family-journey li:nth-child(3n + 3) {
+  background: #263630;
+}
+
+@media (max-width: 720px) {
+  .family-card-media {
+    flex-basis: 168px;
+    height: 168px;
+  }
+
+  .family-pathway-card-body,
+  .family-guide-card-body {
+    min-height: 0;
+    padding: 20px;
+  }
+
+  .family-guide-content::before {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .family-card-media .media-image {
+    transition: none;
+  }
+}
