@@ -1,0 +1,31 @@
+.contact-page { background: var(--paper); }
+.contact-paths-section { background: linear-gradient(180deg, var(--paper) 0%, #f3eee6 100%); }
+.contact-path-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 46px; }
+.contact-path-card { position: relative; display: flex; flex-direction: column; min-height: 310px; padding: 25px; overflow: hidden; border: 1px solid rgba(24,36,43,0.16); border-radius: 14px; box-shadow: 7px 9px 0 rgba(24,36,43,0.08); }
+.contact-path-card::after { content: ""; position: absolute; right: -42px; bottom: -50px; width: 150px; height: 150px; border: 1px solid currentColor; border-radius: 50%; opacity: 0.14; }
+.contact-path-clay { background: #f8ebe5; }
+.contact-path-sage { background: #e8eee7; }
+.contact-path-blue { background: #e9f0f2; }
+.contact-path-topline { display: flex; align-items: center; gap: 12px; }
+.contact-path-topline > span { color: var(--clay); font-family: var(--serif); font-size: 1.02rem; }
+.contact-path-sage .contact-path-topline > span { color: #60786a; }
+.contact-path-blue .contact-path-topline > span { color: #516d79; }
+.contact-path-topline .eyebrow { margin: 0; color: rgba(24,36,43,0.62); }
+.contact-path-card h2 { max-width: 520px; margin: 32px 0 13px; font-size: clamp(2rem, 3vw, 3rem); line-height: 1.01; }
+.contact-path-card > p { max-width: 530px; margin: 0; color: rgba(24,36,43,0.76); font-size: 0.82rem; line-height: 1.65; }
+.contact-path-card > a { position: relative; z-index: 1; width: fit-content; margin-top: auto; padding-top: 28px; padding-bottom: 2px; border-bottom: 1px solid currentColor; color: rgba(24,36,43,0.82); font-size: 0.69rem; font-weight: 700; }
+.contact-path-card > a:hover { color: var(--clay); }
+.contact-privacy-section { padding: clamp(74px, 9vw, 118px) 0; background: var(--ink); color: var(--paper); }
+.contact-privacy-layout { display: grid; grid-template-columns: minmax(0, .8fr) minmax(320px, 1.2fr); gap: clamp(48px, 10vw, 150px); align-items: start; }
+.contact-privacy-layout h2 { max-width: 500px; margin: 0; color: var(--paper); font-size: clamp(2.8rem, 4.8vw, 4.8rem); line-height: .98; }
+.contact-privacy-layout .eyebrow { color: #dcb5a9; }
+.contact-privacy-layout > div:last-child { max-width: 650px; }
+.contact-privacy-layout > div:last-child p { color: rgba(252,250,246,0.76); font-size: 0.9rem; line-height: 1.72; }
+.contact-privacy-layout > div:last-child a { display: inline-block; margin-top: 9px; padding: 10px 13px; border: 1px solid rgba(252,250,246,0.32); border-radius: 7px; color: var(--paper); font-size: 0.68rem; font-weight: 700; }
+.contact-privacy-layout > div:last-child a:hover { background: rgba(252,250,246,0.08); }
+.contact-footer-note { background: #dfccc4; text-align: center; }
+.contact-footer-note .container { max-width: 820px; }
+.contact-footer-note h2 { margin-bottom: 13px; font-size: clamp(3rem, 5vw, 5rem); line-height: .98; }
+.contact-footer-note .container > p:not(.eyebrow) { max-width: 570px; margin: 0 auto 25px; color: rgba(24,36,43,0.75); font-size: 0.9rem; line-height: 1.65; }
+@media (max-width: 800px) { .contact-path-grid, .contact-privacy-layout { grid-template-columns: 1fr; }.contact-privacy-layout { gap: 34px; }.contact-path-card { min-height: 275px; } }
+@media (max-width: 600px) { .contact-path-grid { margin-top: 34px; }.contact-path-card { min-height: 250px; padding: 21px; }.contact-path-card h2 { margin-top: 25px; }.contact-footer-note .button { width: 100%; } }
