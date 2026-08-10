@@ -1,0 +1,184 @@
+/* Transparency page: make status and planned-document information easier to scan. */
+
+.transparency-page .transparency-status-section {
+  background: linear-gradient(180deg, #f3eee6 0%, #eee6dc 100%);
+}
+
+.transparency-page .organization-section-lede {
+  max-width: 760px;
+}
+
+.transparency-page .organization-section-lede h2 {
+  max-width: 620px;
+}
+
+.transparency-page .organization-status-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 50px;
+}
+
+.transparency-page .organization-status-card {
+  position: relative;
+  min-height: 285px;
+  overflow: hidden;
+  border: 1px solid rgba(24, 36, 43, 0.16);
+  border-radius: 14px;
+  box-shadow: 7px 9px 0 rgba(24, 36, 43, 0.08);
+  transition: transform 170ms ease, box-shadow 170ms ease;
+}
+
+.transparency-page .organization-status-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 5px;
+  background: var(--clay);
+}
+
+.transparency-page .organization-status-card:nth-child(3n + 1) {
+  background: #f8ebe5;
+}
+
+.transparency-page .organization-status-card:nth-child(3n + 2) {
+  background: #e9f0f2;
+}
+
+.transparency-page .organization-status-card:nth-child(3n + 3) {
+  background: #e8eee7;
+}
+
+.transparency-page .organization-status-card:nth-child(3n + 2)::before {
+  background: var(--blue);
+}
+
+.transparency-page .organization-status-card:nth-child(3n + 3)::before {
+  background: var(--sage);
+}
+
+.transparency-page .organization-status-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 9px 12px 0 rgba(24, 36, 43, 0.11);
+}
+
+.transparency-page .organization-status-card-heading {
+  padding-top: 7px;
+}
+
+.transparency-page .organization-status-card-heading .eyebrow {
+  color: var(--ink);
+  opacity: 0.76;
+}
+
+.transparency-page .organization-status-label {
+  border-color: rgba(24, 36, 43, 0.22);
+  background: rgba(252, 250, 246, 0.82);
+  box-shadow: 0 2px 0 rgba(24, 36, 43, 0.08);
+}
+
+.transparency-page .organization-status-label.status-in-progress {
+  border-color: rgba(100, 125, 138, 0.45);
+  background: rgba(220, 229, 231, 0.92);
+  color: #405862;
+}
+
+.transparency-page .organization-status-card > p {
+  color: rgba(24, 36, 43, 0.82);
+  font-size: 0.84rem;
+}
+
+.transparency-page .organization-status-card li {
+  background: rgba(252, 250, 246, 0.6);
+}
+
+.transparency-page .organization-documents-section {
+  background: #dce5e7;
+}
+
+.transparency-page .organization-documents-layout {
+  align-items: start;
+}
+
+.transparency-page .organization-documents-layout > div {
+  position: sticky;
+  top: 28px;
+}
+
+.transparency-page .organization-document-list {
+  counter-reset: transparency-doc;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  border-top: 0;
+}
+
+.transparency-page .organization-document-list li {
+  counter-increment: transparency-doc;
+  position: relative;
+  min-height: 142px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 20px 18px 58px;
+  border: 1px solid rgba(24, 36, 43, 0.16);
+  border-radius: 12px;
+  background: rgba(252, 250, 246, 0.86);
+  box-shadow: 5px 6px 0 rgba(24, 36, 43, 0.07);
+}
+
+.transparency-page .organization-document-list li::before {
+  content: counter(transparency-doc, decimal-leading-zero);
+  position: absolute;
+  left: 18px;
+  top: 19px;
+  color: var(--clay);
+  font-family: var(--serif);
+  font-size: 0.92rem;
+}
+
+.transparency-page .organization-document-list li:nth-child(3n + 2)::before {
+  color: var(--blue);
+}
+
+.transparency-page .organization-document-list li:nth-child(3n + 3)::before {
+  color: var(--sage);
+}
+
+.transparency-page .organization-document-list h3 {
+  font-size: 1.45rem;
+}
+
+.transparency-page .organization-document-list li > span {
+  width: fit-content;
+  margin-top: 18px;
+  padding: 5px 8px;
+  border: 1px solid rgba(24, 36, 43, 0.18);
+  border-radius: 999px;
+  background: var(--paper);
+  color: rgba(24, 36, 43, 0.68);
+  font-size: 0.58rem;
+}
+
+@media (max-width: 1000px) {
+  .transparency-page .organization-status-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .transparency-page .organization-documents-layout > div {
+    position: static;
+  }
+}
+
+@media (max-width: 720px) {
+  .transparency-page .organization-status-grid,
+  .transparency-page .organization-document-list {
+    grid-template-columns: 1fr;
+  }
+
+  .transparency-page .organization-status-card {
+    min-height: 0;
+  }
+
+  .transparency-page .organization-document-list li {
+    min-height: 126px;
+  }
+}
