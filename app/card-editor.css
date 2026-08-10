@@ -40,6 +40,20 @@
 .site-card-image { position: relative; width: calc(100% + 42px); height: 150px; margin: -21px -21px 20px; overflow: hidden; background: #dce5e7; }
 .site-card-image img { width: 100%; height: 100%; display: block; object-fit: cover; }
 .journey-card > .site-card-image, .reentry-pathway-card > .site-card-image, .family-pathway-card > .site-card-image { width: calc(100% + 42px); flex: 0 0 150px; }
+.has-card-image { overflow: hidden; }
+.card-tone-clay:not(.has-site-media) { background: #f5e7e2 !important; }
+.card-tone-sage:not(.has-site-media) { background: #e9eee7 !important; }
+.card-tone-blue:not(.has-site-media) { background: #e7edef !important; }
+.card-tone-paper:not(.has-site-media) { background: var(--paper) !important; }
+.card-tone-ink:not(.has-site-media) { background: var(--ink) !important; color: var(--paper); }
+.card-tone-ink:not(.has-site-media) :is(h2,h3,strong,p,small,a,span) { color: var(--paper); }
+
+.journey-card-links { position: relative; z-index: 2; display: flex; flex-wrap: wrap; gap: 8px 13px; align-items: center; margin-top: 12px; }
+.journey-card-links a { width: fit-content; padding-bottom: 2px; border-bottom: 1px solid currentColor; color: rgba(24,36,43,0.79); font-size: 0.64rem; font-weight: 700; }
+.journey-card-links a:hover { color: var(--clay); }
+.journey-card-links .journey-card-resource-link { color: var(--clay); }
+.journey-card.has-site-media .journey-card-links a { color: var(--section-button-color, var(--paper)); }
+.journey-card.has-site-media .journey-card-links .journey-card-resource-link { color: #e5b5a4; }
 
 @media (max-width: 900px) { .card-editor-shell { grid-template-columns: 1fr; }.card-editor-nav { position: static; max-height: none; }.card-editor-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }.card-editor-groups section { align-content: start; } }
 @media (max-width: 620px) { .card-editor-shell { width: min(100% - 28px, 1240px); }.card-editor-fields, .card-editor-groups { grid-template-columns: 1fr; }.card-editor-fields label.is-wide { grid-column: auto; }.card-editor-form > header { display: block; }.card-reset { margin-top: 14px; }.card-editor-preview { min-height: 200px; }.card-editor-preview > div { min-height: 200px; } }
