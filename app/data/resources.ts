@@ -15,6 +15,16 @@ export const resourceCategoryOptions = [
     description: "IDs, records, and the paperwork that opens doors.",
   },
   {
+    slug: "jails-corrections",
+    name: "Jails and Corrections",
+    description: "Official facility, custody, visitation, and corrections contacts.",
+  },
+  {
+    slug: "courts",
+    name: "Courts",
+    description: "Official court systems, clerks, case information, and court contacts.",
+  },
+  {
     slug: "legal-help",
     name: "Legal Help",
     description: "Rights information and community advocacy.",
@@ -106,6 +116,11 @@ export const resourcePathways = [
     title: "I just need a place to start",
     detail: "Build a small reentry plan first.",
     href: "/resources/results?category=reentry-planning",
+  },
+  {
+    title: "I need to find a jail, prison, or court",
+    detail: "Start with official facility and court contacts by state.",
+    href: "/resources/justice",
   },
   {
     title: "I am trying to get documents together",
