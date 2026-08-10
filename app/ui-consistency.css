@@ -19,7 +19,7 @@
 }
 
 /* Every shared landing hero follows the same vertical reading order:
-   breadcrumb, eyebrow, heading, description, then the page action. */
+   breadcrumb, eyebrow, heading, description, then its actions. */
 .directory-page-hero-inner {
   display: flex;
   flex-direction: column;
@@ -31,13 +31,55 @@
   max-width: 900px;
 }
 
-.directory-page-hero-inner > .directory-search-panel {
+.page-hero-copy > p:last-child {
+  margin-bottom: 0;
+}
+
+.page-hero-action-area {
+  width: 100%;
+  max-width: 900px;
+  margin-top: clamp(24px, 2.8vw, 34px);
+}
+
+.page-hero-action-area:has(.directory-search-panel) {
+  max-width: none;
+}
+
+.page-hero-action-area > .directory-search-panel {
   width: 100%;
 }
 
-.directory-page-hero-inner > .button {
+.page-hero-action-area > .button {
+  width: fit-content;
+}
+
+.page-hero-action-area > :is(.family-hero-actions, .reentry-hero-actions, .hero-actions) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 11px;
+  width: 100%;
+  margin: 0;
+}
+
+.page-hero-action-area .button {
+  position: static;
+  margin: 0;
+}
+
+/* Section CTAs follow the same rhythm instead of sitting beside the heading. */
+.section-split-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 22px;
+}
+
+.section-split-heading .button {
   align-self: flex-start;
-  flex: 0 0 auto;
+  margin: 0;
 }
 
 /* Keep landing-page breadcrumb placement identical to the guide heroes. */
@@ -86,6 +128,40 @@
     flex-direction: column;
     align-items: flex-start;
   }
+
+  /* Action-heavy heroes need a little more vertical canvas once their buttons
+     are correctly placed below the copy. */
+  .directory-page-hero.has-site-media:has(.page-hero-action-area):not(:has(.directory-search-panel)) {
+    height: auto;
+    min-height: 620px;
+  }
+}
+
+@media (max-width: 720px) {
+  .page-hero-action-area {
+    max-width: 520px;
+    margin-top: 24px;
+  }
+
+  .page-hero-action-area > .button,
+  .page-hero-action-area > :is(.family-hero-actions, .reentry-hero-actions, .hero-actions) .button {
+    width: 100%;
+  }
+
+  .page-hero-action-area > :is(.family-hero-actions, .reentry-hero-actions, .hero-actions) {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .section-split-heading {
+    gap: 20px;
+  }
+
+  .section-split-heading .button {
+    width: 100%;
+    max-width: 520px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -96,9 +172,5 @@
   .community-thread-hero .breadcrumbs {
     margin-bottom: 22px;
     font-size: 0.64rem;
-  }
-
-  .directory-page-hero-inner > .button {
-    width: 100%;
   }
 }
