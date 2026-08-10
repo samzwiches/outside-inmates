@@ -1,0 +1,104 @@
+/* Shared alignment rules for public page headers and hero surfaces. */
+
+@media (min-width: 1081px) {
+  .header-inner {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+
+  .wordmark {
+    justify-self: start;
+  }
+
+  .main-nav {
+    justify-self: center;
+  }
+
+  .header-actions {
+    justify-self: end;
+  }
+}
+
+/* Every shared landing hero follows the same vertical reading order:
+   breadcrumb, eyebrow, heading, description, then the page action. */
+.directory-page-hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.directory-page-hero-inner > .page-hero-copy {
+  width: min(100%, 900px);
+  max-width: 900px;
+}
+
+.directory-page-hero-inner > .directory-search-panel {
+  width: 100%;
+}
+
+.directory-page-hero-inner > .button {
+  align-self: flex-start;
+  flex: 0 0 auto;
+}
+
+/* Keep landing-page breadcrumb placement identical to the guide heroes. */
+.page-hero-breadcrumbs,
+.guide-page-hero .breadcrumbs,
+.reentry-page-hero .breadcrumbs,
+.journey-page-hero .breadcrumbs,
+.community-thread-hero .breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px 10px;
+  margin: 0 0 28px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.page-hero-breadcrumbs a,
+.guide-page-hero .breadcrumbs a,
+.reentry-page-hero .breadcrumbs a,
+.journey-page-hero .breadcrumbs a,
+.community-thread-hero .breadcrumbs a {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+}
+
+.page-hero-breadcrumbs > span:last-child,
+.guide-page-hero .breadcrumbs > span:last-child,
+.reentry-page-hero .breadcrumbs > span:last-child,
+.journey-page-hero .breadcrumbs > span:last-child,
+.community-thread-hero .breadcrumbs > span:last-child {
+  opacity: 0.82;
+}
+
+/* Assigned hero images get a neutral paint surface while the new asset loads.
+   This prevents a previous route image from visually lingering underneath it. */
+.directory-page-hero.has-site-media > .site-media,
+.guide-page-hero.has-site-media > .site-media,
+.reentry-page-hero.has-site-media > .site-media {
+  background: var(--ink);
+}
+
+@media (min-width: 901px) {
+  .directory-page-hero.has-site-media:not(:has(.directory-search-panel)) > .directory-page-hero-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .page-hero-breadcrumbs,
+  .guide-page-hero .breadcrumbs,
+  .reentry-page-hero .breadcrumbs,
+  .journey-page-hero .breadcrumbs,
+  .community-thread-hero .breadcrumbs {
+    margin-bottom: 22px;
+    font-size: 0.64rem;
+  }
+
+  .directory-page-hero-inner > .button {
+    width: 100%;
+  }
+}
