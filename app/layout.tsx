@@ -18,6 +18,7 @@ import "./transparency-punch.css";
 import "./contact.css";
 import "./family-card-polish.css";
 import "./card-editor.css";
+import "./editable-card-image-consistency.css";
 import "./home-card-consistency.css";
 import "./justice.css";
 import "./resource-admin.css";
