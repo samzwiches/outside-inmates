@@ -18,6 +18,7 @@ import "./transparency-punch.css";
 import "./contact.css";
 import "./family-card-polish.css";
 import "./card-editor.css";
+import "./justice.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
