@@ -51,6 +51,16 @@ function fallbackFor(key: SiteMediaKey): ResolvedSiteMedia {
   };
 }
 
+function emptyAssignedSlot(key: SiteMediaKey): ResolvedSiteMedia {
+  const slot = getSiteMediaSlot(key)!;
+  return {
+    ...slot,
+    imagePath: undefined,
+    mobileImagePath: null,
+    source: "none",
+  };
+}
+
 function assignmentFromRecord(record: SavedSiteMedia): SiteMediaAssignment {
   return {
     storagePath: record.signedUrl,
@@ -92,7 +102,7 @@ export const getPublicSiteMedia = cache(async (key: SiteMediaKey): Promise<Resol
   if (!data) return fallbackFor(key);
 
   const record = await resolveSavedMedia(client, data as Omit<SavedSiteMedia, "signedUrl" | "mobileSignedUrl">);
-  if (!record) return fallbackFor(key);
+  if (!record) return emptyAssignedSlot(key);
   const assignment = assignmentFromRecord(record);
   return {
     ...slot,
