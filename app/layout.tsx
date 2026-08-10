@@ -5,6 +5,7 @@ import "./journeys.css";
 import "./media.css";
 import "./reentry.css";
 import "./organization.css";
+import "./about-polish.css";
 import "./auth.css";
 import "./community.css";
 import "./community-preview.css";
