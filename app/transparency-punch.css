@@ -1,59 +1,28 @@
 /* Transparency page: make status and planned-document information easier to scan. */
 
-/* Give the page a real hero instead of a plain introductory block. */
+/* The hero is now a real editable media slot. Keep a strong fallback surface
+   before an image is assigned, then let the shared media system own the image,
+   focal point, overlay, and color controls. */
 .transparency-page .directory-page-hero {
   min-height: 520px;
   padding: clamp(78px, 9vw, 116px) 0;
-  overflow: hidden;
-  isolation: isolate;
-  background:
-    radial-gradient(circle at 80% 20%, rgba(166, 95, 77, 0.28), transparent 24%),
-    radial-gradient(circle at 91% 76%, rgba(135, 153, 138, 0.22), transparent 26%),
-    linear-gradient(135deg, #18242b 0%, #1e2d35 64%, #2a3a42 100%);
-  color: var(--paper);
+  background: linear-gradient(135deg, #18242b 0%, #24343c 100%);
 }
 
-.transparency-page .directory-page-hero::before {
+.transparency-page .directory-page-hero:not(.has-site-media)::after {
   content: "";
   position: absolute;
-  z-index: 0;
-  right: clamp(28px, 7vw, 105px);
-  bottom: 54px;
-  width: min(29vw, 360px);
-  aspect-ratio: 1.22;
-  border: 1px solid rgba(252, 250, 246, 0.18);
+  right: clamp(24px, 7vw, 105px);
+  bottom: 50px;
+  width: min(27vw, 330px);
+  aspect-ratio: 1.2;
+  border: 1px solid rgba(252, 250, 246, 0.16);
   border-radius: 22px;
-  background:
-    linear-gradient(145deg,
-      rgba(166, 95, 77, 0.92) 0 31%,
-      rgba(135, 153, 138, 0.9) 31% 64%,
-      rgba(100, 125, 138, 0.94) 64% 100%);
-  box-shadow:
-    18px 20px 0 rgba(7, 16, 20, 0.18),
-    inset 0 0 0 12px rgba(252, 250, 246, 0.05);
+  background: linear-gradient(145deg, rgba(166, 95, 77, 0.88) 0 32%, rgba(135, 153, 138, 0.86) 32% 65%, rgba(100, 125, 138, 0.9) 65% 100%);
+  box-shadow: 16px 18px 0 rgba(7, 16, 20, 0.16);
   transform: rotate(-3deg);
-  opacity: 0.94;
+  opacity: 0.82;
   pointer-events: none;
-}
-
-.transparency-page .directory-page-hero::after {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  right: clamp(11px, 4vw, 62px);
-  top: 48px;
-  width: clamp(120px, 14vw, 190px);
-  height: clamp(120px, 14vw, 190px);
-  border: 1px solid rgba(252, 250, 246, 0.2);
-  border-radius: 50%;
-  background: rgba(252, 250, 246, 0.035);
-  box-shadow: inset 0 0 0 16px rgba(252, 250, 246, 0.025);
-  pointer-events: none;
-}
-
-.transparency-page .directory-page-hero-inner {
-  position: relative;
-  z-index: 2;
 }
 
 .transparency-page .directory-page-hero .page-hero-copy {
@@ -62,24 +31,27 @@
 
 .transparency-page .directory-page-hero h1 {
   max-width: 730px;
-  color: var(--paper);
   text-wrap: balance;
 }
 
-.transparency-page .directory-page-hero .eyebrow {
+.transparency-page .directory-page-hero:not(.has-site-media) h1 {
+  color: var(--paper);
+}
+
+.transparency-page .directory-page-hero:not(.has-site-media) .eyebrow {
   color: #e5b5a4;
 }
 
-.transparency-page .directory-page-hero .page-hero-description {
+.transparency-page .directory-page-hero:not(.has-site-media) .page-hero-description {
   max-width: 650px;
   color: rgba(252, 250, 246, 0.9);
 }
 
-.transparency-page .directory-page-hero .page-hero-breadcrumbs {
+.transparency-page .directory-page-hero:not(.has-site-media) .page-hero-breadcrumbs {
   color: rgba(252, 250, 246, 0.74);
 }
 
-.transparency-page .directory-page-hero .page-hero-breadcrumbs a {
+.transparency-page .directory-page-hero:not(.has-site-media) .page-hero-breadcrumbs a {
   color: var(--paper);
 }
 
@@ -242,14 +214,10 @@
 }
 
 @media (max-width: 1000px) {
-  .transparency-page .directory-page-hero::before {
-    right: 28px;
+  .transparency-page .directory-page-hero:not(.has-site-media)::after {
+    right: -12px;
     width: 250px;
-    opacity: 0.55;
-  }
-
-  .transparency-page .directory-page-hero::after {
-    opacity: 0.45;
+    opacity: 0.42;
   }
 
   .transparency-page .organization-status-grid {
@@ -267,17 +235,11 @@
     padding: 66px 0 74px;
   }
 
-  .transparency-page .directory-page-hero::before {
-    right: -54px;
+  .transparency-page .directory-page-hero:not(.has-site-media)::after {
+    right: -72px;
     bottom: -46px;
-    width: 230px;
-    opacity: 0.34;
-  }
-
-  .transparency-page .directory-page-hero::after {
-    right: -34px;
-    top: 24px;
-    opacity: 0.28;
+    width: 220px;
+    opacity: 0.3;
   }
 
   .transparency-page .directory-page-hero .page-hero-copy {
