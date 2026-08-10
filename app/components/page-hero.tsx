@@ -47,7 +47,7 @@ export async function PageHero({
           ) : null}
           <p className="eyebrow">{eyebrow}</p>
           <h1 id="directory-hero-heading">{title}</h1>
-          <p>{description}</p>
+          <p className="page-hero-description">{description}</p>
         </div>
         {children ? <div className="page-hero-action-area">{children}</div> : null}
       </EditablePageHero>
