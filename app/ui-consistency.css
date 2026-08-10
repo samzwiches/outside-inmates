@@ -107,6 +107,17 @@
   color: rgba(24, 36, 43, 0.82);
 }
 
+/* The visitation photograph has a face near the center-right. Keep the copy
+   in the open left side instead of letting the headline run across the subject. */
+.guide-page-hero[data-media-key="families.visitation"] h1 {
+  max-width: 650px;
+  text-wrap: balance;
+}
+
+.guide-page-hero[data-media-key="families.visitation"] > .container > p:not(.eyebrow) {
+  max-width: 650px;
+}
+
 /* Keep landing-page breadcrumb placement identical to the guide heroes. */
 .page-hero-breadcrumbs,
 .guide-page-hero .breadcrumbs,
@@ -162,6 +173,13 @@
   }
 }
 
+@media (max-width: 900px) {
+  .guide-page-hero[data-media-key="families.visitation"] h1,
+  .guide-page-hero[data-media-key="families.visitation"] > .container > p:not(.eyebrow) {
+    max-width: 72%;
+  }
+}
+
 @media (max-width: 720px) {
   .page-hero-action-area {
     max-width: 520px;
@@ -202,5 +220,10 @@
   .community-thread-hero .breadcrumbs {
     margin-bottom: 22px;
     font-size: 0.64rem;
+  }
+
+  .guide-page-hero[data-media-key="families.visitation"] h1,
+  .guide-page-hero[data-media-key="families.visitation"] > .container > p:not(.eyebrow) {
+    max-width: 100%;
   }
 }
