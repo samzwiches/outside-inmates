@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { getCurrentAdmin } from "../../../../../lib/auth";
-import { getSiteCardDefinition } from "../../../../../data/card-registry";
-import { ACCEPTED_SITE_MEDIA_TYPES, MAX_SITE_MEDIA_IMAGE_BYTES, SITE_MEDIA_BUCKET } from "../../../../../lib/site-media-server";
-import { getSupabaseAdminClient } from "../../../../../lib/supabase/admin";
-import { hasSupabaseServiceRole } from "../../../../../lib/supabase/config";
+import { getCurrentAdmin } from "../../../../lib/auth";
+import { getSiteCardDefinition } from "../../../../data/card-registry";
+import { ACCEPTED_SITE_MEDIA_TYPES, MAX_SITE_MEDIA_IMAGE_BYTES, SITE_MEDIA_BUCKET } from "../../../../lib/site-media-server";
+import { getSupabaseAdminClient } from "../../../../lib/supabase/admin";
+import { hasSupabaseServiceRole } from "../../../../lib/supabase/config";
 
 export const runtime = "nodejs";
 
