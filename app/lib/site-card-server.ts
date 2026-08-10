@@ -31,6 +31,8 @@ export type ResolvedSiteCard = SiteCardDefinition & {
   updatedAt: string | null;
 };
 
+const cardSelect = "card_key, title, description, eyebrow, action_label, href, secondary_action_label, secondary_href, tone, image_storage_path, image_alt, focal_x, focal_y, updated_at";
+
 async function signCardImage(client: Awaited<ReturnType<typeof createSupabaseServerClient>> | ReturnType<typeof getSupabaseAdminClient>, storagePath: string | null) {
   if (!client || !storagePath) return null;
   const { data, error } = await client.storage.from(SITE_MEDIA_BUCKET).createSignedUrl(storagePath, 60 * 60);
@@ -61,23 +63,27 @@ export const getSiteCard = cache(async (cardKey: string): Promise<ResolvedSiteCa
   if (!definition) return null;
   const client = await createSupabaseServerClient();
   if (!client) return mergeCard(definition, null);
-  const { data } = await client
-    .from("site_card_content")
-    .select("card_key, title, description, eyebrow, action_label, href, secondary_action_label, secondary_href, tone, image_storage_path, image_alt, focal_x, focal_y, updated_at")
-    .eq("card_key", cardKey)
-    .maybeSingle();
+  const { data } = await client.from("site_card_content").select(cardSelect).eq("card_key", cardKey).maybeSingle();
   if (!data) return mergeCard(definition, null);
   const imageUrl = await signCardImage(client, data.image_storage_path ?? null);
   return mergeCard(definition, { ...(data as SiteCardRow), imageUrl });
 });
 
+export const getSiteCards = cache(async (cardKeys: string[]): Promise<ResolvedSiteCard[]> => {
+  const definitions = cardKeys.map(getSiteCardDefinition).filter((item): item is SiteCardDefinition => Boolean(item));
+  if (!definitions.length) return [];
+  const client = await createSupabaseServerClient();
+  if (!client) return definitions.map((definition) => mergeCard(definition, null));
+  const { data } = await client.from("site_card_content").select(cardSelect).in("card_key", definitions.map((item) => item.key));
+  const rows = (data as SiteCardRow[] | null) ?? [];
+  const signedRows = await Promise.all(rows.map(async (row) => ({ ...row, imageUrl: await signCardImage(client, row.image_storage_path) })));
+  return definitions.map((definition) => mergeCard(definition, signedRows.find((row) => row.card_key === definition.key) ?? null));
+});
+
 export async function getSiteCardsForAdmin(): Promise<SavedSiteCard[]> {
   try {
     const client = getSupabaseAdminClient();
-    const { data } = await client
-      .from("site_card_content")
-      .select("card_key, title, description, eyebrow, action_label, href, secondary_action_label, secondary_href, tone, image_storage_path, image_alt, focal_x, focal_y, updated_at")
-      .order("card_key");
+    const { data } = await client.from("site_card_content").select(cardSelect).order("card_key");
     if (!data) return [];
     return Promise.all((data as SiteCardRow[]).map(async (row) => ({ ...row, imageUrl: await signCardImage(client, row.image_storage_path) })));
   } catch {
