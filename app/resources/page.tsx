@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SiteCardImage } from "../components/cards/SiteCardImage";
 import { SiteFooter, SiteHeader } from "../components/layout";
 import { PageHero } from "../components/page-hero";
 import { ResourceCategoryCard } from "../components/resources/ResourceCategoryCard";
@@ -10,9 +11,14 @@ import {
   resourcePathways,
 } from "../data/resources";
 import { getPublishedResources } from "../lib/resources-server";
+import { getSiteCards } from "../lib/site-card-server";
 
 export default async function ResourcesPage() {
-  const resources = await getPublishedResources();
+  const [resources, pathwayCards] = await Promise.all([
+    getPublishedResources(),
+    getSiteCards(resourcePathways.map((_, index) => `resources.pathway.${String(index + 1).padStart(2, "0")}`)),
+  ]);
+  const pathwayCardsByKey = new Map(pathwayCards.map((card) => [card.key, card]));
 
   const featured = resources
     .filter((resource) => resource.featured)
@@ -78,18 +84,22 @@ export default async function ResourcesPage() {
             />
 
             <div className="directory-pathway-grid">
-              {resourcePathways.map((pathway, index) => (
-                <Link
-                  href={pathway.href}
-                  className="directory-pathway-card"
+              {resourcePathways.map((pathway, index) => {
+                const cardKey = `resources.pathway.${String(index + 1).padStart(2, "0")}`;
+                const card = pathwayCardsByKey.get(cardKey);
+                return <Link
+                  href={card?.href ?? pathway.href}
+                  className={`directory-pathway-card ${card?.imageUrl ? "has-card-image" : ""} ${card?.tone ? `card-tone-${card.tone}` : ""}`}
+                  data-card-key={cardKey}
                   key={pathway.title}
                 >
+                  {card?.imageUrl ? <SiteCardImage src={card.imageUrl} alt={card.imageAlt} focalX={card.focalX} focalY={card.focalY} /> : null}
                   <span>0{index + 1}</span>
-                  <strong>{pathway.title}</strong>
-                  <small>{pathway.detail}</small>
+                  <strong>{card?.title ?? pathway.title}</strong>
+                  <small>{card?.description ?? pathway.detail}</small>
                   <b aria-hidden="true">→</b>
-                </Link>
-              ))}
+                </Link>;
+              })}
             </div>
           </div>
         </section>
