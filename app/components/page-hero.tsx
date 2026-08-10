@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { PrimaryButton, SecondaryButton } from "./buttons";
 import type { SiteMediaKey } from "../data/media";
 import { appearanceStyle, getJourneyAppearanceSettings, hasMediaVisualOverrides } from "../lib/site-appearance";
@@ -12,11 +13,45 @@ type PageHeroProps = {
   description?: string;
   children?: React.ReactNode;
   mediaKey?: SiteMediaKey;
+  breadcrumbLabel?: string;
+  showBreadcrumbs?: boolean;
 };
 
-export async function PageHero({ variant = "home", eyebrow, title, description, children, mediaKey }: PageHeroProps) {
+export async function PageHero({
+  variant = "home",
+  eyebrow,
+  title,
+  description,
+  children,
+  mediaKey,
+  breadcrumbLabel,
+  showBreadcrumbs = true,
+}: PageHeroProps) {
   if (variant === "page") {
-    return <EditablePageHero mediaKey={mediaKey} className="directory-page-hero" contentClassName="container directory-page-hero-inner" labelledBy="directory-hero-heading"><div><p className="eyebrow">{eyebrow}</p><h1 id="directory-hero-heading">{title}</h1><p>{description}</p></div>{children}</EditablePageHero>;
+    const currentBreadcrumb = breadcrumbLabel ?? eyebrow ?? title;
+
+    return (
+      <EditablePageHero
+        mediaKey={mediaKey}
+        className="directory-page-hero"
+        contentClassName="container directory-page-hero-inner"
+        labelledBy="directory-hero-heading"
+      >
+        <div className="page-hero-copy">
+          {showBreadcrumbs && currentBreadcrumb ? (
+            <nav className="breadcrumbs page-hero-breadcrumbs" aria-label="Breadcrumb">
+              <Link href="/">Home</Link>
+              <span aria-hidden="true">/</span>
+              <span>{currentBreadcrumb}</span>
+            </nav>
+          ) : null}
+          <p className="eyebrow">{eyebrow}</p>
+          <h1 id="directory-hero-heading">{title}</h1>
+          <p>{description}</p>
+        </div>
+        {children}
+      </EditablePageHero>
+    );
   }
 
   const homeMediaKey = mediaKey ?? "home.hero";
