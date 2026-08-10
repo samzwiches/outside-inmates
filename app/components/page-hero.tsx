@@ -48,8 +48,8 @@ export async function PageHero({
           <p className="eyebrow">{eyebrow}</p>
           <h1 id="directory-hero-heading">{title}</h1>
           <p>{description}</p>
+          {children}
         </div>
-        {children}
       </EditablePageHero>
     );
   }
