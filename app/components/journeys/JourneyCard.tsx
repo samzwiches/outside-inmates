@@ -14,7 +14,6 @@ export async function JourneyCard({ journey, number, compact = false, mediaKey, 
   ]);
   const hasCardImage = imageEnabled && Boolean(card?.imageUrl);
   const hasSharedMedia = imageEnabled && !hasCardImage && Boolean(presentation?.media.imagePath);
-  const hasMedia = hasCardImage || hasSharedMedia;
   const hasVisualOverrides = hasMediaVisualOverrides(presentation?.appearance);
   const visualSettings = getJourneyAppearanceSettings(presentation?.appearance);
   const title = card?.title ?? journey.cardTitle;
@@ -22,7 +21,7 @@ export async function JourneyCard({ journey, number, compact = false, mediaKey, 
   const primaryHref = card?.href ?? `/start/${journey.slug}`;
   const primaryLabel = card?.actionLabel ?? "Open this path";
 
-  return <article className={`journey-card ${compact ? "is-compact" : ""} ${hasMedia ? "has-site-media" : ""} ${card?.tone ? `card-tone-${card.tone}` : ""}`} data-card-key={`journey.${journey.slug}`} data-media-key={mediaKey} data-media-visual-controls={hasVisualOverrides ? "true" : undefined} data-media-overlay-direction={hasVisualOverrides ? visualSettings.backgroundOverlayDirection : undefined} data-media-overlay-distribution={hasVisualOverrides ? visualSettings.backgroundOverlayDistribution : undefined} style={appearanceStyle(presentation?.appearance)}>
+  return <article className={`journey-card ${compact ? "is-compact" : ""} ${hasSharedMedia ? "has-site-media" : ""} ${hasCardImage ? "has-card-image" : ""} ${card?.tone ? `card-tone-${card.tone}` : ""}`} data-card-key={`journey.${journey.slug}`} data-media-key={mediaKey} data-media-visual-controls={hasVisualOverrides ? "true" : undefined} data-media-overlay-direction={hasVisualOverrides ? visualSettings.backgroundOverlayDirection : undefined} data-media-overlay-distribution={hasVisualOverrides ? visualSettings.backgroundOverlayDistribution : undefined} style={appearanceStyle(presentation?.appearance)}>
     {hasCardImage && card?.imageUrl ? <SiteCardImage src={card.imageUrl} alt={card.imageAlt} focalX={card.focalX} focalY={card.focalY} /> : mediaKey && presentation && hasSharedMedia ? <SiteMedia mediaKey={mediaKey} media={presentation.media} sizes="(max-width: 720px) 100vw, (max-width: 1080px) 50vw, 33vw" showOverlay={!hasVisualOverrides} /> : null}
     <span className="journey-card-marker" aria-hidden="true">{String(number).padStart(2, "0")}</span>
     <h3>{title}</h3>
