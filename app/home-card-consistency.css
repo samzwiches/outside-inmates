@@ -1,17 +1,17 @@
-/* Keep homepage journey cards visually consistent regardless of whether an image
-   comes from the shared media system or the card editor. */
-.home-journey-grid .journey-card.has-card-image {
+/* Keep journey cards visually consistent on both Home and Start Here regardless
+   of whether an image comes from the shared media system or the card editor. */
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image {
   isolation: isolate;
   border-color: rgba(252, 250, 246, 0.32);
   background: var(--section-background-color, var(--ink));
   color: var(--paper);
 }
 
-.home-journey-grid .journey-card.has-card-image:hover {
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image:hover {
   background: var(--section-background-color, var(--ink));
 }
 
-.home-journey-grid .journey-card.has-card-image > .site-card-image {
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image > .site-card-image {
   position: absolute;
   z-index: 0;
   inset: 0;
@@ -21,13 +21,13 @@
   flex: none;
 }
 
-.home-journey-grid .journey-card.has-card-image > .site-card-image img {
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image > .site-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.home-journey-grid .journey-card.has-card-image::before {
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image::before {
   content: "";
   position: absolute;
   z-index: 1;
@@ -41,50 +41,50 @@
   pointer-events: none;
 }
 
-.home-journey-grid .journey-card.has-card-image::after {
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image::after {
   z-index: 1;
   border-color: rgba(252, 250, 246, 0.34);
 }
 
-.home-journey-grid .journey-card.has-card-image .journey-card-marker,
-.home-journey-grid .journey-card.has-card-image h3,
-.home-journey-grid .journey-card.has-card-image > p,
-.home-journey-grid .journey-card.has-card-image .journey-card-action,
-.home-journey-grid .journey-card.has-card-image .journey-card-links {
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image .journey-card-marker,
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image h3,
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image > p,
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image .journey-card-action,
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image .journey-card-links {
   position: relative;
   z-index: 2;
 }
 
-.home-journey-grid .journey-card.has-card-image .journey-card-marker {
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image .journey-card-marker {
   border-color: rgba(252, 250, 246, 0.56);
   color: rgba(252, 250, 246, 0.88);
 }
 
-.home-journey-grid .journey-card.has-card-image h3 {
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image h3 {
   color: var(--section-heading-color, var(--paper));
   font-family: var(--section-font-family, var(--serif));
 }
 
-.home-journey-grid .journey-card.has-card-image > p {
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image > p {
   color: var(--section-body-color, rgba(252, 250, 246, 0.8));
 }
 
-.home-journey-grid .journey-card.has-card-image .journey-card-action {
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image .journey-card-action {
   border-color: rgba(252, 250, 246, 0.27);
 }
 
-.home-journey-grid .journey-card.has-card-image .journey-card-action span {
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image .journey-card-action span {
   color: rgba(252, 250, 246, 0.66);
 }
 
-.home-journey-grid .journey-card.has-card-image .journey-card-action strong {
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image .journey-card-action strong {
   color: var(--section-default-color, rgba(252, 250, 246, 0.9));
 }
 
-.home-journey-grid .journey-card.has-card-image .journey-card-links a {
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image .journey-card-links a {
   color: var(--section-button-color, var(--paper));
 }
 
-.home-journey-grid .journey-card.has-card-image .journey-card-links a:hover {
+:is(.home-journey-grid, .journey-card-grid) .journey-card.has-card-image .journey-card-links a:hover {
   color: #e5b5a4;
 }
