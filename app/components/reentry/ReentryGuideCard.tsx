@@ -21,7 +21,7 @@ export async function ReentryGuideCard({ guide }: { guide: ReentryGuideData }) {
   const card = await getSiteCard(cardKey);
   const mediaKey = reentryGuideMediaKeys[guide.slug];
   return <article className={`reentry-guide-card ${card?.imageUrl ? "has-card-image" : ""} ${card?.tone ? `card-tone-${card.tone}` : ""}`} data-card-key={cardKey}>
-    {card?.imageUrl ? <SiteCardImage src={card.imageUrl} alt={card.imageAlt} focalX={card.focalX} focalY={card.focalY} /> : <SiteMedia mediaKey={mediaKey} className="reentry-card-media" sizes="(max-width: 720px) 100vw, (max-width: 1080px) 50vw, 33vw" showOverlay={false} />}
+    {card?.imageUrl ? <SiteCardImage src={card.imageUrl} alt={card.imageAlt} focalX={card.focalX} focalY={card.focalY} className="reentry-card-media" /> : <SiteMedia mediaKey={mediaKey} className="reentry-card-media" sizes="(max-width: 720px) 100vw, (max-width: 1080px) 50vw, 33vw" showOverlay={false} />}
     <div className="reentry-guide-card-body"><p className="eyebrow">{card?.eyebrow ?? guide.kicker}</p><h3>{card?.title ?? guide.title}</h3><p>{card?.description ?? guide.shortDescription}</p><Link href={card?.href ?? `/reentry/${guide.slug}`}>{card?.actionLabel ?? "Read guide"} <span aria-hidden="true">→</span></Link></div>
   </article>;
 }
