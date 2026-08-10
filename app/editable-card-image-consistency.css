@@ -1,0 +1,116 @@
+/* Editable card images should inherit the visual language of the card they replace.
+   Cards without a dedicated media rail use the photo as a full-card background,
+   matching the image treatment established on the homepage. */
+[data-card-key].has-card-image:not(.journey-card):not(.family-guide-card):not(.family-pathway-card):not(.action-card):not(.reentry-guide-card) {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--ink) !important;
+  color: var(--paper);
+}
+
+[data-card-key].has-card-image:not(.journey-card):not(.family-guide-card):not(.family-pathway-card):not(.action-card):not(.reentry-guide-card) > .site-card-image {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  flex: none;
+}
+
+[data-card-key].has-card-image:not(.journey-card):not(.family-guide-card):not(.family-pathway-card):not(.action-card):not(.reentry-guide-card) > .site-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.48) saturate(0.82);
+}
+
+[data-card-key].has-card-image:not(.journey-card):not(.family-guide-card):not(.family-pathway-card):not(.action-card):not(.reentry-guide-card) > :not(.site-card-image) {
+  position: relative;
+  z-index: 2;
+}
+
+[data-card-key].has-card-image:not(.journey-card):not(.family-guide-card):not(.family-pathway-card):not(.action-card):not(.reentry-guide-card) :is(h2, h3, strong, p, small, a, span, b) {
+  color: inherit;
+}
+
+[data-card-key].has-card-image:not(.journey-card):not(.family-guide-card):not(.family-pathway-card):not(.action-card):not(.reentry-guide-card) a:hover {
+  color: #e5b5a4;
+}
+
+/* Homepage feature cards already use full-bleed shared media. A card-editor image
+   must occupy the exact same layer instead of becoming a 150px strip. */
+.action-card.has-card-image > .site-card-image.action-card-custom-media {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.action-card.has-card-image > .site-card-image.action-card-custom-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Reentry guide cards use the same full-card media treatment whether the image
+   comes from Site Media or from the Card Editor. */
+.reentry-guide-card:has(> .site-media),
+.reentry-guide-card.has-card-image {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.reentry-guide-card:has(> .site-media)::before,
+.reentry-guide-card.has-card-image::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: rgba(24, 36, 43, 0.66);
+  pointer-events: none;
+}
+
+.reentry-guide-card > .site-media,
+.reentry-guide-card > .site-card-image.reentry-card-media {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.reentry-guide-card > .site-card-image.reentry-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reentry-guide-card .reentry-guide-card-body {
+  position: relative;
+  z-index: 2;
+}
+
+.reentry-guide-card:has(> .site-media) :is(h3, p, a),
+.reentry-guide-card.has-card-image :is(h3, p, a) {
+  color: var(--paper);
+}
+
+.reentry-guide-card:has(> .site-media) .eyebrow,
+.reentry-guide-card.has-card-image .eyebrow {
+  color: #e5b5a4;
+}
+
+/* Family cards intentionally keep their existing editorial image rail. */
+.family-pathway-card > .site-card-image.family-card-media,
+.family-guide-card > .site-card-image.family-card-media {
+  width: 100%;
+  margin: 0;
+}
