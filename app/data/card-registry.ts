@@ -2,7 +2,7 @@ import { familyGuides, familyPathways } from "./family";
 import { journeys, type JourneySlug } from "./journeys";
 import { organizationStatusItems, organizationValues, plannedPublicDocuments, supportOpportunities, workInProgress } from "./organization";
 import { reentryGuides, reentryPathways } from "./reentry";
-import { resourceCategoryOptions } from "./resources";
+import { resourceCategoryOptions, stateOptions } from "./resources";
 
 export type SiteCardDefinition = {
   key: string;
@@ -115,6 +115,20 @@ export const siteCardRegistry: SiteCardDefinition[] = [
     description: category.description,
     actionLabel: "Browse resources",
     href: `/resources/results?category=${category.slug}`,
+  })),
+  ...stateOptions.filter((state) => state.value).map((state) => ({
+    key: `resources.justice.${state.value}`,
+    group: "Resources",
+    page: "Jails + Courts",
+    section: "State cards",
+    eyebrow: state.value,
+    title: state.label,
+    description: "Official jail, corrections, and court contacts for this state.",
+    actionLabel: "Jails + corrections",
+    href: `/resources/results?state=${state.value}&category=jails-corrections`,
+    secondaryActionLabel: "Courts",
+    secondaryHref: `/resources/results?state=${state.value}&category=courts`,
+    tone: "paper",
   })),
   ...supportOpportunities.map((opportunity, index) => ({
     key: `support.opportunity.${String(index + 1).padStart(2, "0")}`,
