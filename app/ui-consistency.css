@@ -107,6 +107,49 @@
   color: rgba(24, 36, 43, 0.82);
 }
 
+/* Odd-numbered journey roadmaps should finish as a balanced diagram rather
+   than leaving one lonely card hanging on the final row. */
+@media (min-width: 721px) {
+  .journey-roadmap ol:has(> :nth-child(7):last-child) {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .journey-roadmap ol:has(> :nth-child(7):last-child) > .journey-step:nth-child(-n + 4) {
+    grid-column: span 3;
+  }
+
+  .journey-roadmap ol:has(> :nth-child(7):last-child) > .journey-step:nth-child(n + 5) {
+    grid-column: span 2;
+  }
+
+  .journey-roadmap ol:has(> :nth-child(9):last-child) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .journey-roadmap ol:has(> :nth-child(5):last-child) {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .journey-roadmap ol:has(> :nth-child(5):last-child) > .journey-step:nth-child(-n + 2) {
+    grid-column: span 3;
+  }
+
+  .journey-roadmap ol:has(> :nth-child(5):last-child) > .journey-step:nth-child(n + 3) {
+    grid-column: span 2;
+  }
+
+  .journey-roadmap ol:has(> :nth-child(3):last-child) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .journey-roadmap ol:has(> :nth-child(3):last-child) .journey-step p,
+  .journey-roadmap ol:has(> :nth-child(5):last-child) .journey-step p,
+  .journey-roadmap ol:has(> :nth-child(7):last-child) .journey-step p,
+  .journey-roadmap ol:has(> :nth-child(9):last-child) .journey-step p {
+    max-width: none;
+  }
+}
+
 /* The visitation photograph has a face near the center-right. Keep the copy
    in the open left side instead of letting the headline run across the subject. */
 .guide-page-hero[data-media-key="families.visitation"] h1 {
