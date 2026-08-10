@@ -19,6 +19,7 @@ import "./contact.css";
 import "./family-card-polish.css";
 import "./card-editor.css";
 import "./justice.css";
+import "./resource-admin.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
@@ -30,17 +31,8 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase,
     title: "Outside Inmates | Resources, answers, and community",
     description: "A calm, practical place to find resources, answers, and community through incarceration and reentry.",
-    openGraph: {
-      title: "Outside Inmates",
-      description: "Support does not stop at the prison gate.",
-      images: ["/og.png"],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "Outside Inmates",
-      description: "Support does not stop at the prison gate.",
-      images: ["/og.png"],
-    },
+    openGraph: { title: "Outside Inmates", description: "Support does not stop at the prison gate.", images: ["/og.png"] },
+    twitter: { card: "summary_large_image", title: "Outside Inmates", description: "Support does not stop at the prison gate.", images: ["/og.png"] },
   };
 }
 
