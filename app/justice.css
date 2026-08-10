@@ -1,0 +1,23 @@
+.justice-directory-page { background: var(--paper); }
+.justice-directory-intro { background: linear-gradient(180deg, #f7f1e9 0%, #f2ece4 100%); }
+.justice-state-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 48px; }
+.justice-state-card { position: relative; min-height: 255px; display: flex; flex-direction: column; overflow: hidden; padding: 22px; border: 1px solid rgba(24,36,43,0.16); border-radius: 13px; background: var(--paper); box-shadow: 6px 8px 0 rgba(24,36,43,0.07); }
+.justice-state-card:nth-child(3n + 1) { background: #f7e9e4; }
+.justice-state-card:nth-child(3n + 2) { background: #e8eef0; }
+.justice-state-card:nth-child(3n + 3) { background: #e9eee7; }
+.justice-state-card > .site-card-image { flex: 0 0 135px; height: 135px; }
+.justice-state-card-heading { display: flex; justify-content: space-between; gap: 18px; align-items: start; }
+.justice-state-card-heading > span { color: var(--clay); font-family: var(--serif); font-size: 0.9rem; }
+.justice-state-card-heading h2 { max-width: 82%; margin: 0; font-size: 1.8rem; line-height: 1.02; }
+.justice-state-card > p { margin: 13px 0 23px; color: rgba(24,36,43,0.7); font-size: 0.72rem; line-height: 1.55; }
+.justice-state-links { display: grid; gap: 7px; margin-top: auto; }
+.justice-state-links a { display: grid; grid-template-columns: 1fr auto auto; gap: 9px; align-items: center; padding: 10px 0 0; border-top: 1px solid rgba(24,36,43,0.14); font-size: 0.68rem; font-weight: 700; }
+.justice-state-links a:hover { color: var(--clay); }
+.justice-state-links small { color: rgba(24,36,43,0.48); font-size: 0.57rem; font-weight: 700; }
+.justice-directory-note { padding: clamp(68px, 9vw, 112px) 0; background: #dce5e7; }
+.justice-directory-note .container { max-width: 900px; }
+.justice-directory-note h2 { max-width: 720px; margin-bottom: 15px; font-size: clamp(2.8rem, 4.7vw, 4.7rem); line-height: 0.98; }
+.justice-directory-note p:not(.eyebrow) { max-width: 730px; margin-bottom: 25px; color: rgba(24,36,43,0.75); font-size: 0.9rem; line-height: 1.7; }
+
+@media (max-width: 1000px) { .justice-state-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 650px) { .justice-state-grid { grid-template-columns: 1fr; margin-top: 34px; }.justice-state-card { min-height: 220px; }.justice-state-card-heading h2 { font-size: 1.65rem; } }
