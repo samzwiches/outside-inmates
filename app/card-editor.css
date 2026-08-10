@@ -36,7 +36,6 @@
 .card-editor-status.is-saving { background: #e4eaed; color: #3f5964; }
 .card-editor-empty { padding: 80px 0; }
 
-/* Card-specific images sit above card copy while preserving each card's own layout. */
 .site-card-image { position: relative; width: calc(100% + 42px); height: 150px; margin: -21px -21px 20px; overflow: hidden; background: #dce5e7; }
 .site-card-image img { width: 100%; height: 100%; display: block; object-fit: cover; }
 .journey-card > .site-card-image, .reentry-pathway-card > .site-card-image, .family-pathway-card > .site-card-image { width: calc(100% + 42px); flex: 0 0 150px; }
@@ -54,6 +53,26 @@
 .journey-card-links .journey-card-resource-link { color: var(--clay); }
 .journey-card.has-site-media .journey-card-links a { color: var(--section-button-color, var(--paper)); }
 .journey-card.has-site-media .journey-card-links .journey-card-resource-link { color: #e5b5a4; }
+
+.resource-card.has-card-image { min-height: 185px; justify-content: flex-end; padding-top: 105px; overflow: hidden; }
+.resource-card > .site-card-image { position: absolute; inset: 0 0 auto; width: 100%; height: 92px; margin: 0; }
+.directory-category-card.has-card-image, .directory-pathway-card.has-card-image, .reentry-directory-grid a.has-card-image { padding-top: 118px; overflow: hidden; }
+.directory-category-card > .site-card-image, .directory-pathway-card > .site-card-image, .reentry-directory-grid a > .site-card-image { position: absolute; inset: 0 0 auto; width: 100%; height: 100px; margin: 0; }
+.reentry-guide-card.has-card-image { overflow: hidden; }
+.reentry-guide-card > .site-card-image { width: calc(100% + 40px); margin: -20px -20px 18px; }
+.reentry-guide-card-body { display: flex; flex: 1; flex-direction: column; }
+.reentry-guide-card-body > p:not(.eyebrow) { color: rgba(24,36,43,0.69); font-size: 0.68rem; line-height: 1.56; }
+.reentry-guide-card-body a { margin-top: auto; }
+.support-opportunity-card.has-card-image, .contact-path-card.has-card-image, .organization-status-card.has-card-image, .organization-document-list li.has-card-image, .organization-feature-list li.has-card-image, .organization-values-grid article.has-card-image, .age-guidance-grid article.has-card-image { overflow: hidden; }
+.support-opportunity-card > .site-card-image, .contact-path-card > .site-card-image, .organization-status-card > .site-card-image, .organization-document-list li > .site-card-image, .organization-feature-list li > .site-card-image, .organization-values-grid article > .site-card-image, .age-guidance-grid article > .site-card-image { width: calc(100% + 42px); margin: -21px -21px 18px; }
+.contact-path-card > .site-card-image { width: calc(100% + 50px); margin: -25px -25px 20px; }
+.family-journey li.has-card-image { overflow: hidden; }
+.family-journey li > .site-card-image { width: calc(100% + 44px); height: 125px; margin: -22px -22px 18px; }
+.action-card > .action-card-custom-media { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; margin: 0; }
+.action-card > .action-card-custom-media::after { content: ""; position: absolute; inset: 0; background: rgba(24,36,43,0.55); }
+.action-card > .action-card-custom-media img { width: 100%; height: 100%; object-fit: cover; }
+.transparency-card-link { width: fit-content; margin-top: 13px; padding-bottom: 2px; border-bottom: 1px solid currentColor; font-size: .65rem; font-weight: 700; }
+.organization-document-list li > a { width: fit-content; margin-top: 18px; padding: 5px 8px; border: 1px solid rgba(24,36,43,.18); border-radius: 999px; background: var(--paper); font-size: .6rem; font-weight: 700; }
 
 @media (max-width: 900px) { .card-editor-shell { grid-template-columns: 1fr; }.card-editor-nav { position: static; max-height: none; }.card-editor-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }.card-editor-groups section { align-content: start; } }
 @media (max-width: 620px) { .card-editor-shell { width: min(100% - 28px, 1240px); }.card-editor-fields, .card-editor-groups { grid-template-columns: 1fr; }.card-editor-fields label.is-wide { grid-column: auto; }.card-editor-form > header { display: block; }.card-reset { margin-top: 14px; }.card-editor-preview { min-height: 200px; }.card-editor-preview > div { min-height: 200px; } }
