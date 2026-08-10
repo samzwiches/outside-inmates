@@ -32,6 +32,8 @@ export const siteMediaKeys = [
   "community.hero",
   "support.hero",
   "about.hero",
+  "transparency.hero",
+  "contact.hero",
 ] as const;
 
 export type SiteMediaKey = (typeof siteMediaKeys)[number];
@@ -351,6 +353,22 @@ export const siteMediaRegistry: Record<SiteMediaKey, SiteMediaRecord> = {
     overlayOpacity: 0.24,
   },
   "about.hero": unassigned("about.hero", "About", "About hero", "About", "/about"),
+  "transparency.hero": {
+    ...unassigned("transparency.hero", "Transparency", "Transparency hero", "Transparency", "/transparency"),
+    editorNote: "Use a documentary-style image that suggests accountability, stewardship, or public-facing work. Avoid readable private documents, legal seals, staged handshakes, or embedded text.",
+    objectPositionDesktop: { x: 64, y: 50 },
+    objectPositionMobile: { x: 55, y: 50 },
+    overlayTone: "dark",
+    overlayOpacity: 0.38,
+  },
+  "contact.hero": {
+    ...unassigned("contact.hero", "Contact", "Contact hero", "Contact", "/contact"),
+    editorNote: "Use a warm, human image that feels approachable and connected. Avoid phones held toward camera, customer-service headsets, embedded text, logos, or corporate call-center imagery.",
+    objectPositionDesktop: { x: 62, y: 50 },
+    objectPositionMobile: { x: 52, y: 50 },
+    overlayTone: "dark",
+    overlayOpacity: 0.34,
+  },
 };
 
 export const siteMediaGroups = [...new Set(siteMediaKeys.map((key) => siteMediaRegistry[key].group))];
