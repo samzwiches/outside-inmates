@@ -4,7 +4,7 @@ This folder contains maintained research for recovery housing, private sober liv
 
 ## Live database coverage
 
-As of 2026-08-09, the live Outside Inmates resource database contains **1,102 published resources across 48 covered jurisdictions, including the District of Columbia**.
+As of 2026-08-09, the live Outside Inmates resource database contains **1,142 published resources across all 50 states plus the District of Columbia**.
 
 Current covered jurisdictions:
 
@@ -52,10 +52,13 @@ Current covered jurisdictions:
 * South Dakota
 * Tennessee
 * Texas
+* Utah
 * Vermont
 * Virginia
+* Washington
 * West Virginia
 * Wisconsin
+* Wyoming
 
 The `*-source.csv` files are the recoverable research corpus behind the directory and continue to expand as states are audited. `ohio.csv` is the original Supabase-formatted Ohio import from the first upload pass. Supabase remains the live published data source used by the site.
 
@@ -81,7 +84,7 @@ Beginning with the 2026-08-09 audit, an existing state is not considered fully r
 * Reentry-specific housing and treatment
 * Programs where clients live in separate recovery housing and travel to a clinical site for PHP, IOP, classes, groups, or medication services
 
-The 2026-08-09 re-audit of the first 40 covered jurisdictions added 41 previously missing resources and strengthened several existing listings. A following expansion added Minnesota, Montana, Nebraska, and Nevada with 50 additional published resources researched under the expanded standard from the start. The next expansion added New Mexico, North Dakota, Oregon, and South Dakota with 52 additional published resources. Each of those four states has published coverage for IOP, PHP, medication support, hospital or medical-system addiction care, recovery/transitional housing, and women-focused services. This is a coverage check, not a claim that every program in each category has been identified.
+The 2026-08-09 re-audit of the first 40 covered jurisdictions added 41 previously missing resources and strengthened several existing listings. A following expansion added Minnesota, Montana, Nebraska, and Nevada with 50 additional published resources researched under the expanded standard from the start. The next expansion added New Mexico, North Dakota, Oregon, and South Dakota with 52 additional published resources. The final nationwide expansion added Utah, Washington, and Wyoming, bringing the directory to all 50 states plus the District of Columbia. Each of the final three states has published coverage for IOP, PHP, medication support, hospital or medical-system addiction care, recovery or transitional housing, and women-focused services. This is a coverage check, not a claim that every program in each category has been identified.
 
 ## Verification rules
 
@@ -112,7 +115,7 @@ The builder automatically reads every `*-source.csv` file and creates:
 data/resources/recovery/outside_inmates_resources_supabase_import.csv
 ```
 
-The generated headers match the existing Supabase `resources` table used by the site. It sets `is_demonstration` to false, `status` to published, and `published` to true. Treatment levels such as partial hospitalization, intensive outpatient, standard outpatient, medication support, recovery housing, and residential recovery are preserved as service labels. North Carolina SACOT and SAIOP terminology is normalized into the matching PHP and IOP service labels.
+The state mapping now supports all 50 states plus the District of Columbia. The generated headers match the existing Supabase `resources` table used by the site. It sets `is_demonstration` to false, `status` to published, and `published` to true. Treatment levels such as partial hospitalization, intensive outpatient, standard outpatient, medication support, recovery housing, and residential recovery are preserved as service labels. North Carolina SACOT and SAIOP terminology is normalized into the matching PHP and IOP service labels.
 
 ## Publish to the live site
 
