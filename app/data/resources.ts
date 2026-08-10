@@ -170,10 +170,13 @@ export const stateOptions = [
   { value: "SD", label: "South Dakota" },
   { value: "TN", label: "Tennessee" },
   { value: "TX", label: "Texas" },
+  { value: "UT", label: "Utah" },
   { value: "VT", label: "Vermont" },
   { value: "VA", label: "Virginia" },
-  { value: "WI", label: "Wisconsin" },
+  { value: "WA", label: "Washington" },
   { value: "WV", label: "West Virginia" },
+  { value: "WI", label: "Wisconsin" },
+  { value: "WY", label: "Wyoming" },
 ] as const;
 
 export function getCategoryName(
