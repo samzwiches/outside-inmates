@@ -4,7 +4,7 @@ This folder contains maintained research for recovery housing, private sober liv
 
 ## Live database coverage
 
-As of 2026-08-09, the live Outside Inmates resource database contains **1,050 published resources across 44 covered jurisdictions, including the District of Columbia**.
+As of 2026-08-09, the live Outside Inmates resource database contains **1,102 published resources across 48 covered jurisdictions, including the District of Columbia**.
 
 Current covered jurisdictions:
 
@@ -39,13 +39,17 @@ Current covered jurisdictions:
 * Nevada
 * New Hampshire
 * New Jersey
+* New Mexico
 * New York
 * North Carolina
+* North Dakota
 * Ohio
 * Oklahoma
+* Oregon
 * Pennsylvania
 * Rhode Island
 * South Carolina
+* South Dakota
 * Tennessee
 * Texas
 * Vermont
@@ -77,7 +81,7 @@ Beginning with the 2026-08-09 audit, an existing state is not considered fully r
 * Reentry-specific housing and treatment
 * Programs where clients live in separate recovery housing and travel to a clinical site for PHP, IOP, classes, groups, or medication services
 
-The 2026-08-09 re-audit of the first 40 covered jurisdictions added 41 previously missing resources and strengthened several existing listings. A following expansion added Minnesota, Montana, Nebraska, and Nevada with 50 additional published resources researched under the expanded standard from the start. Each of those four states has published coverage for IOP, PHP, medication support, hospital or medical-system addiction care, recovery/transitional housing, and women-focused services. This is a coverage check, not a claim that every program in each category has been identified.
+The 2026-08-09 re-audit of the first 40 covered jurisdictions added 41 previously missing resources and strengthened several existing listings. A following expansion added Minnesota, Montana, Nebraska, and Nevada with 50 additional published resources researched under the expanded standard from the start. The next expansion added New Mexico, North Dakota, Oregon, and South Dakota with 52 additional published resources. Each of those four states has published coverage for IOP, PHP, medication support, hospital or medical-system addiction care, recovery/transitional housing, and women-focused services. This is a coverage check, not a claim that every program in each category has been identified.
 
 ## Verification rules
 
