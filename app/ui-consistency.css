@@ -31,8 +31,12 @@
   max-width: 900px;
 }
 
-.page-hero-copy > p:last-child {
+.page-hero-description {
+  max-width: 720px;
   margin-bottom: 0;
+  color: rgba(24, 36, 43, 0.84);
+  font-size: clamp(0.94rem, 1.05vw, 1.04rem);
+  line-height: 1.64;
 }
 
 .page-hero-action-area {
@@ -80,6 +84,27 @@
 .section-split-heading .button {
   align-self: flex-start;
   margin: 0;
+}
+
+/* Supporting copy should never disappear into the background. */
+.section-description {
+  color: rgba(24, 36, 43, 0.82);
+}
+
+.section-heading.is-inverted .section-description {
+  color: rgba(252, 250, 246, 0.9);
+}
+
+.directory-page-hero.has-site-media > .directory-page-hero-inner > .page-hero-copy > .page-hero-description,
+.guide-page-hero.has-site-media > .container > p:not(.eyebrow),
+.reentry-page-hero.has-site-media > .container > p:not(.eyebrow) {
+  color: rgba(252, 250, 246, 0.94);
+  text-shadow: 0 1px 4px rgba(7, 16, 20, 0.58);
+}
+
+.journey-page-hero-copy > p:last-child,
+.detail-hero-grid > div > p:not(.eyebrow) {
+  color: rgba(24, 36, 43, 0.82);
 }
 
 /* Keep landing-page breadcrumb placement identical to the guide heroes. */
@@ -161,6 +186,11 @@
   .section-split-heading .button {
     width: 100%;
     max-width: 520px;
+  }
+
+  .page-hero-description {
+    font-size: 0.94rem;
+    line-height: 1.58;
   }
 }
 
