@@ -14,6 +14,7 @@ import "./resource-panel.css";
 import "./breadcrumb-contrast.css";
 import "./hero-sizing.css";
 import "./ui-consistency.css";
+import "./transparency-punch.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
