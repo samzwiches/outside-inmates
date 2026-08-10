@@ -35,11 +35,16 @@ function focalValue(value: unknown) {
   return number;
 }
 
+async function requireCardAdmin() {
+  const admin = await getCurrentAdmin();
+  if (!admin) throw new RequestError("Sign in is required to manage cards.", 401);
+  if (!hasSupabaseServiceRole()) throw new RequestError("Card management is not configured for this environment.", 503);
+  return admin;
+}
+
 export async function POST(request: Request) {
   try {
-    const admin = await getCurrentAdmin();
-    if (!admin) throw new RequestError("Sign in is required to manage cards.", 401);
-    if (!hasSupabaseServiceRole()) throw new RequestError("Card management is not configured for this environment.", 503);
+    await requireCardAdmin();
     const body = await request.json() as Record<string, unknown>;
     const cardKey = typeof body.cardKey === "string" ? body.cardKey.trim() : "";
     if (!cardKey || !getSiteCardDefinition(cardKey)) throw new RequestError("Choose an approved card.");
@@ -68,14 +73,33 @@ export async function POST(request: Request) {
     const { error } = await client.from("site_card_content").upsert(row, { onConflict: "card_key" });
     if (error) throw new RequestError("The card could not be saved. Please try again.", 502);
     const oldPath = existing?.image_storage_path ?? null;
-    if (oldPath && oldPath !== nextImagePath && oldPath.startsWith("cards/")) {
-      await client.storage.from(SITE_MEDIA_BUCKET).remove([oldPath]);
-    }
+    if (oldPath && oldPath !== nextImagePath && oldPath.startsWith("cards/")) await client.storage.from(SITE_MEDIA_BUCKET).remove([oldPath]);
     revalidatePath("/", "layout");
     return NextResponse.json({ card: row });
   } catch (error) {
     if (error instanceof RequestError) return NextResponse.json({ error: error.message }, { status: error.status });
     console.error("Card save failed", error);
     return NextResponse.json({ error: "The card could not be saved. Please try again." }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: Request) {
+  try {
+    await requireCardAdmin();
+    const url = new URL(request.url);
+    const cardKey = url.searchParams.get("cardKey")?.trim() ?? "";
+    if (!cardKey || !getSiteCardDefinition(cardKey)) throw new RequestError("Choose an approved card.");
+    const client = getSupabaseAdminClient();
+    const { data: existing } = await client.from("site_card_content").select("image_storage_path").eq("card_key", cardKey).maybeSingle();
+    const { error } = await client.from("site_card_content").delete().eq("card_key", cardKey);
+    if (error) throw new RequestError("The card could not be reset. Please try again.", 502);
+    const oldPath = existing?.image_storage_path ?? null;
+    if (oldPath?.startsWith("cards/")) await client.storage.from(SITE_MEDIA_BUCKET).remove([oldPath]);
+    revalidatePath("/", "layout");
+    return NextResponse.json({ ok: true });
+  } catch (error) {
+    if (error instanceof RequestError) return NextResponse.json({ error: error.message }, { status: error.status });
+    console.error("Card reset failed", error);
+    return NextResponse.json({ error: "The card could not be reset. Please try again." }, { status: 500 });
   }
 }
