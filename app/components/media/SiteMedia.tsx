@@ -24,9 +24,10 @@ export async function SiteMedia({ mediaKey, media: suppliedMedia, className = ""
   const attribution = media.assignment?.creditName || media.assignment?.sourceName
     ? { creditName: media.assignment.creditName ?? undefined, creditUrl: media.assignment.creditUrl ?? undefined, sourceName: media.assignment.sourceName ?? undefined, sourceUrl: media.assignment.sourceUrl ?? undefined, licenseLabel: media.assignment.licenseLabel ?? undefined }
     : media.attribution;
+  const mediaRenderKey = `${mediaKey}:${media.imagePath ?? "empty"}:${media.mobileImagePath ?? "desktop-only"}`;
 
   return <div className={`site-media ${hasImage ? "has-image" : "is-fallback-surface"} ${className}`} data-media-key={mediaKey} data-media-source={media.source} data-show-on-mobile={media.assignment?.showOnMobile ?? media.showOnMobile}>
-    {hasImage ? <MediaImage media={media} sizes={sizes} priority={priority} /> : <MediaFallback />}
+    {hasImage ? <MediaImage key={mediaRenderKey} media={media} sizes={sizes} priority={priority} /> : <MediaFallback />}
     {hasImage && showOverlay ? <MediaOverlay media={media} /> : null}
     {hasImage && showCredit ? <MediaCredit attribution={attribution} /> : null}
   </div>;
