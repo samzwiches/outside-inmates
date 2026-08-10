@@ -1,8 +1,8 @@
-import { familyGuides, familyPathways } from "./family";
+import { childAgeGuidance, familyGuides, familyJourney, familyPathways } from "./family";
 import { journeys, type JourneySlug } from "./journeys";
 import { organizationStatusItems, organizationValues, plannedPublicDocuments, supportOpportunities, workInProgress } from "./organization";
-import { reentryGuides, reentryPathways } from "./reentry";
-import { resourceCategoryOptions, stateOptions } from "./resources";
+import { reentryGuides, reentryPathways, reentryResourceCategories } from "./reentry";
+import { resourceCategoryOptions, resourcePathways, stateOptions } from "./resources";
 
 export type SiteCardDefinition = {
   key: string;
@@ -82,6 +82,23 @@ export const siteCardRegistry: SiteCardDefinition[] = [
     actionLabel: "Read the guide",
     href: `/families/${guide.slug}`,
   })),
+  ...familyJourney.map((item, index) => ({
+    key: `families.journey.${String(index + 1).padStart(2, "0")}`,
+    group: "Families",
+    page: "Families",
+    section: "Family journey cards",
+    title: item.stage,
+    description: item.detail,
+    tone: "ink",
+  })),
+  ...childAgeGuidance.map((item, index) => ({
+    key: `families.children.age.${String(index + 1).padStart(2, "0")}`,
+    group: "Families",
+    page: "Supporting Children",
+    section: "Age guidance cards",
+    title: item.label,
+    description: item.example,
+  })),
   ...reentryPathways.map((pathway, index) => ({
     key: `reentry.pathway.${String(index + 1).padStart(2, "0")}`,
     group: "Reentry",
@@ -106,6 +123,16 @@ export const siteCardRegistry: SiteCardDefinition[] = [
     actionLabel: "Read guide",
     href: `/reentry/${guide.slug}`,
   })),
+  ...reentryResourceCategories.map((category, index) => ({
+    key: `reentry.directory.${String(index + 1).padStart(2, "0")}`,
+    group: "Reentry",
+    page: "Reentry",
+    section: "Resource category cards",
+    title: category.label,
+    description: category.description,
+    actionLabel: "Find resources",
+    href: category.href,
+  })),
   ...resourceCategoryOptions.map((category) => ({
     key: `resources.category.${category.slug}`,
     group: "Resources",
@@ -115,6 +142,16 @@ export const siteCardRegistry: SiteCardDefinition[] = [
     description: category.description,
     actionLabel: "Browse resources",
     href: `/resources/results?category=${category.slug}`,
+  })),
+  ...resourcePathways.map((pathway, index) => ({
+    key: `resources.pathway.${String(index + 1).padStart(2, "0")}`,
+    group: "Resources",
+    page: "Resources",
+    section: "Guided pathway cards",
+    title: pathway.title,
+    description: pathway.detail,
+    actionLabel: "Open",
+    href: pathway.href,
   })),
   ...stateOptions.filter((state) => state.value).map((state) => ({
     key: `resources.justice.${state.value}`,
