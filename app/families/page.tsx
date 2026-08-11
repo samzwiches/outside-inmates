@@ -13,6 +13,7 @@ import { SupportCallout } from "../components/family/SupportCallout";
 import { childSupportPoints, familyGuides, familyJourney, familyPathways, familyQuestions } from "../data/family";
 
 export const metadata: Metadata = { title: "Family Support | Outside Inmates", description: "Clear, practical support for families navigating incarceration." };
+export const dynamic = "force-dynamic";
 
 export default function FamiliesPage() {
   return <><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><main id="main-content" className="families-page"><PageHero variant="page" mediaKey="families.hero" eyebrow="For families" breadcrumbLabel="Families" title="When someone is incarcerated, the whole family feels it." description="You may be trying to locate someone, understand the rules, protect your children, manage calls and visits, or simply make it through today. Start with what you need most."><div className="family-hero-actions"><Link className="button button-primary" href="#start-here">Start here <span aria-hidden="true">→</span></Link><Link className="button button-secondary" href="#family-resources">Find family resources</Link></div></PageHero>
