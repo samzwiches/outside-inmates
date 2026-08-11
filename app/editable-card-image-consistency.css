@@ -1,7 +1,7 @@
 /* Editable card images should inherit the visual language of the card they replace.
    Cards without a dedicated media rail use the photo as a full-card background,
    matching the image treatment established on the homepage. */
-[data-card-key].has-card-image:not(.journey-card):not(.family-guide-card):not(.family-pathway-card):not(.action-card):not(.reentry-guide-card) {
+[data-card-key].has-card-image:not(.journey-card):not(.family-guide-card):not(.family-pathway-card):not(.action-card):not(.reentry-guide-card):not(.age-guidance-card) {
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -9,7 +9,7 @@
   color: var(--paper);
 }
 
-[data-card-key].has-card-image:not(.journey-card):not(.family-guide-card):not(.family-pathway-card):not(.action-card):not(.reentry-guide-card) > .site-card-image {
+[data-card-key].has-card-image:not(.journey-card):not(.family-guide-card):not(.family-pathway-card):not(.action-card):not(.reentry-guide-card):not(.age-guidance-card) > .site-card-image {
   position: absolute;
   z-index: 0;
   inset: 0;
@@ -19,23 +19,23 @@
   flex: none;
 }
 
-[data-card-key].has-card-image:not(.journey-card):not(.family-guide-card):not(.family-pathway-card):not(.action-card):not(.reentry-guide-card) > .site-card-image img {
+[data-card-key].has-card-image:not(.journey-card):not(.family-guide-card):not(.family-pathway-card):not(.action-card):not(.reentry-guide-card):not(.age-guidance-card) > .site-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   filter: brightness(0.48) saturate(0.82);
 }
 
-[data-card-key].has-card-image:not(.journey-card):not(.family-guide-card):not(.family-pathway-card):not(.action-card):not(.reentry-guide-card) > :not(.site-card-image) {
+[data-card-key].has-card-image:not(.journey-card):not(.family-guide-card):not(.family-pathway-card):not(.action-card):not(.reentry-guide-card):not(.age-guidance-card) > :not(.site-card-image) {
   position: relative;
   z-index: 2;
 }
 
-[data-card-key].has-card-image:not(.journey-card):not(.family-guide-card):not(.family-pathway-card):not(.action-card):not(.reentry-guide-card) :is(h2, h3, strong, p, small, a, span, b) {
+[data-card-key].has-card-image:not(.journey-card):not(.family-guide-card):not(.family-pathway-card):not(.action-card):not(.reentry-guide-card):not(.age-guidance-card) :is(h2, h3, strong, p, small, a, span, b) {
   color: inherit;
 }
 
-[data-card-key].has-card-image:not(.journey-card):not(.family-guide-card):not(.family-pathway-card):not(.action-card):not(.reentry-guide-card) a:hover {
+[data-card-key].has-card-image:not(.journey-card):not(.family-guide-card):not(.family-pathway-card):not(.action-card):not(.reentry-guide-card):not(.age-guidance-card) a:hover {
   color: #e5b5a4;
 }
 
