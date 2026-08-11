@@ -4,6 +4,34 @@
   --interior-hero-height: 560px;
 }
 
+/* Card editor images can also drive the full family guide hero. */
+.guide-page-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.guide-page-card-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.guide-page-card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(14, 25, 31, 0.74) 0%, rgba(14, 25, 31, 0.48) 48%, rgba(14, 25, 31, 0.18) 76%, rgba(14, 25, 31, 0.12) 100%);
+}
+
+.guide-page-hero > .container {
+  position: relative;
+  z-index: 2;
+}
+
 /* Family and reentry guide heroes should never jump in height from guide to guide. */
 @media (min-width: 901px) {
   .guide-page-hero,
