@@ -16,8 +16,8 @@ export const resourceCategoryOptions = [
   },
   {
     slug: "jails-corrections",
-    name: "Jails and Corrections",
-    description: "Official facility, custody, visitation, and corrections contacts.",
+    name: "Police, Jails and Corrections",
+    description: "Official police, sheriff, facility, custody, visitation, and corrections contacts.",
   },
   {
     slug: "courts",
@@ -118,8 +118,8 @@ export const resourcePathways = [
     href: "/resources/results?category=reentry-planning",
   },
   {
-    title: "I need to find a jail, prison, or court",
-    detail: "Start with official facility and court contacts by state.",
+    title: "I need to find police, a jail, prison, or court",
+    detail: "Start with official law-enforcement, facility, and court contacts by state.",
     href: "/resources/justice",
   },
   {
