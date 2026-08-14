@@ -39,40 +39,78 @@
   color: #e5b5a4;
 }
 
-/* Guided pathway cards show the photograph cleanly. No directional white veil.
-   A very light even scrim gives the ink copy a little separation while preserving the photo. */
+/* Guided pathway cards mirror the approved card treatment: a clean photo on the right,
+   a quiet paper panel for the copy on the left, dark ink type, and a clay number. */
 .directory-pathway-card.has-card-image {
+  min-height: 220px;
   color: var(--ink) !important;
   background: var(--paper) !important;
 }
 
 .directory-pathway-card.has-card-image > .site-card-image img {
-  filter: brightness(0.94) saturate(0.96);
+  filter: brightness(0.92) saturate(0.96);
 }
 
 .directory-pathway-card.has-card-image::before {
   content: "";
   position: absolute;
   z-index: 1;
-  inset: 0;
+  inset: 0 auto 0 0;
+  width: 61%;
   pointer-events: none;
-  background: rgba(252, 250, 246, 0.10);
+  background: linear-gradient(
+    90deg,
+    rgba(252, 250, 246, 0.97) 0%,
+    rgba(252, 250, 246, 0.97) 82%,
+    rgba(252, 250, 246, 0.88) 90%,
+    rgba(252, 250, 246, 0.30) 100%
+  );
 }
 
 .directory-pathway-card.has-card-image > span {
   color: var(--clay) !important;
-  text-shadow: 0 1px 5px rgba(252, 250, 246, 0.8);
+  text-shadow: none;
 }
 
-.directory-pathway-card.has-card-image strong,
-.directory-pathway-card.has-card-image small,
-.directory-pathway-card.has-card-image b {
+.directory-pathway-card.has-card-image strong {
+  max-width: 55%;
   color: var(--ink) !important;
-  text-shadow: 0 1px 5px rgba(252, 250, 246, 0.8);
+  font-size: 1.38rem;
+  line-height: 1.04;
+  text-shadow: none;
 }
 
 .directory-pathway-card.has-card-image small {
-  color: rgba(24, 36, 43, 0.82) !important;
+  max-width: 52%;
+  color: rgba(24, 36, 43, 0.74) !important;
+  font-size: 0.68rem;
+  line-height: 1.48;
+  text-shadow: none;
+}
+
+.directory-pathway-card.has-card-image b {
+  right: auto;
+  left: 19px;
+  color: var(--ink) !important;
+  text-shadow: none;
+}
+
+@media (max-width: 720px) {
+  .directory-pathway-card.has-card-image {
+    min-height: 230px;
+  }
+
+  .directory-pathway-card.has-card-image::before {
+    width: 68%;
+  }
+
+  .directory-pathway-card.has-card-image strong {
+    max-width: 61%;
+  }
+
+  .directory-pathway-card.has-card-image small {
+    max-width: 59%;
+  }
 }
 
 /* Homepage feature cards already use full-bleed shared media. A card-editor image
