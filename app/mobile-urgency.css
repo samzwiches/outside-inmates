@@ -1,8 +1,10 @@
-/* Mobile urgency pass: larger tap targets, a persistent way home, compact Start Here,
-   and keyboard-safe resource search behavior. */
+/* Mobile urgency pass: large tap targets, a persistent way back, a fast privacy exit,
+   a compact Start Here page, and keyboard-safe resource search behavior. */
 
 .journey-card {
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(166, 95, 77, 0.18);
 }
 
 .journey-card-hit-area {
@@ -25,6 +27,7 @@
 }
 
 .journey-card > .journey-card-marker,
+.journey-card > .journey-card-urgent-label,
 .journey-card > h3,
 .journey-card > p,
 .journey-card > .journey-card-action,
@@ -43,8 +46,8 @@
   padding-bottom: 2px;
   border-bottom: 1px solid currentColor;
   color: rgba(24, 36, 43, 0.79);
-  font-size: 0.64rem;
-  font-weight: 700;
+  font-size: 0.7rem;
+  font-weight: 800;
 }
 
 .journey-card.has-site-media .journey-card-primary-label,
@@ -56,45 +59,79 @@
   position: relative;
   z-index: 5;
   pointer-events: auto;
+  touch-action: manipulation;
 }
 
-.mobile-start-anchor {
+.journey-card-urgent-label,
+.start-mobile-cue,
+.mobile-safety-nav {
   display: none;
 }
 
 @media (max-width: 720px) {
-  .mobile-start-anchor {
+  body {
+    padding-bottom: calc(70px + env(safe-area-inset-bottom));
+  }
+
+  .mobile-safety-nav {
     position: fixed;
-    z-index: 1100;
-    right: max(12px, env(safe-area-inset-right));
-    bottom: max(12px, calc(env(safe-area-inset-bottom) + 12px));
-    display: inline-flex;
+    z-index: 1200;
+    right: max(10px, env(safe-area-inset-right));
+    bottom: max(10px, calc(env(safe-area-inset-bottom) + 10px));
+    left: max(10px, env(safe-area-inset-left));
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    pointer-events: none;
+    transition: opacity 140ms ease, transform 140ms ease;
+  }
+
+  .mobile-start-anchor,
+  .mobile-quick-exit {
     min-height: 48px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 7px;
     padding: 0 16px;
-    border: 1px solid rgba(252, 250, 246, 0.34);
     border-radius: 999px;
-    background: rgba(24, 36, 43, 0.96);
-    box-shadow: 0 8px 24px rgba(7, 16, 20, 0.22);
-    color: var(--paper);
-    font-size: 0.75rem;
+    box-shadow: 0 8px 24px rgba(7, 16, 20, 0.2);
+    font: inherit;
+    font-size: 0.76rem;
     font-weight: 800;
     line-height: 1;
     text-decoration: none;
-    transition: opacity 140ms ease, transform 140ms ease, background 140ms ease;
+    cursor: pointer;
+    pointer-events: auto;
+    touch-action: manipulation;
   }
 
-  .mobile-start-anchor:focus-visible {
+  .mobile-start-anchor {
+    border: 1px solid rgba(252, 250, 246, 0.34);
+    background: rgba(24, 36, 43, 0.97);
+    color: var(--paper);
+  }
+
+  .mobile-quick-exit {
+    border: 1px solid rgba(24, 36, 43, 0.28);
+    background: rgba(252, 250, 246, 0.97);
+    color: var(--ink);
+  }
+
+  .mobile-start-anchor:focus-visible,
+  .mobile-quick-exit:focus-visible {
     outline: 3px solid #e5b5a4;
     outline-offset: 2px;
   }
 
-  body:has(input:focus, textarea:focus, select:focus) .mobile-start-anchor {
+  body:has(input:focus, textarea:focus, select:focus) .mobile-safety-nav {
     opacity: 0;
     pointer-events: none;
     transform: translateY(8px);
+  }
+
+  html:has(.directory-search-panel input:focus, .directory-search-panel select:focus, .results-search-panel input:focus, .results-search-panel select:focus) {
+    scroll-padding-bottom: 44dvh;
   }
 
   .directory-search-panel input,
@@ -108,7 +145,24 @@
   .directory-search-panel .search-field,
   .results-search-panel .search-field {
     scroll-margin-top: 12px;
-    scroll-margin-bottom: 18px;
+    scroll-margin-bottom: 44dvh;
+  }
+
+  .directory-search-button,
+  .results-search-panel .button {
+    min-height: 50px;
+    touch-action: manipulation;
+  }
+
+  .journey-card-links .journey-card-resource-link {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 2px;
+  }
+
+  .journey-card:active {
+    transform: scale(0.992);
   }
 
   .results-page,
@@ -117,100 +171,142 @@
   }
 
   .results-main-section {
-    padding-bottom: calc(88px + env(safe-area-inset-bottom));
+    padding-bottom: calc(96px + env(safe-area-inset-bottom));
   }
 }
 
 @media (max-width: 600px) {
   .start-page .directory-page-hero:not(:has(.directory-search-panel)) {
     height: auto !important;
-    min-height: 224px !important;
+    min-height: 176px !important;
   }
 
   .start-page .directory-page-hero > .directory-page-hero-inner,
   .start-page .directory-page-hero.has-site-media:not(:has(.directory-search-panel)) > .directory-page-hero-inner {
-    min-height: 224px !important;
-    padding-top: 18px !important;
-    padding-bottom: 18px !important;
+    min-height: 176px !important;
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
   }
 
   .start-page .page-hero-breadcrumbs {
-    margin-bottom: 10px;
-    font-size: 0.6rem;
+    display: none;
   }
 
   .start-page .directory-page-hero .eyebrow {
-    margin-bottom: 6px;
+    margin-bottom: 5px;
+    font-size: 0.58rem;
   }
 
   .start-page .directory-page-hero h1,
   .start-page .directory-page-hero.has-site-media h1 {
-    margin-bottom: 8px;
-    font-size: clamp(2rem, 9.4vw, 2.55rem) !important;
+    margin-bottom: 7px;
+    font-size: clamp(1.95rem, 9vw, 2.4rem) !important;
     line-height: 0.98;
   }
 
   .start-page .page-hero-description {
-    max-width: 34rem;
-    font-size: 0.82rem;
-    line-height: 1.4;
+    max-width: 32rem;
+    font-size: 0.8rem;
+    line-height: 1.38;
   }
 
   .start-page .journey-start-section.section {
-    padding-top: 22px;
-    padding-bottom: 56px;
+    padding-top: 12px;
+    padding-bottom: 52px;
   }
 
-  .start-page .journey-start-section .section-heading .eyebrow {
-    margin-bottom: 6px;
+  .start-page .journey-start-section .section-heading {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
   }
 
-  .start-page .journey-start-section .section-heading h2 {
-    margin-bottom: 8px;
-    font-size: clamp(1.95rem, 8.2vw, 2.4rem);
-    line-height: 1;
-  }
-
-  .start-page .journey-start-section .section-description {
-    margin-bottom: 0;
-    font-size: 0.76rem;
-    line-height: 1.45;
+  .start-mobile-cue {
+    display: block;
+    margin: 0 0 10px;
+    padding: 10px 12px;
+    border-left: 3px solid var(--clay);
+    background: #f7f1eb;
+    color: rgba(24, 36, 43, 0.86);
+    font-size: 0.84rem;
+    font-weight: 800;
+    line-height: 1.35;
   }
 
   .start-page .journey-card-grid {
     grid-template-columns: 1fr;
     gap: 10px;
-    margin-top: 16px;
+    margin-top: 0;
   }
 
   .start-page .journey-card {
-    min-height: 286px;
-    padding: 18px;
+    min-height: 252px;
+    padding: 17px;
+  }
+
+  .start-page .journey-card:first-child {
+    border-width: 2px;
+    border-color: rgba(229, 181, 164, 0.72);
+  }
+
+  .start-page .journey-card:has(.journey-card-urgent-label) {
+    min-height: 272px;
+  }
+
+  .start-page .journey-card-urgent-label {
+    display: inline-flex;
+    width: fit-content;
+    margin-bottom: 10px;
+    padding: 6px 9px;
+    border-radius: 999px;
+    background: rgba(229, 181, 164, 0.96);
+    color: #18242b;
+    font-size: 0.65rem;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: 0.015em;
   }
 
   .start-page .journey-card-marker {
-    margin-bottom: 18px;
+    margin-bottom: 12px;
   }
 
   .start-page .journey-card h3 {
-    max-width: 92%;
-    font-size: 1.55rem;
+    max-width: 94%;
+    font-size: 1.5rem;
+    line-height: 1.02;
   }
 
   .start-page .journey-card > p {
-    max-width: 94%;
+    max-width: 96%;
     font-size: 0.72rem;
-    line-height: 1.48;
+    line-height: 1.45;
   }
 
   .start-page .journey-card-action {
-    margin-bottom: 12px;
-    padding-top: 13px;
+    margin-bottom: 8px;
+    padding-top: 11px;
+  }
+
+  .start-page .journey-card-action strong {
+    font-size: 0.67rem;
+    line-height: 1.42;
+  }
+
+  .start-page .journey-card-primary-label {
+    font-size: 0.78rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mobile-start-anchor {
+  .mobile-safety-nav,
+  .journey-card {
     transition: none;
   }
 }
