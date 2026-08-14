@@ -39,14 +39,15 @@
   color: #e5b5a4;
 }
 
-/* Guided pathway cards use bright documentary photography with dark type.
-   The warm veil is intentionally very light so the actual photograph remains visible. */
+/* Guided pathway cards use the photo as the visual surface. The image stays bright,
+   while a soft paper veil under the copy keeps the dark type readable without hiding the scene. */
 .directory-pathway-card.has-card-image {
-  color: var(--ink);
+  color: var(--ink) !important;
+  background: var(--paper) !important;
 }
 
 .directory-pathway-card.has-card-image > .site-card-image img {
-  filter: brightness(1.03) saturate(0.94) contrast(0.96);
+  filter: brightness(0.98) saturate(0.94);
 }
 
 .directory-pathway-card.has-card-image::before {
@@ -57,23 +58,27 @@
   pointer-events: none;
   background: linear-gradient(
     90deg,
-    rgba(252, 250, 246, 0.72) 0%,
-    rgba(252, 250, 246, 0.48) 42%,
-    rgba(252, 250, 246, 0.16) 72%,
+    rgba(252, 250, 246, 0.88) 0%,
+    rgba(252, 250, 246, 0.72) 35%,
+    rgba(252, 250, 246, 0.22) 67%,
     rgba(252, 250, 246, 0.04) 100%
   );
 }
 
 .directory-pathway-card.has-card-image > span {
-  color: var(--clay);
+  color: var(--clay) !important;
+  text-shadow: none;
+}
+
+.directory-pathway-card.has-card-image strong,
+.directory-pathway-card.has-card-image small,
+.directory-pathway-card.has-card-image b {
+  color: var(--ink) !important;
+  text-shadow: none;
 }
 
 .directory-pathway-card.has-card-image small {
-  color: rgba(24, 36, 43, 0.78);
-}
-
-.directory-pathway-card.has-card-image :is(span, strong, small, b) {
-  text-shadow: none;
+  color: rgba(24, 36, 43, 0.72) !important;
 }
 
 /* Homepage feature cards already use full-bleed shared media. A card-editor image
