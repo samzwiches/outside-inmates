@@ -1,0 +1,216 @@
+/* Mobile urgency pass: larger tap targets, a persistent way home, compact Start Here,
+   and keyboard-safe resource search behavior. */
+
+.journey-card {
+  cursor: pointer;
+}
+
+.journey-card-hit-area {
+  position: absolute !important;
+  z-index: 2 !important;
+  inset: 0 !important;
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: inherit;
+  color: transparent !important;
+  text-decoration: none !important;
+}
+
+.journey-card-hit-area:focus-visible {
+  outline: 3px solid var(--clay);
+  outline-offset: -4px;
+}
+
+.journey-card > .journey-card-marker,
+.journey-card > h3,
+.journey-card > p,
+.journey-card > .journey-card-action,
+.journey-card > .journey-card-links {
+  position: relative;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.journey-card-links {
+  z-index: 4 !important;
+}
+
+.journey-card-primary-label {
+  width: fit-content;
+  padding-bottom: 2px;
+  border-bottom: 1px solid currentColor;
+  color: rgba(24, 36, 43, 0.79);
+  font-size: 0.64rem;
+  font-weight: 700;
+}
+
+.journey-card.has-site-media .journey-card-primary-label,
+.journey-card.has-card-image .journey-card-primary-label {
+  color: var(--section-button-color, var(--paper));
+}
+
+.journey-card-links .journey-card-resource-link {
+  position: relative;
+  z-index: 5;
+  pointer-events: auto;
+}
+
+.mobile-start-anchor {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .mobile-start-anchor {
+    position: fixed;
+    z-index: 1100;
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(12px, calc(env(safe-area-inset-bottom) + 12px));
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 0 16px;
+    border: 1px solid rgba(252, 250, 246, 0.34);
+    border-radius: 999px;
+    background: rgba(24, 36, 43, 0.96);
+    box-shadow: 0 8px 24px rgba(7, 16, 20, 0.22);
+    color: var(--paper);
+    font-size: 0.75rem;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    transition: opacity 140ms ease, transform 140ms ease, background 140ms ease;
+  }
+
+  .mobile-start-anchor:focus-visible {
+    outline: 3px solid #e5b5a4;
+    outline-offset: 2px;
+  }
+
+  body:has(input:focus, textarea:focus, select:focus) .mobile-start-anchor {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+  }
+
+  .directory-search-panel input,
+  .directory-search-panel select,
+  .results-search-panel input,
+  .results-search-panel select {
+    min-height: 48px;
+    font-size: 16px;
+  }
+
+  .directory-search-panel .search-field,
+  .results-search-panel .search-field {
+    scroll-margin-top: 12px;
+    scroll-margin-bottom: 18px;
+  }
+
+  .results-page,
+  .resources-page {
+    min-height: 100dvh;
+  }
+
+  .results-main-section {
+    padding-bottom: calc(88px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 600px) {
+  .start-page .directory-page-hero:not(:has(.directory-search-panel)) {
+    height: auto !important;
+    min-height: 224px !important;
+  }
+
+  .start-page .directory-page-hero > .directory-page-hero-inner,
+  .start-page .directory-page-hero.has-site-media:not(:has(.directory-search-panel)) > .directory-page-hero-inner {
+    min-height: 224px !important;
+    padding-top: 18px !important;
+    padding-bottom: 18px !important;
+  }
+
+  .start-page .page-hero-breadcrumbs {
+    margin-bottom: 10px;
+    font-size: 0.6rem;
+  }
+
+  .start-page .directory-page-hero .eyebrow {
+    margin-bottom: 6px;
+  }
+
+  .start-page .directory-page-hero h1,
+  .start-page .directory-page-hero.has-site-media h1 {
+    margin-bottom: 8px;
+    font-size: clamp(2rem, 9.4vw, 2.55rem) !important;
+    line-height: 0.98;
+  }
+
+  .start-page .page-hero-description {
+    max-width: 34rem;
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  .start-page .journey-start-section.section {
+    padding-top: 22px;
+    padding-bottom: 56px;
+  }
+
+  .start-page .journey-start-section .section-heading .eyebrow {
+    margin-bottom: 6px;
+  }
+
+  .start-page .journey-start-section .section-heading h2 {
+    margin-bottom: 8px;
+    font-size: clamp(1.95rem, 8.2vw, 2.4rem);
+    line-height: 1;
+  }
+
+  .start-page .journey-start-section .section-description {
+    margin-bottom: 0;
+    font-size: 0.76rem;
+    line-height: 1.45;
+  }
+
+  .start-page .journey-card-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .start-page .journey-card {
+    min-height: 286px;
+    padding: 18px;
+  }
+
+  .start-page .journey-card-marker {
+    margin-bottom: 18px;
+  }
+
+  .start-page .journey-card h3 {
+    max-width: 92%;
+    font-size: 1.55rem;
+  }
+
+  .start-page .journey-card > p {
+    max-width: 94%;
+    font-size: 0.72rem;
+    line-height: 1.48;
+  }
+
+  .start-page .journey-card-action {
+    margin-bottom: 12px;
+    padding-top: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-start-anchor {
+    transition: none;
+  }
+}
