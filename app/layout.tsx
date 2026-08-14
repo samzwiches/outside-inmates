@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
+import { MobileStartAnchor } from "./components/MobileStartAnchor";
 import "./globals.css";
 import "./journeys.css";
 import "./media.css";
@@ -22,6 +23,14 @@ import "./editable-card-image-consistency.css";
 import "./home-card-consistency.css";
 import "./justice.css";
 import "./resource-admin.css";
+import "./mobile-urgency.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  interactiveWidget: "resizes-content",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
@@ -39,5 +48,5 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}</body></html>;
+  return <html lang="en"><body>{children}<MobileStartAnchor /></body></html>;
 }
