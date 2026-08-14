@@ -39,6 +39,30 @@
   color: #e5b5a4;
 }
 
+/* Guided pathway cards should show the photograph clearly. Keep only a whisper of
+   darkening for white type instead of burying the scene under a heavy treatment. */
+.directory-pathway-card.has-card-image > .site-card-image img {
+  filter: brightness(0.9) saturate(0.96);
+}
+
+.directory-pathway-card.has-card-image::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(18, 29, 35, 0.08) 0%,
+    rgba(18, 29, 35, 0.12) 44%,
+    rgba(18, 29, 35, 0.28) 100%
+  );
+}
+
+.directory-pathway-card.has-card-image :is(span, strong, small, b) {
+  text-shadow: 0 1px 8px rgba(8, 16, 20, 0.42);
+}
+
 /* Homepage feature cards already use full-bleed shared media. A card-editor image
    must occupy the exact same layer instead of becoming a 150px strip. */
 .action-card.has-card-image > .site-card-image.action-card-custom-media {
