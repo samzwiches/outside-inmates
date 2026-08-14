@@ -39,10 +39,14 @@
   color: #e5b5a4;
 }
 
-/* Guided pathway cards should show the photograph clearly. Keep only a whisper of
-   darkening for white type instead of burying the scene under a heavy treatment. */
+/* Guided pathway cards use bright documentary photography with dark type.
+   The warm veil is intentionally very light so the actual photograph remains visible. */
+.directory-pathway-card.has-card-image {
+  color: var(--ink);
+}
+
 .directory-pathway-card.has-card-image > .site-card-image img {
-  filter: brightness(0.9) saturate(0.96);
+  filter: brightness(1.03) saturate(0.94) contrast(0.96);
 }
 
 .directory-pathway-card.has-card-image::before {
@@ -52,15 +56,24 @@
   inset: 0;
   pointer-events: none;
   background: linear-gradient(
-    to bottom,
-    rgba(18, 29, 35, 0.08) 0%,
-    rgba(18, 29, 35, 0.12) 44%,
-    rgba(18, 29, 35, 0.28) 100%
+    90deg,
+    rgba(252, 250, 246, 0.72) 0%,
+    rgba(252, 250, 246, 0.48) 42%,
+    rgba(252, 250, 246, 0.16) 72%,
+    rgba(252, 250, 246, 0.04) 100%
   );
 }
 
+.directory-pathway-card.has-card-image > span {
+  color: var(--clay);
+}
+
+.directory-pathway-card.has-card-image small {
+  color: rgba(24, 36, 43, 0.78);
+}
+
 .directory-pathway-card.has-card-image :is(span, strong, small, b) {
-  text-shadow: 0 1px 8px rgba(8, 16, 20, 0.42);
+  text-shadow: none;
 }
 
 /* Homepage feature cards already use full-bleed shared media. A card-editor image
