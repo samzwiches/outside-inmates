@@ -23,10 +23,11 @@ export async function JourneyCard({ journey, number, compact = false, mediaKey, 
 
   return <article className={`journey-card ${compact ? "is-compact" : ""} ${hasSharedMedia ? "has-site-media" : ""} ${hasCardImage ? "has-card-image" : ""} ${card?.tone ? `card-tone-${card.tone}` : ""}`} data-card-key={`journey.${journey.slug}`} data-media-key={mediaKey} data-media-visual-controls={hasVisualOverrides ? "true" : undefined} data-media-overlay-direction={hasVisualOverrides ? visualSettings.backgroundOverlayDirection : undefined} data-media-overlay-distribution={hasVisualOverrides ? visualSettings.backgroundOverlayDistribution : undefined} style={appearanceStyle(presentation?.appearance)}>
     {hasCardImage && card?.imageUrl ? <SiteCardImage src={card.imageUrl} alt={card.imageAlt} focalX={card.focalX} focalY={card.focalY} /> : mediaKey && presentation && hasSharedMedia ? <SiteMedia mediaKey={mediaKey} media={presentation.media} sizes="(max-width: 720px) 100vw, (max-width: 1080px) 50vw, 33vw" showOverlay={!hasVisualOverrides} /> : null}
+    <Link className="journey-card-hit-area" href={primaryHref} aria-label={`${primaryLabel}: ${title}`} />
     <span className="journey-card-marker" aria-hidden="true">{String(number).padStart(2, "0")}</span>
     <h3>{title}</h3>
     <p>{description}</p>
     <div className="journey-card-action"><span>Begin with</span><strong>{journey.firstAction}</strong></div>
-    <div className="journey-card-links"><Link href={primaryHref}>{primaryLabel} <span aria-hidden="true">→</span></Link>{card?.secondaryHref && card.secondaryActionLabel ? <Link className="journey-card-resource-link" href={card.secondaryHref}>{card.secondaryActionLabel} <span aria-hidden="true">→</span></Link> : null}</div>
+    <div className="journey-card-links"><span className="journey-card-primary-label">{primaryLabel} <span aria-hidden="true">→</span></span>{card?.secondaryHref && card.secondaryActionLabel ? <Link className="journey-card-resource-link" href={card.secondaryHref}>{card.secondaryActionLabel} <span aria-hidden="true">→</span></Link> : null}</div>
   </article>;
 }
