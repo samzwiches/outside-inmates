@@ -7,7 +7,7 @@ import { getSitePresentation } from "../../lib/site-media-server";
 import { SiteCardImage } from "../cards/SiteCardImage";
 import { SiteMedia } from "../media/SiteMedia";
 
-export async function JourneyCard({ journey, number, compact = false, mediaKey, imageEnabled = true }: { journey: JourneyData; number: number; compact?: boolean; mediaKey?: SiteMediaKey; imageEnabled?: boolean }) {
+export async function JourneyCard({ journey, number, compact = false, mediaKey, imageEnabled = true, urgentLabel }: { journey: JourneyData; number: number; compact?: boolean; mediaKey?: SiteMediaKey; imageEnabled?: boolean; urgentLabel?: string }) {
   const [presentation, card] = await Promise.all([
     mediaKey ? getSitePresentation(mediaKey) : Promise.resolve(null),
     getSiteCard(`journey.${journey.slug}`),
@@ -24,6 +24,7 @@ export async function JourneyCard({ journey, number, compact = false, mediaKey, 
   return <article className={`journey-card ${compact ? "is-compact" : ""} ${hasSharedMedia ? "has-site-media" : ""} ${hasCardImage ? "has-card-image" : ""} ${card?.tone ? `card-tone-${card.tone}` : ""}`} data-card-key={`journey.${journey.slug}`} data-media-key={mediaKey} data-media-visual-controls={hasVisualOverrides ? "true" : undefined} data-media-overlay-direction={hasVisualOverrides ? visualSettings.backgroundOverlayDirection : undefined} data-media-overlay-distribution={hasVisualOverrides ? visualSettings.backgroundOverlayDistribution : undefined} style={appearanceStyle(presentation?.appearance)}>
     {hasCardImage && card?.imageUrl ? <SiteCardImage src={card.imageUrl} alt={card.imageAlt} focalX={card.focalX} focalY={card.focalY} /> : mediaKey && presentation && hasSharedMedia ? <SiteMedia mediaKey={mediaKey} media={presentation.media} sizes="(max-width: 720px) 100vw, (max-width: 1080px) 50vw, 33vw" showOverlay={!hasVisualOverrides} /> : null}
     <Link className="journey-card-hit-area" href={primaryHref} aria-label={`${primaryLabel}: ${title}`} />
+    {urgentLabel ? <span className="journey-card-urgent-label">{urgentLabel}</span> : null}
     <span className="journey-card-marker" aria-hidden="true">{String(number).padStart(2, "0")}</span>
     <h3>{title}</h3>
     <p>{description}</p>
