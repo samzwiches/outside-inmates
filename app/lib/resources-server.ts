@@ -44,9 +44,16 @@ type ResourceRow = {
 type PublishedResourceFilters = {
   state?: string;
   categories?: ResourceCategorySlug[];
+  limit?: number;
 };
 
-const PAGE_SIZE = 1000;
+export type JusticeStateCounts = Record<
+  string,
+  { jailsCorrections: number; courts: number }
+>;
+
+const PAGE_SIZE = 500;
+const DEFAULT_SEARCH_LIMIT = 1000;
 
 function splitList(value: string | null | undefined) {
   return (value ?? "")
@@ -119,10 +126,14 @@ export async function getPublishedResources(
     return [];
   }
 
+  const maxRows = Math.max(1, filters.limit ?? DEFAULT_SEARCH_LIMIT);
   const rows: ResourceRow[] = [];
   let offset = 0;
 
-  while (true) {
+  while (rows.length < maxRows) {
+    const remaining = maxRows - rows.length;
+    const pageSize = Math.min(PAGE_SIZE, remaining);
+
     let query = supabase
       .from("resources")
       .select("*")
@@ -146,7 +157,7 @@ export async function getPublishedResources(
       .order("featured", { ascending: false })
       .order("verified_date", { ascending: false })
       .order("name", { ascending: true })
-      .range(offset, offset + PAGE_SIZE - 1);
+      .range(offset, offset + pageSize - 1);
 
     if (error) {
       console.error("Unable to load published resources:", error.message);
@@ -156,14 +167,58 @@ export async function getPublishedResources(
     const page = (data ?? []) as ResourceRow[];
     rows.push(...page);
 
-    if (page.length < PAGE_SIZE) {
-      break;
-    }
-
-    offset += PAGE_SIZE;
+    if (page.length < pageSize) break;
+    offset += pageSize;
   }
 
   return rows.map(mapResourceRow);
+}
+
+export async function getJusticeStateCounts(): Promise<JusticeStateCounts> {
+  const supabase = await createSupabaseServerClient();
+
+  if (!supabase) {
+    console.error("Supabase is not configured.");
+    return {};
+  }
+
+  const counts: JusticeStateCounts = {};
+  let offset = 0;
+
+  while (true) {
+    const { data, error } = await supabase
+      .from("resources")
+      .select("state,categories")
+      .eq("published", true)
+      .eq("status", "published")
+      .eq("is_demonstration", false)
+      .or("categories.ilike.%Jails and Corrections%,categories.ilike.%Courts%")
+      .range(offset, offset + PAGE_SIZE - 1);
+
+    if (error) {
+      console.error("Unable to load justice resource counts:", error.message);
+      return {};
+    }
+
+    const page = (data ?? []) as Array<{ state: string | null; categories: string | null }>;
+
+    for (const row of page) {
+      const state = (row.state ?? "").toUpperCase();
+      if (!state) continue;
+
+      const categories = splitList(row.categories).map((value) => value.toLowerCase());
+      const entry = counts[state] ?? { jailsCorrections: 0, courts: 0 };
+
+      if (categories.includes("jails and corrections")) entry.jailsCorrections += 1;
+      if (categories.includes("courts")) entry.courts += 1;
+      counts[state] = entry;
+    }
+
+    if (page.length < PAGE_SIZE) break;
+    offset += PAGE_SIZE;
+  }
+
+  return counts;
 }
 
 export async function getPublishedResourceBySlug(
