@@ -1,5 +1,6 @@
 import { createSupabaseServerClient } from "./supabase/server";
 import {
+  getCategoryName,
   resourceCategoryOptions,
   type ResourceCategorySlug,
   type ResourceData,
@@ -39,6 +40,13 @@ type ResourceRow = {
   published: boolean | null;
   status: string | null;
 };
+
+type PublishedResourceFilters = {
+  state?: string;
+  categories?: ResourceCategorySlug[];
+};
+
+const PAGE_SIZE = 1000;
 
 function splitList(value: string | null | undefined) {
   return (value ?? "")
@@ -101,7 +109,9 @@ function mapResourceRow(row: ResourceRow): ResourceData {
   };
 }
 
-export async function getPublishedResources(): Promise<ResourceData[]> {
+export async function getPublishedResources(
+  filters: PublishedResourceFilters = {}
+): Promise<ResourceData[]> {
   const supabase = await createSupabaseServerClient();
 
   if (!supabase) {
@@ -109,26 +119,76 @@ export async function getPublishedResources(): Promise<ResourceData[]> {
     return [];
   }
 
-  const { data, error } = await supabase
-    .from("resources")
-    .select("*")
-    .eq("published", true)
-    .eq("status", "published")
-    .eq("is_demonstration", false)
-    .order("featured", { ascending: false })
-    .order("verified_date", { ascending: false });
+  const rows: ResourceRow[] = [];
+  let offset = 0;
 
-  if (error) {
-    console.error("Unable to load published resources:", error.message);
-    return [];
+  while (true) {
+    let query = supabase
+      .from("resources")
+      .select("*")
+      .eq("published", true)
+      .eq("status", "published")
+      .eq("is_demonstration", false);
+
+    if (filters.state) {
+      query = query.eq("state", filters.state.toUpperCase());
+    }
+
+    if (filters.categories?.length) {
+      const categoryFilters = filters.categories
+        .map((category) => `categories.ilike.%${getCategoryName(category)}%`)
+        .join(",");
+
+      query = query.or(categoryFilters);
+    }
+
+    const { data, error } = await query
+      .order("featured", { ascending: false })
+      .order("verified_date", { ascending: false })
+      .order("name", { ascending: true })
+      .range(offset, offset + PAGE_SIZE - 1);
+
+    if (error) {
+      console.error("Unable to load published resources:", error.message);
+      return [];
+    }
+
+    const page = (data ?? []) as ResourceRow[];
+    rows.push(...page);
+
+    if (page.length < PAGE_SIZE) {
+      break;
+    }
+
+    offset += PAGE_SIZE;
   }
 
-  return (data as ResourceRow[]).map(mapResourceRow);
+  return rows.map(mapResourceRow);
 }
 
 export async function getPublishedResourceBySlug(
   slug: string
 ): Promise<ResourceData | null> {
-  const resources = await getPublishedResources();
-  return resources.find((resource) => resource.slug === slug) ?? null;
+  const supabase = await createSupabaseServerClient();
+
+  if (!supabase) {
+    console.error("Supabase is not configured.");
+    return null;
+  }
+
+  const { data, error } = await supabase
+    .from("resources")
+    .select("*")
+    .eq("slug", slug)
+    .eq("published", true)
+    .eq("status", "published")
+    .eq("is_demonstration", false)
+    .maybeSingle();
+
+  if (error) {
+    console.error("Unable to load published resource:", error.message);
+    return null;
+  }
+
+  return data ? mapResourceRow(data as ResourceRow) : null;
 }
