@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import { MobileStartAnchor } from "./components/MobileStartAnchor";
 import "./globals.css";
+import "./brand.css";
 import "./journeys.css";
 import "./media.css";
 import "./reentry.css";
@@ -43,6 +44,10 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase,
     title: "Outside Inmates | Resources, answers, and community",
     description: "A calm, practical place to find resources, answers, and community through incarceration and reentry.",
+    icons: {
+      icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+      shortcut: "/favicon.svg",
+    },
     openGraph: { title: "Outside Inmates", description: "Support does not stop at the prison gate.", images: ["/og.png"] },
     twitter: { card: "summary_large_image", title: "Outside Inmates", description: "Support does not stop at the prison gate.", images: ["/og.png"] },
   };
