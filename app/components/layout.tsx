@@ -2,11 +2,20 @@ import { footerLinks, navigation } from "../data/site";
 import Link from "next/link";
 import { PrimaryButton } from "./buttons";
 
+function BrandLink({ footer = false }: { footer?: boolean }) {
+  return (
+    <Link className={`wordmark brand-link${footer ? " footer-wordmark" : ""}`} href="/" aria-label="Outside Inmates home">
+      <img className="brand-mark" src="/outside-inmates-mark.svg" alt="" aria-hidden="true" />
+      <span>Outside <em>Inmates</em></span>
+    </Link>
+  );
+}
+
 export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <Link className="wordmark" href="/" aria-label="Outside Inmates home">Outside <em>Inmates</em></Link>
+        <BrandLink />
         <nav className="main-nav" aria-label="Primary navigation">
           {navigation.map((item) => <Link className={item.emphasis ? "nav-start" : undefined} key={item.label} href={item.href}>{item.label}</Link>)}
         </nav>
@@ -24,7 +33,7 @@ export function SiteFooter() {
     <footer className="site-footer" id="site-footer">
       <div className="container footer-top">
         <div className="footer-intro">
-          <Link className="wordmark footer-wordmark" href="/">Outside <em>Inmates</em></Link>
+          <BrandLink footer />
           <p>A clearer path through incarceration and reentry—for individuals, families, and the people who stand beside them.</p>
         </div>
         <nav className="footer-links" aria-label="Footer navigation">
