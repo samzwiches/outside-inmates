@@ -5,7 +5,7 @@ import { PageHero } from "../../components/page-hero";
 import { SectionHeading } from "../../components/section-heading";
 import { SiteCardImage } from "../../components/cards/SiteCardImage";
 import { stateOptions } from "../../data/resources";
-import { getPublishedResources } from "../../lib/resources-server";
+import { getJusticeStateCounts } from "../../lib/resources-server";
 import { getSiteCards } from "../../lib/site-card-server";
 
 export const metadata: Metadata = {
@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 
 export default async function JusticeDirectoryPage() {
   const states = stateOptions.filter((state) => state.value);
-  const [resources, cards] = await Promise.all([
-    getPublishedResources(),
+  const [counts, cards] = await Promise.all([
+    getJusticeStateCounts(),
     getSiteCards(states.map((state) => `resources.justice.${state.value}`)),
   ]);
   const cardsByKey = new Map(cards.map((card) => [card.key, card]));
@@ -27,13 +27,12 @@ export default async function JusticeDirectoryPage() {
     <section className="section justice-directory-intro" aria-labelledby="justice-directory-heading"><div className="container"><div className="section-split-heading"><SectionHeading eyebrow="All 50 states + DC" id="justice-directory-heading" title="Start with the state where the arrest, case, facility, or supervision is located." description="State police, county sheriffs, local jails, state corrections systems, and court systems are different agencies. The directory keeps them together while clearly labeling the source so you can verify details directly." /><Link className="button button-secondary" href="/resources">Open full Resource Finder <span aria-hidden="true">→</span></Link></div>
       <div className="justice-state-grid">{states.map((state) => {
         const card = cardsByKey.get(`resources.justice.${state.value}`);
-        const jailCount = resources.filter((resource) => resource.state === state.value && resource.categories.includes("jails-corrections")).length;
-        const courtCount = resources.filter((resource) => resource.state === state.value && resource.categories.includes("courts")).length;
+        const stateCounts = counts[state.value] ?? { jailsCorrections: 0, courts: 0 };
         return <article className={`justice-state-card ${card?.imageUrl ? "has-card-image" : ""} ${card?.tone ? `card-tone-${card.tone}` : ""}`} data-card-key={`resources.justice.${state.value}`} key={state.value}>
           {card?.imageUrl ? <SiteCardImage src={card.imageUrl} alt={card.imageAlt} focalX={card.focalX} focalY={card.focalY} /> : null}
           <div className="justice-state-card-heading"><span>{card?.eyebrow ?? state.value}</span><h2>{card?.title ?? state.label}</h2></div>
           <p>{card?.description ?? "Official police, sheriff, jail, corrections, and court contacts for this state."}</p>
-          <div className="justice-state-links"><Link href={card?.href ?? `/resources/results?state=${state.value}&category=jails-corrections`}>{card?.actionLabel ?? "Police, jails + corrections"}<small>{jailCount} listed</small><span aria-hidden="true">→</span></Link><Link href={card?.secondaryHref ?? `/resources/results?state=${state.value}&category=courts`}>{card?.secondaryActionLabel ?? "Courts"}<small>{courtCount} listed</small><span aria-hidden="true">→</span></Link></div>
+          <div className="justice-state-links"><Link href={card?.href ?? `/resources/results?state=${state.value}&category=jails-corrections`}>{card?.actionLabel ?? "Police, jails + corrections"}<small>{stateCounts.jailsCorrections} listed</small><span aria-hidden="true">→</span></Link><Link href={card?.secondaryHref ?? `/resources/results?state=${state.value}&category=courts`}>{card?.secondaryActionLabel ?? "Courts"}<small>{stateCounts.courts} listed</small><span aria-hidden="true">→</span></Link></div>
         </article>;
       })}</div>
     </div></section>
