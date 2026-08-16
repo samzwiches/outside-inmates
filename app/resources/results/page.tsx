@@ -21,7 +21,10 @@ export default async function ResourceResultsPage({
 }) {
   const filters = parseResourceFilters(await searchParams);
 
-  const resources = await getPublishedResources();
+  const resources = await getPublishedResources({
+    state: filters.state,
+    categories: filters.categories,
+  });
   const results = filterResources(filters, resources);
 
   const hasCriteria = hasSearchCriteria(filters);
@@ -106,4 +109,3 @@ export default async function ResourceResultsPage({
     </>
   );
 }
-
