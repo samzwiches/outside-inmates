@@ -14,14 +14,15 @@ import { getPublishedResources } from "../lib/resources-server";
 import { getSiteCards } from "../lib/site-card-server";
 
 export default async function ResourcesPage() {
-  const [resources, pathwayCards] = await Promise.all([
-    getPublishedResources({ limit: 3 }),
+  const [emergencyResources, pathwayCards] = await Promise.all([
+    getPublishedResources({ limit: 3, emergency: true }),
     getSiteCards(resourcePathways.map((_, index) => `resources.pathway.${String(index + 1).padStart(2, "0")}`)),
   ]);
   const pathwayCardsByKey = new Map(pathwayCards.map((card) => [card.key, card]));
 
-  const featured = resources.filter((resource) => resource.featured).slice(0, 3);
-  const displayedResources = featured.length > 0 ? featured : resources.slice(0, 3);
+  const fallbackResources = emergencyResources.length > 0 ? emergencyResources : await getPublishedResources({ limit: 3 });
+  const featured = fallbackResources.filter((resource) => resource.emergency || resource.featured).slice(0, 3);
+  const displayedResources = featured.length > 0 ? featured : fallbackResources.slice(0, 3);
 
   return (
     <>

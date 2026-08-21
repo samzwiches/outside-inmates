@@ -24,6 +24,7 @@ export default async function ResourceResultsPage({
   const resources = await getPublishedResources({
     state: filters.state,
     categories: filters.categories,
+    emergency: filters.emergency,
   });
   const results = filterResources(filters, resources);
 

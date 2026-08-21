@@ -10,7 +10,7 @@ import { getCategoryName } from "../../data/resources";
 import { formatReviewDate } from "../../lib/resource-search";
 import {
   getPublishedResourceBySlug,
-  getPublishedResources,
+  getRelatedPublishedResources,
 } from "../../lib/resources-server";
 
 export default async function ResourceDetailPage({
@@ -26,17 +26,10 @@ export default async function ResourceDetailPage({
     notFound();
   }
 
-  const allResources = await getPublishedResources();
-
-  const related = allResources
-    .filter(
-      (item) =>
-        item.slug !== resource.slug &&
-        item.categories.some((category) =>
-          resource.categories.includes(category)
-        )
-    )
-    .slice(0, 3);
+  const related = await getRelatedPublishedResources(
+    resource.slug,
+    resource.categories
+  );
 
   return (
     <>
