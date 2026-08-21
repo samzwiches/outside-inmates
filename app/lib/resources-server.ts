@@ -99,8 +99,17 @@ function splitList(value: string | null | undefined) {
     .filter(Boolean);
 }
 
+function storedCategoryName(category: ResourceCategorySlug): string {
+  if (category === "jails-corrections") return "Jails and Corrections";
+  return getCategoryName(category);
+}
+
 function categorySlugFromName(value: string): ResourceCategorySlug | null {
   const normalized = value.trim().toLowerCase();
+
+  if (normalized === "jails and corrections" || normalized === "police, jails and corrections") {
+    return "jails-corrections";
+  }
 
   const match = resourceCategoryOptions.find(
     (category) =>
@@ -154,7 +163,7 @@ function mapResourceRow(row: ResourceRow): ResourceData {
 }
 
 type ResourceQuery = {
-  eq: (field: string, value: string) => ResourceQuery;
+  eq: (field: string, value: string | boolean) => ResourceQuery;
   or: (condition: string) => ResourceQuery;
 };
 
@@ -170,7 +179,7 @@ function applyPublishedResourceFilters(
 
   if (filters.categories?.length) {
     const categoryFilters = filters.categories
-      .map((category) => `categories.ilike.%${getCategoryName(category)}%`)
+      .map((category) => `categories.ilike.%${storedCategoryName(category)}%`)
       .join(",");
 
     nextQuery = nextQuery.or(categoryFilters);
@@ -208,7 +217,7 @@ export async function getPublishedResources(
       .eq("status", "published")
       .eq("is_demonstration", false);
 
-    query = applyPublishedResourceFilters(query, filters);
+    query = applyPublishedResourceFilters(query as unknown as ResourceQuery, filters) as typeof query;
 
     const { data, error } = await query
       .order("emergency", { ascending: false })
@@ -244,7 +253,7 @@ export async function getRelatedPublishedResources(
   }
 
   const categoryFilters = categories
-    .map((category) => `categories.ilike.%${getCategoryName(category)}%`)
+    .map((category) => `categories.ilike.%${storedCategoryName(category)}%`)
     .join(",");
 
   const { data, error } = await supabase
@@ -304,7 +313,7 @@ export async function getJusticeStateCounts(): Promise<JusticeStateCounts> {
       for (const row of rows) {
         const categories = splitList(row.categories).map((value) => value.toLowerCase());
 
-        if (categories.includes("jails and corrections")) jailsCorrections += 1;
+        if (categories.includes("jails and corrections") || categories.includes("police, jails and corrections")) jailsCorrections += 1;
         if (categories.includes("courts")) courts += 1;
       }
 
