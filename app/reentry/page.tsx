@@ -27,7 +27,14 @@ export const metadata: Metadata = {
 
 export default async function ReentryPage() {
   const [resources, directoryCards] = await Promise.all([
-    getPublishedResources(),
+    getPublishedResources({
+      limit: 3,
+      categories: [
+        "reentry-planning",
+        "housing",
+        "identification-documents",
+      ],
+    }),
     getSiteCards(reentryResourceCategories.map((_, index) => `reentry.directory.${String(index + 1).padStart(2, "0")}`)),
   ]);
   const directoryCardsByKey = new Map(directoryCards.map((card) => [card.key, card]));

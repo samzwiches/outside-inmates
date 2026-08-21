@@ -3,15 +3,10 @@ import { getPublishedResources } from "../../lib/resources-server";
 import { ResourceResultCard } from "../resources/ResourceResultCard";
 
 export async function RelatedFamilyResources() {
-  const allResources = await getPublishedResources();
-
-  const resources = allResources
-    .filter(
-      (resource) =>
-        resource.categories.includes("family-support") ||
-        resource.categories.includes("communication-visitation")
-    )
-    .slice(0, 3);
+  const resources = await getPublishedResources({
+    limit: 3,
+    categories: ["family-support", "communication-visitation"],
+  });
 
   if (!resources.length) {
     return null;

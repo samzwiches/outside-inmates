@@ -2,6 +2,7 @@ import { createSupabaseServerClient } from "./supabase/server";
 import {
   getCategoryName,
   resourceCategoryOptions,
+  stateOptions,
   type ResourceCategorySlug,
   type ResourceData,
   type ServiceAreaType,
@@ -39,11 +40,13 @@ type ResourceRow = {
   service_area_type: string | null;
   published: boolean | null;
   status: string | null;
+  is_demonstration: boolean | null;
 };
 
 type PublishedResourceFilters = {
   state?: string;
   categories?: ResourceCategorySlug[];
+  emergency?: boolean;
   limit?: number;
 };
 
@@ -52,8 +55,42 @@ export type JusticeStateCounts = Record<
   { jailsCorrections: number; courts: number }
 >;
 
-const PAGE_SIZE = 500;
-const DEFAULT_SEARCH_LIMIT = 1000;
+const PAGE_SIZE = 250;
+const DEFAULT_SEARCH_LIMIT = 120;
+const RESOURCE_LIST_SELECT = [
+  "id",
+  "slug",
+  "name",
+  "short_description",
+  "full_description",
+  "categories",
+  "services",
+  "eligibility",
+  "location",
+  "city",
+  "state",
+  "zip_code",
+  "counties_served",
+  "service_area",
+  "service_area_type",
+  "phone",
+  "website",
+  "email",
+  "hours",
+  "cost",
+  "application_process",
+  "documents_needed",
+  "languages",
+  "accessibility_notes",
+  "verified_date",
+  "featured",
+  "emergency",
+  "remote_services",
+  "free_or_low_cost",
+  "published",
+  "status",
+  "is_demonstration",
+].join(",");
 
 function splitList(value: string | null | undefined) {
   return (value ?? "")
@@ -116,6 +153,36 @@ function mapResourceRow(row: ResourceRow): ResourceData {
   };
 }
 
+type ResourceQuery = {
+  eq: (field: string, value: string) => ResourceQuery;
+  or: (condition: string) => ResourceQuery;
+};
+
+function applyPublishedResourceFilters(
+  query: ResourceQuery,
+  filters: PublishedResourceFilters = {}
+) {
+  let nextQuery = query;
+
+  if (filters.state) {
+    nextQuery = nextQuery.eq("state", filters.state.toUpperCase());
+  }
+
+  if (filters.categories?.length) {
+    const categoryFilters = filters.categories
+      .map((category) => `categories.ilike.%${getCategoryName(category)}%`)
+      .join(",");
+
+    nextQuery = nextQuery.or(categoryFilters);
+  }
+
+  if (filters.emergency) {
+    nextQuery = nextQuery.eq("emergency", true);
+  }
+
+  return nextQuery;
+}
+
 export async function getPublishedResources(
   filters: PublishedResourceFilters = {}
 ): Promise<ResourceData[]> {
@@ -136,24 +203,15 @@ export async function getPublishedResources(
 
     let query = supabase
       .from("resources")
-      .select("*")
+      .select(RESOURCE_LIST_SELECT)
       .eq("published", true)
       .eq("status", "published")
       .eq("is_demonstration", false);
 
-    if (filters.state) {
-      query = query.eq("state", filters.state.toUpperCase());
-    }
-
-    if (filters.categories?.length) {
-      const categoryFilters = filters.categories
-        .map((category) => `categories.ilike.%${getCategoryName(category)}%`)
-        .join(",");
-
-      query = query.or(categoryFilters);
-    }
+    query = applyPublishedResourceFilters(query, filters);
 
     const { data, error } = await query
+      .order("emergency", { ascending: false })
       .order("featured", { ascending: false })
       .order("verified_date", { ascending: false })
       .order("name", { ascending: true })
@@ -171,7 +229,43 @@ export async function getPublishedResources(
     offset += pageSize;
   }
 
-  return rows.map(mapResourceRow);
+  return rows.slice(0, maxRows).map(mapResourceRow);
+}
+
+export async function getRelatedPublishedResources(
+  excludedSlug: string,
+  categories: ResourceCategorySlug[],
+  limit = 3
+): Promise<ResourceData[]> {
+  const supabase = await createSupabaseServerClient();
+
+  if (!supabase || categories.length === 0) {
+    return [];
+  }
+
+  const categoryFilters = categories
+    .map((category) => `categories.ilike.%${getCategoryName(category)}%`)
+    .join(",");
+
+  const { data, error } = await supabase
+    .from("resources")
+    .select(RESOURCE_LIST_SELECT)
+    .eq("published", true)
+    .eq("status", "published")
+    .eq("is_demonstration", false)
+    .neq("slug", excludedSlug)
+    .or(categoryFilters)
+    .order("featured", { ascending: false })
+    .order("verified_date", { ascending: false })
+    .order("name", { ascending: true })
+    .limit(limit);
+
+  if (error) {
+    console.error("Unable to load related resources:", error.message);
+    return [];
+  }
+
+  return ((data ?? []) as ResourceRow[]).map(mapResourceRow);
 }
 
 export async function getJusticeStateCounts(): Promise<JusticeStateCounts> {
@@ -182,43 +276,52 @@ export async function getJusticeStateCounts(): Promise<JusticeStateCounts> {
     return {};
   }
 
-  const counts: JusticeStateCounts = {};
-  let offset = 0;
+  const stateCodes = stateOptions
+    .map((state) => state.value)
+    .filter((value): value is string => Boolean(value));
 
-  while (true) {
-    const { data, error } = await supabase
-      .from("resources")
-      .select("state,categories")
-      .eq("published", true)
-      .eq("status", "published")
-      .eq("is_demonstration", false)
-      .or("categories.ilike.%Jails and Corrections%,categories.ilike.%Courts%")
-      .range(offset, offset + PAGE_SIZE - 1);
+  const stateResults = await Promise.all(
+    stateCodes.map(async (stateCode) => {
+      const { data, error } = await supabase
+        .from("resources")
+        .select("state,categories")
+        .eq("published", true)
+        .eq("status", "published")
+        .eq("is_demonstration", false)
+        .eq("state", stateCode)
+        .or("categories.ilike.%Jails and Corrections%,categories.ilike.%Courts%")
+        .limit(2000);
 
-    if (error) {
-      console.error("Unable to load justice resource counts:", error.message);
-      return {};
-    }
+      if (error) {
+        console.error("Unable to load justice resource counts:", error.message);
+        return null;
+      }
 
-    const page = (data ?? []) as Array<{ state: string | null; categories: string | null }>;
+      const rows = (data ?? []) as Array<{ state: string | null; categories: string | null }>;
+      let jailsCorrections = 0;
+      let courts = 0;
 
-    for (const row of page) {
-      const state = (row.state ?? "").toUpperCase();
-      if (!state) continue;
+      for (const row of rows) {
+        const categories = splitList(row.categories).map((value) => value.toLowerCase());
 
-      const categories = splitList(row.categories).map((value) => value.toLowerCase());
-      const entry = counts[state] ?? { jailsCorrections: 0, courts: 0 };
+        if (categories.includes("jails and corrections")) jailsCorrections += 1;
+        if (categories.includes("courts")) courts += 1;
+      }
 
-      if (categories.includes("jails and corrections")) entry.jailsCorrections += 1;
-      if (categories.includes("courts")) entry.courts += 1;
-      counts[state] = entry;
-    }
+      return { stateCode, jailsCorrections, courts };
+    })
+  );
 
-    if (page.length < PAGE_SIZE) break;
-    offset += PAGE_SIZE;
-  }
+  return stateResults.reduce<JusticeStateCounts>((counts, result) => {
+    if (!result) return counts;
 
-  return counts;
+    counts[result.stateCode] = {
+      jailsCorrections: result.jailsCorrections,
+      courts: result.courts,
+    };
+
+    return counts;
+  }, {});
 }
 
 export async function getPublishedResourceBySlug(
